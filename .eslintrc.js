@@ -23,5 +23,13 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        'import/order': [
+            'error',
+            {
+                alphabetize: {
+                    order: 'asc',
+                },
+            },
+        ],
     }
 }
