@@ -1,6 +1,13 @@
 import { PhaseId } from 'enums'
-import { type Game, type User } from 'game'
-import { type Phase } from './Phase'
+import { GameError } from 'errors'
+import { type Game, type User, GameBuilder, Player, game, user, type Phase, IssueSharesPhase } from 'game'
+import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
+import { shuffleArray } from 'utility'
+
+const MIN_PLAYERS = 3
+const MAX_PLAYERS = 6
+const INITIALIZE_ISSUE_SHARES = 2
+const INITIALIZE_MONEY = 10
 
 export class WaitingStartPhase implements Phase {
   public readonly id = PhaseId.WAITING_START
@@ -18,26 +25,102 @@ export class WaitingStartPhase implements Phase {
   }
 
   public canJoinUser (): boolean {
-    throw new Error('Not implemented')
+    const u = user()
+    const g = game()
+
+    if (MAX_PLAYERS <= g.users.length) {
+      return false
+    }
+
+    return g.users.findIndex(_ => _.id === u.id) === -1
   }
 
   public actionJoinUser (): Game {
-    throw new Error('Not implemented')
+    const u = user()
+    const g = game()
+    const b = new GameBuilder(g)
+
+    if (!this.canJoinUser()) {
+      throw new GameError('Cannot join user')
+    }
+
+    return b.setUsers([...g.users, u]).build()
   }
 
   public canRemoveUser (): boolean {
-    throw new Error('Not implemented')
+    const u = user()
+    const g = game()
+
+    return g.users.findIndex(_ => _.id === u.id) !== -1
   }
 
   public actionRemoveUser (): Game {
-    throw new Error('Not implemented')
+    const u = user()
+    const g = game()
+    const b = new GameBuilder(g)
+
+    if (!this.canRemoveUser()) {
+      throw new GameError('Cannot remove user')
+    }
+
+    return b.setUsers(g.users.filter(_ => _.id !== u.id)).build()
   }
 
   public canStartGame (): boolean {
-    throw new Error('Not implemented')
+    const u = user()
+    const g = game()
+
+    if (g.users.findIndex(_ => _.id === u.id) === -1) {
+      // 参加しているユーザーでない場合はゲーム開始できない
+      return false
+    }
+
+    return MIN_PLAYERS <= g.users.length && g.users.length <= MAX_PLAYERS
   }
 
   public actionStartGame (): Game {
-    throw new Error('Not implemented')
+    const g = game()
+    const b = new GameBuilder(g)
+
+    if (!this.canStartGame()) {
+      throw new GameError('Cannot start game')
+    }
+
+    b.setPlayers(
+      shuffleArray(g.users)
+        .map((_, i) => new Player(i, _.id, null, i + 1, INITIALIZE_ISSUE_SHARES, INITIALIZE_MONEY))
+    )
+
+    b.setPhase(
+      new IssueSharesPhase()
+    )
+
+    const shuffledGoodsCubes = shuffleArray(clothBag.goodsCubes)
+
+    // GoodsDisplayにGoodsCubeを配置する
+    goodsDisplaySpaces.forEach((_) => {
+      const goodsCube = shuffledGoodsCubes.shift()
+      if (goodsCube === undefined) throw new Error('Unexpected error')
+
+      b.placeGoodsCubeToGoodsDisplaySpace(goodsCube, _)
+    })
+
+    // CityTileにGoodsCubeを配置する
+    cityTiles.forEach((_) => {
+      if (_.initialize === null) {
+        return
+      }
+      const mapSpace = _.mapSpace
+      if (mapSpace === null) throw new Error('Unexpected error')
+
+      for (let i = 0; i < _.initialize.goodsCubesQuantity; i++) {
+        const goodsCube = shuffledGoodsCubes.shift()
+        if (goodsCube === undefined) throw new Error('Unexpected error')
+
+        b.placeGoodsCubeToMapSpace(goodsCube, mapSpace)
+      }
+    })
+
+    return b.build()
   }
 }

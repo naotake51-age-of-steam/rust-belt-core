@@ -1,5 +1,5 @@
 import { type CityTileColor } from 'enums'
-import { type CityTileState } from 'game'
+import { type CityTileState, game } from 'game'
 import { type MapSpace, type GoodsCube, type Line } from 'objects'
 
 export class CityTile {
@@ -11,11 +11,13 @@ export class CityTile {
   ) {}
 
   public get state (): CityTileState {
-    throw new Error('Not implemented')
+    const g = game()
+
+    return g.cityTileStates[this.id]
   }
 
   public get mapSpace (): MapSpace | null {
-    throw new Error('Not implemented')
+    return this.state.mapSpace
   }
 
   public get goodsCubes (): GoodsCube[] {

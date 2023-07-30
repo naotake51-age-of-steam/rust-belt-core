@@ -1,8 +1,9 @@
+import { goodsCubes } from 'objects'
 import { type GoodsCube } from './GoodsCube'
 
 export class ClothBag {
   public get goodsCubes (): GoodsCube[] {
-    throw new Error('Not implemented')
+    return goodsCubes.filter(_ => !_.isOnMap)
   }
 
   public getRandomGoodsCubes (quantity: number): GoodsCube[] {

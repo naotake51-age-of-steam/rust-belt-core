@@ -1,5 +1,5 @@
 import { type GoodsCubeColor } from 'enums'
-import { type GoodsCubeState } from 'game'
+import { type GoodsCubeState, game } from 'game'
 import { type MapSpace } from 'objects'
 import { type GoodsDisplaySpace } from './GoodsDisplay'
 
@@ -10,14 +10,19 @@ export class GoodsCube {
   ) {}
 
   public get state (): GoodsCubeState {
-    throw new Error('Not implemented')
+    const g = game()
+    return g.goodsCubeStates[this.id]
   }
 
   public get mapSpace (): MapSpace | null {
-    throw new Error('Not implemented')
+    return this.state.mapSpace
   }
 
   public get goodsDisplaySpace (): GoodsDisplaySpace | null {
-    throw new Error('Not implemented')
+    return this.state.goodsDisplaySpace
+  }
+
+  public get isOnMap (): boolean {
+    return this.mapSpace !== null || this.goodsDisplaySpace !== null
   }
 }

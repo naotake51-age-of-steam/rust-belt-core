@@ -18,3 +18,10 @@
 |---|---|
 |canXxxx|対応するアクションが実行可能かどうか|
 |actionXxxx|アクションの実行。次の状態を返す|
+
+# Test
+
+## 特定のテストのみ実行する方法
+```
+npm run test -- src/game/Phase/WaitingStartPhase.test.ts -t actionStartGame
+```
