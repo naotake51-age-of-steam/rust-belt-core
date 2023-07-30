@@ -13,7 +13,6 @@
 
 # Methods
 
-|---|---|
 |Method|Description|
 |---|---|
 |canXxxx|対応するアクションが実行可能かどうか|
