@@ -1,12 +1,12 @@
 import { MapSpaceType } from 'enums'
-import { GoodsCubeState, TownMarkerState, TrackTileState, WaitingStartPhase } from 'game'
+import { User, GoodsCubeState, TownMarkerState, TrackTileState, WaitingStartPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { cityTiles, goodsCubes, trackTiles } from 'objects'
 import { range } from 'utility'
-import { townMarkers } from './objects/index'
+import { townMarkers } from './objects'
 
 test('initializeGame', () => {
-  const g = initializeGame('00000000-0000-0000-0000-000000000000', { id: '00000000-0000-0000-0000-000000000001', name: '山田太郎' })
+  const g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   expect(g.id).toBe('00000000-0000-0000-0000-000000000000')
 
