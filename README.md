@@ -24,3 +24,9 @@
 ```
 npm run test -- src/game/Phase/WaitingStartPhase.test.ts -t actionStartGame
 ```
+
+# VSCode Plugin
+
+|Plugin|Description|
+|---|---|
+|vscode-jest|テストおよびデバッグを簡単に実行するために使用する。ファイル保存したタイミングでテスト実行されないようにsetting.jsonで調整|
