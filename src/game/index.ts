@@ -1,4 +1,5 @@
 import { type Game } from './Game'
+import { type Player } from './Player'
 import { type User } from './User'
 
 export * from './Phase'
@@ -7,6 +8,12 @@ export * from './Player'
 export * from './ObjectState'
 export * from './User'
 export * from './GameBuilder'
+
+interface Context {
+  g: Game
+  u: User
+  p: Player | null
+}
 
 let gameIns: Game | null = null
 let userIns: User | null = null
@@ -29,4 +36,12 @@ export function user (u: User | null = null): User {
   if (userIns == null) throw new Error('User is not initialized')
 
   return userIns
+}
+
+export function context (): Readonly<Context> {
+  const g = game()
+  const u = user()
+  const p = u.player
+
+  return { g, u, p }
 }

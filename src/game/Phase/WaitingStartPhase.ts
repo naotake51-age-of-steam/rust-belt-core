@@ -1,6 +1,6 @@
 import { PhaseId } from 'enums'
 import { GameError } from 'errors'
-import { type Game, type User, GameBuilder, Player, game, user, type Phase, IssueSharesPhase } from 'game'
+import { type Game, type User, GameBuilder, Player, context, type Phase, IssueSharesPhase } from 'game'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
 import { shuffleArray } from 'utility'
 
@@ -25,8 +25,7 @@ export class WaitingStartPhase implements Phase {
   }
 
   public canJoinUser (): boolean {
-    const u = user()
-    const g = game()
+    const { g, u } = context()
 
     if (MAX_PLAYERS <= g.users.length) {
       return false
@@ -36,8 +35,7 @@ export class WaitingStartPhase implements Phase {
   }
 
   public actionJoinUser (): Game {
-    const u = user()
-    const g = game()
+    const { g, u } = context()
     const b = new GameBuilder(g)
 
     if (!this.canJoinUser()) {
@@ -48,15 +46,13 @@ export class WaitingStartPhase implements Phase {
   }
 
   public canRemoveUser (): boolean {
-    const u = user()
-    const g = game()
+    const { g, u } = context()
 
     return g.users.findIndex(_ => _.id === u.id) !== -1
   }
 
   public actionRemoveUser (): Game {
-    const u = user()
-    const g = game()
+    const { g, u } = context()
     const b = new GameBuilder(g)
 
     if (!this.canRemoveUser()) {
@@ -67,8 +63,7 @@ export class WaitingStartPhase implements Phase {
   }
 
   public canStartGame (): boolean {
-    const u = user()
-    const g = game()
+    const { g, u } = context()
 
     if (g.users.findIndex(_ => _.id === u.id) === -1) {
       // 参加しているユーザーでない場合はゲーム開始できない
@@ -79,7 +74,7 @@ export class WaitingStartPhase implements Phase {
   }
 
   public actionStartGame (): Game {
-    const g = game()
+    const { g } = context()
     const b = new GameBuilder(g)
 
     if (!this.canStartGame()) {
