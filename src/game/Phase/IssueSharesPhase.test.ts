@@ -1,4 +1,4 @@
-import { game, user, type Game, User, GameBuilder, IssueSharesPhase, Player } from 'game'
+import { type Game, User, GameBuilder, IssueSharesPhase, Player, setContext } from 'game'
 import { initializeGame } from 'initializeGame'
 import { DeterminePlayerOrderPhase } from './DeterminePlayerOrderPhase'
 
@@ -26,8 +26,7 @@ beforeEach(() => {
 test('maxIssueShares', () => {
   g = b.build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as IssueSharesPhase
 
@@ -39,8 +38,7 @@ test('canIssueShares 株式発行上限に達していない場合はTrue', () =
     .updatePlayer(new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 14, 10))
     .build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as IssueSharesPhase
 
@@ -52,8 +50,7 @@ test('canIssueShares 株式発行上限に達している場合はFalse', () => 
     .updatePlayer(new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 15, 10))
     .build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as IssueSharesPhase
 
@@ -63,8 +60,7 @@ test('canIssueShares 株式発行上限に達している場合はFalse', () => 
 test('actionIssueShares', () => {
   g = b.build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as IssueSharesPhase
 
@@ -81,8 +77,7 @@ test('actionIssueShares 最終プレイヤーの場合は次のフェーズに�
     .setTurnPlayer(new Player(2, '00000000-0000-0000-0000-000000000003', null, 3, 2, 10))
     .build()
 
-  game(g)
-  user(new User('00000000-0000-0000-0000-000000000003', '佐藤三郎'))
+  setContext(g, new User('00000000-0000-0000-0000-000000000003', '佐藤三郎'))
 
   const phase = g.phase as IssueSharesPhase
 
@@ -95,8 +90,7 @@ test('actionIssueShares 最終プレイヤーの場合は次のフェーズに�
 test('actionPassShares', () => {
   g = b.build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as IssueSharesPhase
 
@@ -113,8 +107,7 @@ test('actionPassShares 最終プレイヤーの場合は次のフェーズに進
     .setTurnPlayer(new Player(2, '00000000-0000-0000-0000-000000000003', null, 3, 2, 10))
     .build()
 
-  game(g)
-  user(new User('00000000-0000-0000-0000-000000000003', '佐藤三郎'))
+  setContext(g, new User('00000000-0000-0000-0000-000000000003', '佐藤三郎'))
 
   const phase = g.phase as IssueSharesPhase
 

@@ -1,4 +1,4 @@
-import { game, user, type Game, User, GameBuilder, type WaitingStartPhase, IssueSharesPhase } from 'game'
+import { setContext, type Game, User, GameBuilder, type WaitingStartPhase, IssueSharesPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 
 let g: Game
@@ -14,8 +14,7 @@ beforeEach(() => {
 test('canJoinUser ユーザーがまだ参加していない場合はTrue', () => {
   g = b.build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -25,8 +24,7 @@ test('canJoinUser ユーザーがまだ参加していない場合はTrue', () =
 test('canJoinUser ユーザーがすでに参加している場合はFalse', () => {
   g = b.setUsers([u]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -43,8 +41,7 @@ test('canJoinUser 参加上限に達している場合はFalse', () => {
     new User('00000000-0000-0000-0000-00000000000f', 'ユーザーF')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -54,8 +51,7 @@ test('canJoinUser 参加上限に達している場合はFalse', () => {
 test('actionJoinUser', () => {
   g = b.build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -65,8 +61,7 @@ test('actionJoinUser', () => {
 test('canRemoveUser ユーザーが参加している場合はTrue', () => {
   g = b.setUsers([u]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -76,8 +71,7 @@ test('canRemoveUser ユーザーが参加している場合はTrue', () => {
 test('canRemoveUser ユーザーが参加していない場合はFalse', () => {
   g = b.setUsers([]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -87,8 +81,7 @@ test('canRemoveUser ユーザーが参加していない場合はFalse', () => {
 test('actionRemoveUser', () => {
   g = b.setUsers([u]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -102,8 +95,7 @@ test('canStartGame ユーザーがゲームに参加していない場合はFals
     new User('00000000-0000-0000-0000-00000000000c', 'ユーザーC')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -116,8 +108,7 @@ test('canStartGame 参加ユーザーが下限に達していない場合はFals
     new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -131,8 +122,7 @@ test('canStartGame 参加ユーザーが下限に達している場合はTrue', 
     new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -150,8 +140,7 @@ test('canStartGame 参加ユーザー上限を超過している場合はFalse',
     new User('00000000-0000-0000-0000-00000000000f', 'ユーザーF')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -168,8 +157,7 @@ test('canStartGame 参加ユーザー上限を超過していない場合はTrue
     new User('00000000-0000-0000-0000-00000000000e', 'ユーザーE')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
@@ -182,8 +170,7 @@ test('actionStartGame', () => {
     new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB')
   ]).build()
 
-  game(g)
-  user(u)
+  setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 

@@ -15,33 +15,14 @@ interface Context {
   p: Player | null
 }
 
-let gameIns: Game | null = null
-let userIns: User | null = null
+let c: Context | null = null
 
-export function game (g: Game | null = null): Game {
-  if (g !== null) {
-    gameIns = g
-  }
-
-  if (gameIns == null) throw new Error('Game is not initialized')
-
-  return gameIns
-}
-
-export function user (u: User | null = null): User {
-  if (u !== null) {
-    userIns = u
-  }
-
-  if (userIns == null) throw new Error('User is not initialized')
-
-  return userIns
+export function setContext (g: Game, u: User): Readonly<Context> {
+  c = { g, u, p: g.players.find(_ => _.userId === u.id) ?? null }
+  return c
 }
 
 export function context (): Readonly<Context> {
-  const g = game()
-  const u = user()
-  const p = u.player
-
-  return { g, u, p }
+  if (c === null) throw new Error('Context is not initialized')
+  return c
 }

@@ -1,4 +1,5 @@
 import { PhaseId } from 'enums'
+import { GameError } from 'errors'
 import { type Game, context, Player, GameBuilder } from 'game'
 import { DeterminePlayerOrderPhase } from './DeterminePlayerOrderPhase'
 import { type Phase } from './Phase'
@@ -27,15 +28,22 @@ export class IssueSharesPhase implements Phase {
   }
 
   public canIssueShares (): boolean {
+    const { p } = context()
+
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
     return this.maxIssueShares() > 0
   }
 
   public actionIssueShares (count: number): Game {
-    const { p, g } = context()
+    const { g, p } = context()
     const b = new GameBuilder(g)
 
     if (p === null) throw new Error('user is not in the game')
     if (!p.hasTurn) throw new Error('user is not turn player')
+
+    if (!this.canIssueShares()) throw new GameError('Cannot issue shares')
 
     const nextPlayer = this.getNextPlayer(p)
 

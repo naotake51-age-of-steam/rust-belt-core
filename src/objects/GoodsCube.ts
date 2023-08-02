@@ -1,5 +1,5 @@
 import { type GoodsCubeColor } from 'enums'
-import { type GoodsCubeState, game } from 'game'
+import { type GoodsCubeState, context } from 'game'
 import { type MapSpace } from 'objects'
 import { type GoodsDisplaySpace } from './GoodsDisplay'
 
@@ -10,7 +10,7 @@ export class GoodsCube {
   ) {}
 
   public get state (): GoodsCubeState {
-    const g = game()
+    const { g } = context()
     return g.goodsCubeStates[this.id]
   }
 

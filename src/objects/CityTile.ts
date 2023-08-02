@@ -1,5 +1,5 @@
 import { type CityTileColor } from 'enums'
-import { type CityTileState, game } from 'game'
+import { type CityTileState, context } from 'game'
 import { type MapSpace, type GoodsCube, type Line } from 'objects'
 
 export class CityTile {
@@ -11,7 +11,7 @@ export class CityTile {
   ) {}
 
   public get state (): CityTileState {
-    const g = game()
+    const { g } = context()
 
     return g.cityTileStates[this.id]
   }

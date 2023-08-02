@@ -1,4 +1,4 @@
-import { game, type Player } from 'game'
+import { context, type Player } from 'game'
 export class User {
   constructor (
     public readonly id: string,
@@ -6,7 +6,7 @@ export class User {
   ) {}
 
   public get player (): Player | null {
-    const g = game()
+    const { g } = context()
     return g.players.find(_ => _.userId === this.id) ?? null
   }
 }
