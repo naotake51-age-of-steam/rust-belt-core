@@ -1,43 +1,88 @@
 import { PhaseId } from 'enums'
-import { type Game } from 'game'
+import { type Game, context, Player, GameBuilder } from 'game'
+import { DeterminePlayerOrderPhase } from './DeterminePlayerOrderPhase'
 import { type Phase } from './Phase'
 
 export class IssueSharesPhase implements Phase {
   public readonly id = PhaseId.ISSUE_SHARES
 
   public get message (): string {
-    throw new Error('Not implemented')
-  }
+    const { g } = context()
 
-  /**
-   * 発行可能な最小株式数
-   */
-  public get minIssuableShares (): number {
-    throw new Error('Not implemented')
-  }
-
-  /**
-   * 発行可能な最大株式数
-   */
-  public get maxIssuableShares (): number {
-    throw new Error('Not implemented')
+    const userName = g.turnPlayer.user.name
+    return `${userName}は株式を発行数を決定してください。`
   }
 
   public static prepare (): IssueSharesPhase {
-    throw new Error('Not implemented')
+    return new IssueSharesPhase()
+  }
+
+  public maxIssueShares (): number {
+    const { p } = context()
+
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
+    return p.remainingIssuableShares
   }
 
   public canIssueShares (): boolean {
-    // 発行可能な残り株式数が0の場合にfalse
-    throw new Error('Not implemented')
+    return this.maxIssueShares() > 0
   }
 
   public actionIssueShares (count: number): Game {
-    throw new Error('Not implemented')
+    const { p, g } = context()
+    const b = new GameBuilder(g)
+
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
+    const nextPlayer = this.getNextPlayer(p)
+
+    b.updatePlayer(new Player(
+      p.id,
+      p.userId,
+      p.selectedAction,
+      p.order,
+      p.issuedShares + count,
+      p.money + count * 5
+    ))
+
+    if (nextPlayer !== null) {
+      b.setTurnPlayer(nextPlayer)
+    } else {
+      DeterminePlayerOrderPhase.prepare(b)
+    }
+
+    return b.build()
+  }
+
+  private getNextPlayer (player: Player): Player | null {
+    const { g } = context()
+
+    const players = g.players.filter(_ => _.remainingIssuableShares > 0)
+
+    const nextIndex = players.findIndex(_ => _.id === player.id) + 1
+    if (players.length <= nextIndex) return null
+
+    return players[nextIndex]
   }
 
   public actionPassShares (): Game {
-    // 発行可能な残り株式数が0のユーザーにも手番を回す。ユーザーはパスをセ選択する。
-    throw new Error('Not implemented')
+    const { p, g } = context()
+    const b = new GameBuilder(g)
+
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
+    const nextPlayer = this.getNextPlayer(p)
+
+    if (nextPlayer !== null) {
+      b.setTurnPlayer(nextPlayer)
+    } else {
+      DeterminePlayerOrderPhase.prepare(b)
+    }
+
+    return b.build()
   }
 }

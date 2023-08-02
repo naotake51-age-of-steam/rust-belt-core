@@ -42,6 +42,12 @@ export class GameBuilder {
     return this
   }
 
+  public updatePlayer (player: Player): GameBuilder {
+    this.game.players = this.game.players.map(_ => _.id === player.id ? player : _)
+
+    return this
+  }
+
   public placeTrackTileToMapSpace (trackTile: TrackTile, mapSpace: MapSpace, rotation: number): GameBuilder {
     this.game.trackTileStates[trackTile.id] = new TrackTileState(mapSpace.id, rotation, trackTile.lines.map(_ => null))
 

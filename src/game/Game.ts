@@ -35,7 +35,7 @@ export class Game {
   }
 
   public get turnPlayer (): Player {
-    throw new Error('Not implemented')
+    return this.players[this.turnPlayerId]
   }
 
   public get message (): string {

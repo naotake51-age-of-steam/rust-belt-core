@@ -1,5 +1,5 @@
 import { PhaseId } from 'enums'
-import { type Player, type Game } from 'game'
+import { type Player, type Game, type GameBuilder, context } from 'game'
 import { type Phase } from './Phase'
 
 enum BidType {
@@ -18,8 +18,15 @@ export class DeterminePlayerOrderPhase implements Phase {
     public readonly bids: Bid[]
   ) { }
 
-  public static prepare (): DeterminePlayerOrderPhase {
-    throw new Error('Not implemented')
+  public static prepare (b: GameBuilder): GameBuilder {
+    const { g } = context()
+
+    const firstPlayer = g.players.find(p => p.order === 1)
+    if (firstPlayer === undefined) throw new Error('first player is not found')
+
+    return b
+      .setTurnPlayer(firstPlayer)
+      .setPhase(new DeterminePlayerOrderPhase([]))
   }
 
   public get message (): string {

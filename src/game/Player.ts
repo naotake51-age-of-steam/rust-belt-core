@@ -1,7 +1,7 @@
 import { type Action } from 'enums'
-import { type User } from 'game'
+import { type User, context } from 'game'
 
-const MAX_ISSUE_SHARES = 15
+const MAX_ISSUABLE_SHARES = 15
 
 export class Player {
   constructor (
@@ -14,14 +14,22 @@ export class Player {
   ) {}
 
   public get user (): User {
-    throw new Error('Not implemented')
+    const { g } = context()
+
+    const user = g.users.find(u => u.id === this.userId)
+
+    if (user === undefined) throw new Error('user is not found')
+
+    return user
   }
 
   public get hasTurn (): boolean {
-    throw new Error('Not implemented')
+    const { g, p } = context()
+
+    return g.turnPlayer.id === p?.id
   }
 
-  public get remainingIssueShares (): number {
-    return MAX_ISSUE_SHARES - this.issuedShares
+  public get remainingIssuableShares (): number {
+    return MAX_ISSUABLE_SHARES - this.issuedShares
   }
 }
