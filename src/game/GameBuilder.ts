@@ -4,7 +4,7 @@ import { type MapSpace, type GoodsCube, type Line, type TrackTile, type GoodsDis
 type Writable<T> = { -readonly [P in keyof T]: T[P] }
 
 export class GameBuilder {
-  private readonly game: Writable<Game>
+  public readonly game: Writable<Game>
 
   constructor (
     original: Game
