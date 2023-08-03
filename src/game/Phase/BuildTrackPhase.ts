@@ -1,5 +1,5 @@
 import { PhaseId } from 'enums'
-import { type Game } from 'game'
+import { type GameBuilder, type Game } from 'game'
 import { type Line } from 'objects'
 import { type Phase } from './Phase'
 
@@ -12,8 +12,8 @@ export class BuildTrackPhase implements Phase {
   ) {
   }
 
-  public static prepare (): BuildTrackPhase {
-    throw new Error('Not implemented')
+  public static prepare (b: GameBuilder): GameBuilder {
+    return b.setPhase(new BuildTrackPhase([], null))
   }
 
   public get message (): string {

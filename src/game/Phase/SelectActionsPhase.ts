@@ -1,12 +1,17 @@
-import { type Action, PhaseId } from 'enums'
-import { type GameBuilder, type Game, context, Player } from 'game'
+import { type Action, PhaseId, allActions } from 'enums'
+import { type Game, context, Player, GameBuilder } from 'game'
+import { BuildTrackPhase } from './BuildTrackPhase'
 import { type Phase } from './Phase'
 
 export class SelectActionsPhase implements Phase {
   public readonly id = PhaseId.SELECT_ACTIONS
 
   public get selectableActions (): Action[] {
-    throw new Error('Not implemented')
+    const { g } = context()
+
+    const selectedActions = g.players.map(_ => _.selectedAction)
+
+    return allActions.filter(_ => !selectedActions.includes(_))
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -23,10 +28,44 @@ export class SelectActionsPhase implements Phase {
   }
 
   public get message (): string {
-    throw new Error('Not implemented')
+    const { p } = context()
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
+    return `${p.user.name}はアクションを選択してください`
+  }
+
+  public canSelectAction (action: Action): boolean {
+    return this.selectableActions.includes(action)
   }
 
   public actionSelectAction (action: Action): Game {
-    throw new Error('Not implemented')
+    const { p, g } = context()
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
+    if (!this.canSelectAction(action)) throw new Error('invalid action')
+
+    const nextPlayer = this.getNextPlayer()
+
+    const b = new GameBuilder(g)
+
+    b.updatePlayer(new Player(p.id, p.userId, action, p.order, p.issuedShares, p.money))
+
+    if (nextPlayer !== null) {
+      b.setTurnPlayer(nextPlayer)
+    } else {
+      BuildTrackPhase.prepare(b)
+    }
+
+    return b.build()
+  }
+
+  private getNextPlayer (): Player | null {
+    const { p, g } = context()
+    if (p === null) throw new Error('user is not in the game')
+    if (!p.hasTurn) throw new Error('user is not turn player')
+
+    return g.players.find(_ => _.order === p.order + 1) ?? null
   }
 }
