@@ -1,7 +1,14 @@
 import { type Player, type GoodsCubeState, type TrackTileState, type CityTileState, type TownMarkerState, type Phase, type User } from 'game'
 import { type MapSpace, type TrackTile, type CityTile, type GoodsCube, type TownMarker } from 'objects'
+import { createUniqueIndex, createIndex } from 'utility'
 
 export class Game {
+  public readonly trackTileStatesIndexByMapSpace: Map<number, TrackTileState>
+  public readonly cityTileStatesIndexByMapSpace: Map<number, CityTileState>
+  public readonly goodsCubeStatesIndexByMapSpace: Map<number, GoodsCubeState[]>
+  public readonly goodsCubeStatesIndexByGoodsDisplaySpace: Map<number, GoodsCubeState>
+  public readonly townMakerStatesIndexByTrackTile: Map<number, TownMarkerState>
+
   constructor (
     public readonly id: string,
     public readonly adminUser: User,
@@ -16,6 +23,11 @@ export class Game {
     public readonly townMakerStates: TownMarkerState[],
     public readonly histories: Array<{ id: string, fixed: boolean }>
   ) {
+    this.trackTileStatesIndexByMapSpace = createUniqueIndex(trackTileStates, 'mapSpaceId')
+    this.cityTileStatesIndexByMapSpace = createUniqueIndex(cityTileStates, 'mapSpaceId')
+    this.goodsCubeStatesIndexByMapSpace = createIndex(goodsCubeStates, 'mapSpaceId')
+    this.goodsCubeStatesIndexByGoodsDisplaySpace = createUniqueIndex(goodsCubeStates, 'goodsDisplaySpaceId')
+    this.townMakerStatesIndexByTrackTile = createUniqueIndex(townMakerStates, 'trackTileId')
   }
 
   public getTrackTileByMapSpace (mapSpace: MapSpace): TrackTile | null {
