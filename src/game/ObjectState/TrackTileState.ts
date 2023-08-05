@@ -1,8 +1,9 @@
 import { type Player } from 'game'
-import { type MapSpace } from 'objects'
+import { trackTiles, type MapSpace, type TrackTile } from 'objects'
 
 export class TrackTileState {
   constructor (
+    public readonly id: number,
     public readonly mapSpaceId: number | null,
     public readonly rotation: number | null,
     public readonly lineOwners: Array<number | null> | null
@@ -12,6 +13,10 @@ export class TrackTileState {
         throw new Error('Invalid rotation')
       }
     }
+  }
+
+  public get trackTile (): TrackTile {
+    return trackTiles[this.id]
   }
 
   public get mapSpace (): MapSpace | null {

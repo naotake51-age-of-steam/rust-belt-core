@@ -49,49 +49,49 @@ export class GameBuilder {
   }
 
   public placeTrackTileToMapSpace (trackTile: TrackTile, mapSpace: MapSpace, rotation: number): GameBuilder {
-    this.game.trackTileStates[trackTile.id] = new TrackTileState(mapSpace.id, rotation, trackTile.lines.map(_ => null))
+    this.game.trackTileStates[trackTile.id] = new TrackTileState(trackTile.id, mapSpace.id, rotation, trackTile.lines.map(_ => null))
 
     return this
   }
 
   public releaseTrackTile (trackTile: TrackTile): GameBuilder {
-    this.game.trackTileStates[trackTile.id] = new TrackTileState(null, null, null)
+    this.game.trackTileStates[trackTile.id] = new TrackTileState(trackTile.id, null, null, null)
 
     return this
   }
 
   public placeGoodsCubeToMapSpace (goodsCube: GoodsCube, mapSpace: MapSpace): GameBuilder {
-    this.game.goodsCubeStates[goodsCube.id] = new GoodsCubeState(mapSpace.id, null)
+    this.game.goodsCubeStates[goodsCube.id] = new GoodsCubeState(goodsCube.id, mapSpace.id, null)
 
     return this
   }
 
   public placeGoodsCubeToGoodsDisplaySpace (goodsCube: GoodsCube, goodsDisplaySpace: GoodsDisplaySpace): GameBuilder {
-    this.game.goodsCubeStates[goodsCube.id] = new GoodsCubeState(null, goodsDisplaySpace.id)
+    this.game.goodsCubeStates[goodsCube.id] = new GoodsCubeState(goodsCube.id, null, goodsDisplaySpace.id)
 
     return this
   }
 
   public releaseGoodsCube (goodsCube: GoodsCube): GameBuilder {
-    this.game.goodsCubeStates[goodsCube.id] = new GoodsCubeState(null, null)
+    this.game.goodsCubeStates[goodsCube.id] = new GoodsCubeState(goodsCube.id, null, null)
 
     return this
   }
 
   public placeCityTileToMapSpace (cityTile: CityTile, mapSpace: MapSpace): GameBuilder {
-    this.game.cityTileStates[cityTile.id] = new CityTileState(mapSpace.id)
+    this.game.cityTileStates[cityTile.id] = new CityTileState(cityTile.id, mapSpace.id)
 
     return this
   }
 
   public placeTownMarkerToTrackTile (townMaker: TownMarker, trackTile: TrackTile): GameBuilder {
-    this.game.townMakerStates[townMaker.id] = new TownMarkerState(trackTile.id)
+    this.game.townMakerStates[townMaker.id] = new TownMarkerState(townMaker.id, trackTile.id)
 
     return this
   }
 
   public releaseTownMarkerToTrackTile (townMaker: TownMarker): GameBuilder {
-    this.game.townMakerStates[townMaker.id] = new TownMarkerState(null)
+    this.game.townMakerStates[townMaker.id] = new TownMarkerState(townMaker.id, null)
 
     return this
   }

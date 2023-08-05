@@ -1,9 +1,14 @@
-import { type MapSpace, type GoodsDisplaySpace, getMapSpace, goodsDisplaySpaces } from 'objects'
+import { type MapSpace, type GoodsDisplaySpace, getMapSpace, goodsDisplaySpaces, goodsCubes, type GoodsCube } from 'objects'
 export class GoodsCubeState {
   constructor (
+    public readonly id: number,
     public readonly mapSpaceId: number | null, // 拡張マップで都市以外のスペースに配置する場合があるため、CityTileではなくMapSpaceに紐づける
     public readonly goodsDisplaySpaceId: number | null
   ) { }
+
+  public get goodsCube (): GoodsCube {
+    return goodsCubes[this.id]
+  }
 
   public get mapSpace (): MapSpace | null {
     if (this.mapSpaceId === null) return null

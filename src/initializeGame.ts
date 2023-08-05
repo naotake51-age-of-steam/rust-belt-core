@@ -10,10 +10,10 @@ export const initializeGame = (id: string, adminUser: User): Game => {
     new WaitingStartPhase([]),
     [],
     0,
-    trackTiles.map(_ => new TrackTileState(null, null, null)),
-    cityTiles.map(_ => new CityTileState((_.initialize !== null) ? _.initialize.mapSpaceId : null)),
-    goodsCubes.map(_ => new GoodsCubeState(null, null)),
-    townMarkers.map(_ => new TownMarkerState(null)),
+    trackTiles.map(_ => new TrackTileState(_.id, null, null, null)),
+    cityTiles.map(_ => new CityTileState(_.id, _.initialize?.mapSpaceId ?? null)),
+    goodsCubes.map(_ => new GoodsCubeState(_.id, null, null)),
+    townMarkers.map(_ => new TownMarkerState(_.id, null)),
     []
   )
 }

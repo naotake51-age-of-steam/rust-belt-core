@@ -23,7 +23,7 @@ test('initializeGame', () => {
   expect(g.turnPlayerId).toBe(0)
 
   expect(g.trackTileStates.length).toBe(trackTiles.length)
-  expect(g.trackTileStates[0]).toEqual(new TrackTileState(null, null, null))
+  expect(g.trackTileStates[0]).toEqual(new TrackTileState(0, null, null, null))
 
   expect(g.cityTileStates.length).toBe(cityTiles.length)
   range(0, 11).forEach(i => {
@@ -36,10 +36,10 @@ test('initializeGame', () => {
   })
 
   expect(g.goodsCubeStates.length).toBe(goodsCubes.length)
-  expect(g.goodsCubeStates[0]).toEqual(new GoodsCubeState(null, null))
+  expect(g.goodsCubeStates[0]).toEqual(new GoodsCubeState(0, null, null))
 
   expect(g.townMakerStates.length).toBe(townMarkers.length)
-  expect(g.townMakerStates[0]).toEqual(new TownMarkerState(null))
+  expect(g.townMakerStates[0]).toEqual(new TownMarkerState(0, null))
 
   expect(g.histories).toEqual([])
 })
