@@ -1,4 +1,4 @@
-import { CityTileColor, GoodsCubeColor, MapSpaceType } from 'enums'
+import { CityTileColor, GoodsCubeColor, MapSpaceType, TrackTileType } from 'enums'
 import { GoodsCube, MapSpace, TownMarker } from 'objects'
 import { range } from 'utility'
 import { CityTile } from './CityTile'
@@ -272,21 +272,21 @@ export const cityTiles: Readonly<CityTile[]> = [
 ] as const
 
 export const trackTiles: Readonly<TrackTile[]> = [
-  ...range(0, 51).map((id: number) => new SimpleTrackTile(id, '/img/line-1.svg', [new Line(id, 0, 0), new Line(id, 1, 3)])),
-  ...range(52, 110).map((id: number) => new SimpleTrackTile(id, '/img/line-2.svg', [new Line(id, 0, 3), new Line(id, 1, 5)])),
-  ...range(111, 118).map((id: number) => new SimpleTrackTile(id, '/img/line-3.svg', [new Line(id, 0, 3), new Line(id, 1, 4)])),
-  ...range(119, 120).map((id: number) => new ComplexCoexistTrackTile(id, '/img/line-4.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 1), new Line(id, 3, 2)])),
-  ...range(121, 122).map((id: number) => new ComplexCoexistTrackTile(id, '/img/line-5.svg', [new Line(id, 0, 1), new Line(id, 1, 2), new Line(id, 2, 3), new Line(id, 3, 5)])),
-  ...range(123, 124).map((id: number) => new ComplexCoexistTrackTile(id, '/img/line-6.svg', [new Line(id, 0, 0), new Line(id, 1, 1), new Line(id, 2, 3), new Line(id, 3, 5)])),
-  ...range(125, 126).map((id: number) => new ComplexCoexistTrackTile(id, '/img/line-7.svg', [new Line(id, 0, 0), new Line(id, 1, 2), new Line(id, 2, 3), new Line(id, 3, 5)])),
-  ...range(127, 131).map((id: number) => new ComplexCrossingTrackTile(id, '/img/line-8.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 1), new Line(id, 3, 5)])),
-  ...range(132, 136).map((id: number) => new ComplexCrossingTrackTile(id, '/img/line-9.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 2), new Line(id, 3, 5)])),
-  ...range(137, 140).map((id: number) => new ComplexCrossingTrackTile(id, '/img/line-10.svg', [new Line(id, 0, 0), new Line(id, 1, 4), new Line(id, 2, 3), new Line(id, 3, 5)])),
-  ...range(141, 143).map((id: number) => new TownTrackTile(id, '/img/line-11.svg', [new Line(id, 0, 0), new Line(id, 1, 1), new Line(id, 2, 3)], new Town(id))),
-  ...range(144, 146).map((id: number) => new TownTrackTile(id, '/img/line-12.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 5)], new Town(id))),
-  ...range(147, 149).map((id: number) => new TownTrackTile(id, '/img/line-13.svg', [new Line(id, 0, 0), new Line(id, 1, 1), new Line(id, 2, 5)], new Town(id))),
-  ...range(150, 152).map((id: number) => new TownTrackTile(id, '/img/line-14.svg', [new Line(id, 0, 0), new Line(id, 1, 2), new Line(id, 2, 4)], new Town(id))),
-  ...range(153, 156).map((id: number) => new TownTrackTile(id, '/img/line-15.svg', [new Line(id, 0, 0)], new Town(id)))
+  ...range(0, 51).map((id: number) => new SimpleTrackTile(id, TrackTileType.SIMPLE_TRACK_TILE_1, '/img/line-1.svg', [new Line(id, 0, 0), new Line(id, 1, 3)])),
+  ...range(52, 110).map((id: number) => new SimpleTrackTile(id, TrackTileType.SIMPLE_TRACK_TILE_2, '/img/line-2.svg', [new Line(id, 0, 3), new Line(id, 1, 5)])),
+  ...range(111, 118).map((id: number) => new SimpleTrackTile(id, TrackTileType.SIMPLE_TRACK_TILE_3, '/img/line-3.svg', [new Line(id, 0, 3), new Line(id, 1, 4)])),
+  ...range(119, 120).map((id: number) => new ComplexCoexistTrackTile(id, TrackTileType.COMPLEX_COEXIST_TRACK_TILE_1, '/img/line-4.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 1), new Line(id, 3, 2)])),
+  ...range(121, 122).map((id: number) => new ComplexCoexistTrackTile(id, TrackTileType.COMPLEX_COEXIST_TRACK_TILE_2, '/img/line-5.svg', [new Line(id, 0, 1), new Line(id, 1, 2), new Line(id, 2, 3), new Line(id, 3, 5)])),
+  ...range(123, 124).map((id: number) => new ComplexCoexistTrackTile(id, TrackTileType.COMPLEX_COEXIST_TRACK_TILE_3, '/img/line-6.svg', [new Line(id, 0, 0), new Line(id, 1, 1), new Line(id, 2, 3), new Line(id, 3, 5)])),
+  ...range(125, 126).map((id: number) => new ComplexCoexistTrackTile(id, TrackTileType.COMPLEX_COEXIST_TRACK_TILE_4, '/img/line-7.svg', [new Line(id, 0, 0), new Line(id, 1, 2), new Line(id, 2, 3), new Line(id, 3, 5)])),
+  ...range(127, 131).map((id: number) => new ComplexCrossingTrackTile(id, TrackTileType.COMPLEX_CROSSING_TRACK_TILE_1, '/img/line-8.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 1), new Line(id, 3, 5)])),
+  ...range(132, 136).map((id: number) => new ComplexCrossingTrackTile(id, TrackTileType.COMPLEX_CROSSING_TRACK_TILE_2, '/img/line-9.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 2), new Line(id, 3, 5)])),
+  ...range(137, 140).map((id: number) => new ComplexCrossingTrackTile(id, TrackTileType.COMPLEX_CROSSING_TRACK_TILE_3, '/img/line-10.svg', [new Line(id, 0, 0), new Line(id, 1, 4), new Line(id, 2, 3), new Line(id, 3, 5)])),
+  ...range(141, 143).map((id: number) => new TownTrackTile(id, TrackTileType.TOWN_TRACK_TILE_1, '/img/line-11.svg', [new Line(id, 0, 0), new Line(id, 1, 1), new Line(id, 2, 3)], new Town(id))),
+  ...range(144, 146).map((id: number) => new TownTrackTile(id, TrackTileType.TOWN_TRACK_TILE_2, '/img/line-12.svg', [new Line(id, 0, 0), new Line(id, 1, 3), new Line(id, 2, 5)], new Town(id))),
+  ...range(147, 149).map((id: number) => new TownTrackTile(id, TrackTileType.TOWN_TRACK_TILE_3, '/img/line-13.svg', [new Line(id, 0, 0), new Line(id, 1, 1), new Line(id, 2, 5)], new Town(id))),
+  ...range(150, 152).map((id: number) => new TownTrackTile(id, TrackTileType.TOWN_TRACK_TILE_4, '/img/line-14.svg', [new Line(id, 0, 0), new Line(id, 1, 2), new Line(id, 2, 4)], new Town(id))),
+  ...range(153, 156).map((id: number) => new TownTrackTile(id, TrackTileType.TOWN_TRACK_TILE_5, '/img/line-15.svg', [new Line(id, 0, 0)], new Town(id)))
 ] as const
 
 export const goodsCubes: Readonly<GoodsCube[]> = [

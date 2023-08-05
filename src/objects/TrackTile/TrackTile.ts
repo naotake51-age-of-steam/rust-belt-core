@@ -1,9 +1,11 @@
+import { type TrackTileType } from 'enums'
 import { type TrackTileState } from 'game'
 import { type MapSpace, type Line, type TownMarker, type Town } from 'objects'
 
 export abstract class TrackTile {
   constructor (
     public readonly id: number,
+    public readonly type: TrackTileType,
     public readonly image: string,
     public readonly lines: Line[]
   ) {}
