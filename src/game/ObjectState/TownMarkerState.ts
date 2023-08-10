@@ -1,4 +1,4 @@
-import { type TrackTile, type TownMarker, townMarkers } from 'objects'
+import { type TrackTile, type TownMarker, townMarkers, trackTiles } from 'objects'
 
 export class TownMarkerState {
   constructor (
@@ -11,6 +11,7 @@ export class TownMarkerState {
   }
 
   public get trackTile (): TrackTile | null {
-    throw new Error('Not implemented')
+    if (this.trackTileId === null) return null
+    return trackTiles[this.trackTileId]
   }
 }

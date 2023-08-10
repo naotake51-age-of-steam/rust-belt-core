@@ -1,5 +1,5 @@
 import { type Player } from 'game'
-import { trackTiles, type MapSpace, type TrackTile } from 'objects'
+import { trackTiles, type MapSpace, type TrackTile, getMapSpace } from 'objects'
 
 export class TrackTileState {
   constructor (
@@ -20,7 +20,9 @@ export class TrackTileState {
   }
 
   public get mapSpace (): MapSpace | null {
-    throw new Error('Not implemented')
+    if (this.mapSpaceId === null) return null
+
+    return getMapSpace(this.mapSpaceId)
   }
 
   public getLineOwner (number: number): Player | null {

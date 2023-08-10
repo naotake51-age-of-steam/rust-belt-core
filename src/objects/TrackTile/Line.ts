@@ -1,5 +1,5 @@
-import { type Player } from 'game'
-import { type MapSpace, type CityTile, type TrackTile, type Town, type TownMarker } from 'objects'
+import { type Player, context } from 'game'
+import { type MapSpace, CityTile, type TrackTile, type Town, type TownMarker, trackTiles } from 'objects'
 
 export class Line {
   constructor (
@@ -9,7 +9,7 @@ export class Line {
   ) {}
 
   public get trackTile (): TrackTile {
-    throw new Error('Not implemented')
+    return trackTiles[this.trackTileId]
   }
 
   public get mapSpace (): MapSpace | null {
@@ -17,13 +17,18 @@ export class Line {
   }
 
   public get owner (): Player | null {
-    // 敷設されていない場合は例外を投げる
-    throw new Error('Not implemented')
+    const { g } = context()
+    const lineOwners = g.trackTileStates[this.trackTileId].lineOwners
+    if (lineOwners === null) throw new Error('Not placed')
+
+    const ownerPlayerId = lineOwners[this.number]
+    if (ownerPlayerId === null) return null
+
+    return g.players[ownerPlayerId]
   }
 
   public get direction (): number {
-    // 敷設されていない場合は例外を投げる
-    throw new Error('Not implemented')
+    return (this.trackTile.rotation + this.baseDirection) % 6
   }
 
   public get cx (): number {
@@ -49,7 +54,11 @@ export class Line {
    * 先端の線路であるか
    */
   public get isTip (): boolean {
-    throw new Error('Not implemented')
+    return !(this.externalLinkedObject instanceof Line) && !(this.externalLinkedObject instanceof CityTile)
+  }
+
+  public get isPlaced (): boolean {
+    return this.trackTile.isPlaced
   }
 
   /**
@@ -60,7 +69,13 @@ export class Line {
    * - MapSpace: 向き先に何のタイルもない場合
    */
   public get externalLinkedObject (): Line | CityTile | TrackTile | MapSpace {
-    throw new Error('Not implemented')
+    const mapSpace = this.trackTile.mapSpace
+    if (mapSpace === null) throw new Error('Not placed')
+
+    const linkedObject = mapSpace.getLinkedObject(this.direction)
+    if (linkedObject === null) throw new Error('invalid placed line')
+
+    return linkedObject
   }
 
   /**
@@ -70,7 +85,23 @@ export class Line {
    * - Line: 都市を持たず、タイル内の線路に接続される場合
    */
   public get internalLinkedObject (): Town | TownMarker | Line {
-    throw new Error('Not implemented')
+    if (!this.isPlaced) throw new Error('Not placed')
+
+    const town = this.trackTile.town
+    if (town !== null) return town
+
+    const pairLine = this.pairLine
+    if (pairLine !== null) return pairLine
+
+    throw new Error('logic error')
+  }
+
+  public get pairLine (): Line | null {
+    for (const [line1, line2] of this.trackTile.pairLines) {
+      if (this.equal(line1)) return line2
+      if (this.equal(line2)) return line1
+    }
+    return null
   }
 
   /**
@@ -80,8 +111,16 @@ export class Line {
     throw new Error('Not implemented')
   }
 
-  getFollowedLine (trackTile: TrackTile, rotation: number): Line | null {
+  public equal (line: Line): boolean {
+    return this.trackTileId === line.trackTileId && this.number === line.number
+  }
+
+  public getFollowedLine (trackTile: TrackTile, rotation: number): Line | null {
     // この線路がまだ配置されていない場合は例外を投げる
     throw new Error('Not implemented')
+  }
+
+  public getDirection (rotation: number): number {
+    return (this.baseDirection + rotation) % 6
   }
 }
