@@ -89,7 +89,7 @@ export class WaitingStartPhase implements Phase {
 
     b.setPlayers(
       shuffleArray(g.users)
-        .map((_, i) => new Player(i, _.id, null, i + 1, INITIALIZE_ISSUE_SHARES, INITIALIZE_MONEY))
+        .map((_, i) => new Player(i, _.id, null, i + 1, INITIALIZE_ISSUE_SHARES, INITIALIZE_MONEY, 0, 1))
     )
 
     b.setPhase(

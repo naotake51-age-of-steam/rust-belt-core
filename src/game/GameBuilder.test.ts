@@ -12,7 +12,7 @@ beforeEach(() => {
 })
 
 test('setTurnPlayer', () => {
-  const player = new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 4, 20)
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 4, 20, 0, 1)
 
   b.setTurnPlayer(player)
 
@@ -53,8 +53,8 @@ test('setUsers', () => {
 
 test('setPlayers', () => {
   const players = [
-    new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 4, 20),
-    new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 3, 15)
+    new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 4, 20, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 3, 15, 0, 1)
   ]
 
   b.setPlayers(players)
@@ -178,7 +178,7 @@ test('setLineOwner', () => {
   const line = trackTile.lines[0]
   const mapSpace = getMapSpace(0)
 
-  const player = new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 4, 20)
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 4, 20, 0, 1)
 
   b.placeTrackTileToMapSpace(trackTile, mapSpace, 4) // 先にタイルが配置されている必要がある
   b.setLineOwner(line, player)

@@ -57,7 +57,9 @@ export class IssueSharesPhase implements Phase {
       p.selectedAction,
       p.order,
       p.issuedShares + count,
-      p.money + count * 5
+      p.money + count * 5,
+      p.income,
+      p.engine
     ))
 
     if (nextPlayer !== null) {

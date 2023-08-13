@@ -116,7 +116,9 @@ export class BuildTrackPhase implements Phase {
       p.selectedAction,
       p.order,
       p.issuedShares,
-      p.money - buildingCost
+      p.money - buildingCost,
+      p.income,
+      p.engine
     ))
 
     let releaseTownMarker: TownMarker | null = null

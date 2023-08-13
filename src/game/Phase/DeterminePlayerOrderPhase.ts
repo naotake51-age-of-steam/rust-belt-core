@@ -185,7 +185,9 @@ export class DeterminePlayerOrderPhase implements Phase {
             _.player.selectedAction,
             _.getResultOrder(p),
             _.player.issuedShares,
-            _.player.money - _.calculatePaymentAmount(this.playerBids.length)
+            _.player.money - _.calculatePaymentAmount(this.playerBids.length),
+            _.player.income,
+            _.player.engine
           )
         )
       })

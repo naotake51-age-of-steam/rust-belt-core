@@ -20,7 +20,7 @@ export class SelectActionsPhase implements Phase {
 
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPlayers(b.game.players // DeterminePlayerOrderPhaseでorderを更新しているので、b.gameからデータを取得する必要がある
-      .map(_ => new Player(_.id, _.userId, null, _.order, _.issuedShares, _.money)))
+      .map(_ => new Player(_.id, _.userId, null, _.order, _.issuedShares, _.money, _.income, _.engine)))
     b.setPhase(new SelectActionsPhase())
 
     const firstPlayer = b.game.players.find(_ => _.order === 1)
@@ -54,7 +54,7 @@ export class SelectActionsPhase implements Phase {
 
     const b = new GameBuilder(g)
 
-    b.updatePlayer(new Player(p.id, p.userId, action, p.order, p.issuedShares, p.money))
+    b.updatePlayer(new Player(p.id, p.userId, action, p.order, p.issuedShares, p.money, p.income, p.engine))
 
     if (nextPlayer !== null) {
       b.setTurnPlayer(nextPlayer)

@@ -56,7 +56,7 @@ test('getLinkedObject CityTileに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -84,7 +84,7 @@ test('getLinkedObject MapSpaceに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -112,7 +112,7 @@ test('getLinkedObject Lineに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
@@ -142,7 +142,7 @@ test('getLinkedObject TrackTileに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -171,7 +171,7 @@ test('getLinkedObject マップ外', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -199,7 +199,7 @@ test('getLinkedTerminalObject CityTileに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -227,7 +227,7 @@ test('getLinkedTerminalObject MapSpaceに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -255,7 +255,7 @@ test('getLinkedTerminalObject TrackTileに接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -284,7 +284,7 @@ test('getLinkedTerminalObject マップ外', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -312,7 +312,7 @@ test('getLinkedTerminalObject Lineを経由して都市に接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
@@ -341,7 +341,7 @@ test('getLinkedTerminalObject 複数Lineを経由して都市に接続', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 2)), 3)
@@ -371,7 +371,7 @@ test('getLinkedTerminalObject 複数Lineを経由して町（TownMarker）に接
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 0)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 1)
@@ -404,7 +404,7 @@ test('getLinkedTerminalObject 複数Lineを経由して町（Town）に接続', 
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 0)
         .placeTrackTileToMapSpace(trackTiles[144], getMapSpace(s(1, 1)), 1)

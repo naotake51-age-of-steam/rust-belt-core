@@ -65,7 +65,7 @@ test('canPlaceToMapSpace 都市から線路を延ばせる', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 0)), 1)
         .build()
@@ -108,7 +108,7 @@ test('canPlaceToMapSpace タイル向きごとの都市接続判定', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 0)), 1)
         .build()
@@ -141,7 +141,7 @@ test('canPlaceToMapSpace 線路への接続判定', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 0)
@@ -167,7 +167,7 @@ test('canPlaceToMapSpace マップ外へ出てしまう場合はFalse', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 0)), 1)
         .build()
@@ -191,7 +191,7 @@ test('canPlaceToMapSpace 都市から出て町へ線路を敷くケース', () =
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
@@ -216,7 +216,7 @@ test('canPlaceToMapSpace 都市から出て町へ線路を敷くケース（2本
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         // 1 本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -245,7 +245,7 @@ test('canPlaceToMapSpace 都市から出て町へ線路を敷くケース（2本
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
@@ -273,16 +273,16 @@ test('canPlaceToMapSpace 都市から出て町へ線路を敷くケース（2本
           new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10))
-        .setLineOwner(trackTiles[52].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10))
+        .setLineOwner(trackTiles[52].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
         .placeTrackTileToMapSpace(trackTiles[119], getMapSpace(s(1, 1)), 5)
-        .setLineOwner(trackTiles[119].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10))
-        .setLineOwner(trackTiles[119].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10))
+        .setLineOwner(trackTiles[119].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[119].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(2, 1)), 0)
         .build()
 
@@ -305,7 +305,7 @@ test('canPlaceToMapSpace いきなり町へ線路を敷くことはできない'
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -328,7 +328,7 @@ test('canPlaceToMapSpace すでにタイルが置かれている場合はFalse',
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
@@ -354,7 +354,7 @@ test('canPlaceToMapSpace 未接続となる線路がある場合', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -378,12 +378,12 @@ test('canPlaceToMapSpace 他人の線路につながる場合はFalse', () => {
           new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 0)), 1)
-        .setLineOwner(trackTiles[111].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10))
-        .setLineOwner(trackTiles[111].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10))
+        .setLineOwner(trackTiles[111].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[111].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -405,7 +405,7 @@ test('canReplaceToMapSpace 方向転換', () => {
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
@@ -431,7 +431,7 @@ test('canReplaceToMapSpace 先端でない線路は方向転換できない', ()
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
@@ -458,7 +458,7 @@ test('canReplaceToMapSpace フォローできない線路がある場合は置�
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
@@ -484,7 +484,7 @@ test('canReplaceToMapSpace 同じタイルタイプ、線路の方向が同じ�
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 0)), 1)
         .placeTrackTileToMapSpace(trackTiles[119], getMapSpace(s(0, 1)), 0)
@@ -509,7 +509,7 @@ test('canReplaceToMapSpace 町ヘクスに敷かれているタイルは方向�
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
@@ -537,7 +537,7 @@ test('canReplaceToMapSpace 町へ敷かれている線路の置き換え、フ�
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
@@ -563,7 +563,7 @@ test('canReplaceToMapSpace 町へ敷かれている線路の置き換え、フ�
           new User('00000000-0000-0000-0000-000000000001', '山田太郎')
         ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10)
+          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)

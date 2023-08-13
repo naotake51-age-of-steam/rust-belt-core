@@ -10,7 +10,9 @@ export class Player {
     public readonly selectedAction: Action | null,
     public readonly order: number,
     public readonly issuedShares: number,
-    public readonly money: number
+    public readonly money: number,
+    public readonly income: number,
+    public readonly engine: number
   ) {}
 
   public deepCopy (): Player {
@@ -20,7 +22,9 @@ export class Player {
       this.selectedAction,
       this.order,
       this.issuedShares,
-      this.money
+      this.money,
+      this.income,
+      this.engine
     )
   }
 
