@@ -1,4 +1,4 @@
-import { type Action } from 'enums'
+import { Action } from 'enums'
 import { type User, context } from 'game'
 
 const MAX_ISSUABLE_SHARES = 15
@@ -42,5 +42,13 @@ export class Player {
 
   public get remainingIssuableShares (): number {
     return MAX_ISSUABLE_SHARES - this.issuedShares
+  }
+
+  public get placableTrackTileCount (): number {
+    return this.selectedAction === Action.ENGINEER ? 4 : 3
+  }
+
+  public get placableCityTile (): number {
+    return this.selectedAction === Action.URBANIZATION ? 1 : 0
   }
 }

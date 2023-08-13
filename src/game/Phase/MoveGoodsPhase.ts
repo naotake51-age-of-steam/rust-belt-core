@@ -1,5 +1,5 @@
-import { PhaseId } from 'enums'
-import { type Game } from 'game'
+import { PhaseId, Action } from 'enums'
+import { type GameBuilder, type Game, context, type Player } from 'game'
 import { type Phase } from './Phase'
 
 export class MoveGoodsPhase implements Phase {
@@ -21,8 +21,23 @@ export class MoveGoodsPhase implements Phase {
     )
   }
 
-  public static prepare (): MoveGoodsPhase {
-    throw new Error('Not implemented')
+  public static prepare (b: GameBuilder): GameBuilder {
+    const players = MoveGoodsPhase.getOrderedPlayers()
+    b.setTurnPlayer(players[0])
+    return b.setPhase(new MoveGoodsPhase(null, [], 1, []))
+  }
+
+  public static getOrderedPlayers (): Player[] {
+    const { g } = context()
+    return [...g.players].sort((a, b) => {
+      if (a.selectedAction === Action.FIRST_MOVE) {
+        return -1
+      }
+      if (b.selectedAction === Action.FIRST_MOVE) {
+        return 1
+      }
+      return a.order - b.order
+    })
   }
 
   public get message (): string {

@@ -1,5 +1,23 @@
+import { MapSpaceType, PlacedLineType } from 'enums'
 import { type Player, context } from 'game'
 import { type MapSpace, CityTile, type TrackTile, type Town, type TownMarker, trackTiles } from 'objects'
+
+interface PlacedNewLine {
+  type: PlacedLineType.NEW_LINE
+}
+
+interface PlacedReplaceLine {
+  type: PlacedLineType.REPLACE_LINE
+  srcLine: Line
+}
+
+interface PlacedRedirectLine {
+  type: PlacedLineType.REDIRECT_LINE
+  srcLine: Line
+  srcPairLine: Line
+}
+
+export type PlacedLine = PlacedNewLine | PlacedReplaceLine | PlacedRedirectLine
 
 export class Line {
   constructor (
@@ -108,7 +126,19 @@ export class Line {
    * 内向き接続されている線路
    */
   public get internalLinkedLines (): Line[] {
-    throw new Error('Not implemented')
+    const linkedLines = []
+    const internalLinkedObject = this.internalLinkedObject
+    if (internalLinkedObject instanceof Line) {
+      linkedLines.push(internalLinkedObject)
+
+      const externalLinkedObject = internalLinkedObject.externalLinkedObject
+      if (externalLinkedObject instanceof Line) {
+        linkedLines.push(externalLinkedObject)
+        externalLinkedObject.internalLinkedLines.forEach(_ => linkedLines.push(_))
+      }
+    }
+
+    return linkedLines
   }
 
   public equal (line: Line): boolean {
@@ -122,5 +152,31 @@ export class Line {
 
   public getDirection (rotation: number): number {
     return (this.baseDirection + rotation) % 6
+  }
+
+  /** 配置タイプ */
+  public determinePlacedLineType (mapSpace: MapSpace, rotation: number): PlacedLine {
+    const { p } = context()
+    if (p === null) throw new Error('user is not in the game')
+
+    const srcTrackTile = mapSpace.trackTile
+    if (srcTrackTile === null) {
+      return { type: PlacedLineType.NEW_LINE }
+    } else {
+      const srcLine = srcTrackTile.getLineByDirection(this.getDirection(rotation))
+      if (srcLine !== null) return { type: PlacedLineType.REPLACE_LINE, srcLine }
+
+      // 町スペース以外の場合は、方向転換が可能なのでそのチェックが必要
+      if (mapSpace.type !== MapSpaceType.TOWN) {
+        if (this.pairLine === null) throw new Error('logic error')
+        const srcPairLine = srcTrackTile.getLineByDirection(this.pairLine.getDirection(rotation))
+        if (srcPairLine !== null) {
+          if (srcPairLine.pairLine === null) throw new Error('logic error')
+          return { type: PlacedLineType.REDIRECT_LINE, srcLine: srcPairLine.pairLine, srcPairLine }
+        }
+      }
+
+      return { type: PlacedLineType.NEW_LINE }
+    }
   }
 }

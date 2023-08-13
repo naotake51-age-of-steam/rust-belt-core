@@ -75,6 +75,9 @@ export abstract class BaseTrackTile extends TrackTile {
     if (p === null) throw new Error('user is not in the game')
     if (!p.hasTurn) throw new Error('user is not turn player')
 
+    // すでに置かれているタイル
+    if (this.isPlaced) return false
+
     // スペースにタイルがない
     if (mapSpace.trackTile === null) return false
 

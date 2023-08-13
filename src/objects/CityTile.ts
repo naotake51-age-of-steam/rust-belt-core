@@ -44,6 +44,10 @@ export class CityTile {
     throw new Error('Not implemented')
   }
 
+  public get isPlaced (): boolean {
+    return this.mapSpace !== null
+  }
+
   /**
    * 敷設が可能か
    */
