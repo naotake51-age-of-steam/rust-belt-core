@@ -12,6 +12,13 @@ export class BuildTrackPhase implements Phase {
   ) {
   }
 
+  public deepCopy (): BuildTrackPhase {
+    return new BuildTrackPhase(
+      [...this.buildingTrackTileIds],
+      this.buildingCityTileId
+    )
+  }
+
   public static prepare (b: GameBuilder): GameBuilder {
     return b.setPhase(new BuildTrackPhase([], null))
   }

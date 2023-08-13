@@ -12,6 +12,15 @@ export class MoveGoodsPhase implements Phase {
     public readonly incrementedLocomotivePlayerIds: number[] // プレイヤーは二回の輸送のうち一回だけ機関車を進められる
   ) {}
 
+  public deepCopy (): MoveGoodsPhase {
+    return new MoveGoodsPhase(
+      this.selectedGoodsCubeId,
+      [...this.movedSpaceIds],
+      this.movingCounter,
+      [...this.incrementedLocomotivePlayerIds]
+    )
+  }
+
   public static prepare (): MoveGoodsPhase {
     throw new Error('Not implemented')
   }

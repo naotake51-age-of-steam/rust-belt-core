@@ -1,4 +1,4 @@
-import { type Phase, Game, type Player, type User, TrackTileState, GoodsCubeState, CityTileState, TownMarkerState } from 'game'
+import { type Phase, type Game, type Player, type User, TrackTileState, GoodsCubeState, CityTileState, TownMarkerState } from 'game'
 import { type MapSpace, type GoodsCube, type Line, type TrackTile, type GoodsDisplaySpace, type CityTile, type TownMarker } from 'objects'
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] }
@@ -9,7 +9,7 @@ export class GameBuilder {
   constructor (
     original: Game
   ) {
-    this.game = original // TODO: deep copy
+    this.game = original.deepCopy()
   }
 
   public setTurnPlayer (player: Player): GameBuilder {
@@ -115,20 +115,6 @@ export class GameBuilder {
   }
 
   public build (): Game {
-    // TODO: deep copy
-    return new Game(
-      this.game.id,
-      this.game.adminUser,
-      this.game.users,
-      this.game.round,
-      this.game.phase,
-      this.game.players,
-      this.game.turnPlayerId,
-      this.game.trackTileStates,
-      this.game.cityTileStates,
-      this.game.goodsCubeStates,
-      this.game.townMakerStates,
-      this.game.histories
-    )
+    return this.game.deepCopy()
   }
 }

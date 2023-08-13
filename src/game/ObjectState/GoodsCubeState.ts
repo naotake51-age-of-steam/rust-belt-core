@@ -6,6 +6,14 @@ export class GoodsCubeState {
     public readonly goodsDisplaySpaceId: number | null
   ) { }
 
+  public deepCopy (): GoodsCubeState {
+    return new GoodsCubeState(
+      this.id,
+      this.mapSpaceId,
+      this.goodsDisplaySpaceId
+    )
+  }
+
   public get goodsCube (): GoodsCube {
     return goodsCubes[this.id]
   }

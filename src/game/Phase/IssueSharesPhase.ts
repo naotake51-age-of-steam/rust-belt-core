@@ -7,6 +7,10 @@ import { type Phase } from './Phase'
 export class IssueSharesPhase implements Phase {
   public readonly id = PhaseId.ISSUE_SHARES
 
+  public deepCopy (): IssueSharesPhase {
+    return new IssueSharesPhase()
+  }
+
   public get message (): string {
     const { g } = context()
 

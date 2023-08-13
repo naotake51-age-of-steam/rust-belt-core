@@ -65,4 +65,21 @@ export class Game {
   public actionDestroy (): Game {
     throw new Error('Not implemented')
   }
+
+  public deepCopy (): Game {
+    return new Game(
+      this.id,
+      this.adminUser.deepCopy(),
+      this.users.map(_ => _.deepCopy()),
+      this.round,
+      this.phase.deepCopy(),
+      this.players.map(_ => _.deepCopy()),
+      this.turnPlayerId,
+      this.trackTileStates.map(_ => _.deepCopy()),
+      this.cityTileStates.map(_ => _.deepCopy()),
+      this.goodsCubeStates.map(_ => _.deepCopy()),
+      this.townMakerStates.map(_ => _.deepCopy()),
+      [...this.histories]
+    )
+  }
 }

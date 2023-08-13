@@ -6,6 +6,13 @@ export class CityTileState {
     public readonly mapSpaceId: number | null
   ) { }
 
+  public deepCopy (): CityTileState {
+    return new CityTileState(
+      this.id,
+      this.mapSpaceId
+    )
+  }
+
   public get cityTile (): CityTile {
     return cityTiles[this.id]
   }

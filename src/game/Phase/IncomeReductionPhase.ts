@@ -4,6 +4,10 @@ import { type Phase } from './Phase'
 export class IncomeReductionPhase implements Phase {
   public readonly id = PhaseId.INCOME_REDUCTION
 
+  public deepCopy (): IncomeReductionPhase {
+    return new IncomeReductionPhase()
+  }
+
   public static prepare (): IncomeReductionPhase {
     // 一定時間後に次のフェーズに移行する
     throw new Error('Not implemented')

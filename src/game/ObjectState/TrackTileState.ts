@@ -15,6 +15,15 @@ export class TrackTileState {
     }
   }
 
+  public deepCopy (): TrackTileState {
+    return new TrackTileState(
+      this.id,
+      this.mapSpaceId,
+      this.rotation,
+      this.lineOwners !== null ? [...this.lineOwners] : null
+    )
+  }
+
   public get trackTile (): TrackTile {
     return trackTiles[this.id]
   }

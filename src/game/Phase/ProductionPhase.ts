@@ -9,6 +9,13 @@ export class ProductionPhase implements Phase {
     public readonly selectedCubeId: number | null
   ) {}
 
+  public deepCopy (): ProductionPhase {
+    return new ProductionPhase(
+      (this.goodsCubeIds !== null) ? [...this.goodsCubeIds] : null,
+      this.selectedCubeId
+    )
+  }
+
   public static prepare (): ProductionPhase {
     throw new Error('Not implemented')
   }

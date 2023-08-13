@@ -12,6 +12,15 @@ export class PlayerBid {
     public readonly order: number | null
   ) {}
 
+  public deepCopy (): PlayerBid {
+    return new PlayerBid(
+      this.playerId,
+      this.money,
+      this.canSoftPass,
+      this.order
+    )
+  }
+
   public get player (): Player {
     const { g } = context()
 
@@ -52,6 +61,13 @@ export class DeterminePlayerOrderPhase implements Phase {
     public readonly playerBids: PlayerBid[], // order順
     public readonly latestActionMessage: string
   ) { }
+
+  public deepCopy (): DeterminePlayerOrderPhase {
+    return new DeterminePlayerOrderPhase(
+      this.playerBids.map(_ => _.deepCopy()),
+      this.latestActionMessage
+    )
+  }
 
   public static prepare (b: GameBuilder): GameBuilder {
     const { g } = context()

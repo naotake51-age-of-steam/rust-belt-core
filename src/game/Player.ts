@@ -13,6 +13,17 @@ export class Player {
     public readonly money: number
   ) {}
 
+  public deepCopy (): Player {
+    return new Player(
+      this.id,
+      this.userId,
+      this.selectedAction,
+      this.order,
+      this.issuedShares,
+      this.money
+    )
+  }
+
   public get user (): User {
     const { g } = context()
 

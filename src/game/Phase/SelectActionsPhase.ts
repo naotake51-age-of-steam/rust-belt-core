@@ -6,6 +6,10 @@ import { type Phase } from './Phase'
 export class SelectActionsPhase implements Phase {
   public readonly id = PhaseId.SELECT_ACTIONS
 
+  public deepCopy (): SelectActionsPhase {
+    return new SelectActionsPhase()
+  }
+
   public get selectableActions (): Action[] {
     const { g } = context()
 

@@ -9,4 +9,8 @@ export class User {
     const { g } = context()
     return g.players.find(_ => _.userId === this.id) ?? null
   }
+
+  public deepCopy (): User {
+    return new User(this.id, this.name)
+  }
 }

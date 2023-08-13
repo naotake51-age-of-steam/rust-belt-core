@@ -6,6 +6,13 @@ export class TownMarkerState {
     public readonly trackTileId: number | null
   ) { }
 
+  public deepCopy (): TownMarkerState {
+    return new TownMarkerState(
+      this.id,
+      this.trackTileId
+    )
+  }
+
   public get townMarker (): TownMarker {
     return townMarkers[this.id]
   }

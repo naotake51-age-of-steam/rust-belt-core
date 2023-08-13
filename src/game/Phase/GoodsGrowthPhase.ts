@@ -10,6 +10,13 @@ export class GoodsGrowthPhase implements Phase {
     public readonly blackDices: number[] // プレイヤーの数だけ
   ) {}
 
+  public deepCopy (): GoodsGrowthPhase {
+    return new GoodsGrowthPhase(
+      [...this.whiteDices],
+      [...this.blackDices]
+    )
+  }
+
   public get message (): string {
     throw new Error('Not implemented')
   }

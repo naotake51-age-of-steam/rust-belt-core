@@ -16,6 +16,12 @@ export class WaitingStartPhase implements Phase {
     public readonly joinedUsers: User[]
   ) { }
 
+  public deepCopy (): WaitingStartPhase {
+    return new WaitingStartPhase(
+      this.joinedUsers.map(_ => _.deepCopy())
+    )
+  }
+
   public static prepare (): WaitingStartPhase {
     throw new Error('Not implemented')
   }
