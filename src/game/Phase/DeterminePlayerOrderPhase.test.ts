@@ -388,6 +388,8 @@ test('actionDropout 4人プレイヤー中の2番目のユーザーが降りた�
     ], ''))
     .setTurnPlayer(new Player(1, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10))
 
+  g = b.build()
+
   setContext(g, new User('00000000-0000-0000-0000-000000000002', '鈴木二郎'))
 
   const phase = g.phase as DeterminePlayerOrderPhase
