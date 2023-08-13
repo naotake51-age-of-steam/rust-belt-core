@@ -19,8 +19,8 @@ export class SelectActionsPhase implements Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
-    const { g } = context()
-    b.setPlayers(g.players.map(_ => new Player(_.id, _.userId, null, _.order, _.issuedShares, _.money)))
+    b.setPlayers(b.game.players // DeterminePlayerOrderPhaseでorderを更新しているので、b.gameからデータを取得する必要がある
+      .map(_ => new Player(_.id, _.userId, null, _.order, _.issuedShares, _.money)))
     b.setPhase(new SelectActionsPhase())
 
     const firstPlayer = b.game.players.find(_ => _.order === 1)
