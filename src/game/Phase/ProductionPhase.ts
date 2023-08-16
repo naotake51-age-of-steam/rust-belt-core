@@ -1,4 +1,5 @@
 import { PhaseId } from 'enums'
+import { GameBuilder } from 'game/GameBuilder'
 import { type Phase } from './Phase'
 
 export class ProductionPhase implements Phase {
@@ -16,8 +17,8 @@ export class ProductionPhase implements Phase {
     )
   }
 
-  public static prepare (): ProductionPhase {
-    throw new Error('Not implemented')
+  public static prepare (b: GameBuilder): GameBuilder {
+    return b
   }
 
   public get message (): string {
