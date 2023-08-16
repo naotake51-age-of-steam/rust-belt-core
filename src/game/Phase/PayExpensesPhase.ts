@@ -1,4 +1,5 @@
 import { PhaseId } from 'enums'
+import { GameBuilder } from 'game/GameBuilder'
 import { type Phase } from './Phase'
 
 export class PayExpensesPhase implements Phase {
@@ -8,9 +9,8 @@ export class PayExpensesPhase implements Phase {
     return new PayExpensesPhase()
   }
 
-  public static prepare (): PayExpensesPhase {
-    // 一定時間後に次のフェーズに移行する
-    throw new Error('Not implemented')
+  public static prepare (b: GameBuilder): GameBuilder {
+    return b
   }
 
   public get message (): string {
