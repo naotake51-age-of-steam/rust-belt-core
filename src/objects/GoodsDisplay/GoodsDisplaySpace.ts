@@ -1,3 +1,6 @@
+import { context } from 'game'
+import { goodsDisplayLines } from 'objects'
+import { type GoodsCube } from 'objects/GoodsCube'
 import { type GoodsDisplayLine } from './GoodsDisplayLine'
 export class GoodsDisplaySpace {
   constructor (
@@ -7,7 +10,13 @@ export class GoodsDisplaySpace {
     public readonly y: number
   ) {}
 
+  public get goodsCube (): GoodsCube | null {
+    const { g } = context()
+
+    return g.goodsCubeStatesIndexByGoodsDisplaySpace.get(this.id)?.goodsCube ?? null
+  }
+
   public get goodsDisplayLine (): GoodsDisplayLine {
-    throw new Error('Not implemented')
+    return goodsDisplayLines[this.goodsDisplayLineId]
   }
 }

@@ -19,7 +19,7 @@ export const reverseDirection = (direction: number): number => (direction + 3) %
 const DX = 75
 const DY = 86.5
 
-const s = (col: number, row: number): number => col * 11 + row
+export const s = (col: number, row: number): number => col * 11 + row
 
 export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   // 1列目

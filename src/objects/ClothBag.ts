@@ -1,4 +1,5 @@
 import { goodsCubes } from 'objects'
+import { shuffleArray } from 'utility'
 import { type GoodsCube } from './GoodsCube'
 
 export class ClothBag {
@@ -7,6 +8,6 @@ export class ClothBag {
   }
 
   public getRandomGoodsCubes (quantity: number): GoodsCube[] {
-    throw new Error('Not implemented')
+    return shuffleArray(this.goodsCubes).slice(0, quantity)
   }
 }
