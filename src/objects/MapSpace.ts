@@ -42,7 +42,9 @@ export class MapSpace {
   }
 
   public getLinkedLine (direction: number): Line | null {
-    throw new Error('Not implemented')
+    const linkedObject = this.getLinkedObject(direction)
+
+    return linkedObject instanceof Line ? linkedObject : null
   }
 
   public getLinkedTrackTile (direction: number): TrackTile | null {

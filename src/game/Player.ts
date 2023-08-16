@@ -2,6 +2,7 @@ import { Action } from 'enums'
 import { type User, context } from 'game'
 
 const MAX_ISSUABLE_SHARES = 15
+export const MAX_ENGINE = 6
 
 export class Player {
   constructor (

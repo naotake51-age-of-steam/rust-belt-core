@@ -1,4 +1,4 @@
-import { type CityTileColor, MapSpaceType } from 'enums'
+import { CityTileColor, GoodsCubeColor, MapSpaceType } from 'enums'
 import { type CityTileState, context } from 'game'
 import { type MapSpace, type GoodsCube, type Line } from 'objects'
 
@@ -46,6 +46,23 @@ export class CityTile {
 
   public get isPlaced (): boolean {
     return this.mapSpace !== null
+  }
+
+  public isAcceptGoodsCube (goodsCube: GoodsCube): boolean {
+    switch (this.color) {
+      case CityTileColor.RED:
+        return goodsCube.color === GoodsCubeColor.RED
+      case CityTileColor.BLUE:
+        return goodsCube.color === GoodsCubeColor.BLUE
+      case CityTileColor.PURPLE:
+        return goodsCube.color === GoodsCubeColor.PURPLE
+      case CityTileColor.YELLOW:
+        return goodsCube.color === GoodsCubeColor.YELLOW
+      case CityTileColor.BLACK:
+        return goodsCube.color === GoodsCubeColor.BLACK
+      default:
+        throw new Error('logic')
+    }
   }
 
   /**
