@@ -1,6 +1,6 @@
 import { PhaseId } from 'enums'
 import { GameError } from 'errors'
-import { type Game, context, Player, GameBuilder } from 'game'
+import { context, Player, GameBuilder, type Game } from 'game'
 import { DeterminePlayerOrderPhase } from './DeterminePlayerOrderPhase'
 import { type Phase } from './Phase'
 
@@ -18,8 +18,14 @@ export class IssueSharesPhase implements Phase {
     return `${userName}は株式を発行数を決定してください。`
   }
 
-  public static prepare (): IssueSharesPhase {
-    return new IssueSharesPhase()
+  public static prepare (b: GameBuilder): GameBuilder {
+    b.setPhase(new IssueSharesPhase())
+
+    const firstPlayer = b.game.players.find(_ => _.order === 1)
+    if (firstPlayer === undefined) throw new Error('logic error')
+    b.setTurnPlayer(firstPlayer)
+
+    return b
   }
 
   public maxIssueShares (): number {

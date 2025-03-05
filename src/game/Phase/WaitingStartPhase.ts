@@ -22,7 +22,7 @@ export class WaitingStartPhase implements Phase {
     )
   }
 
-  public static prepare (): WaitingStartPhase {
+  public static prepare (b: GameBuilder): GameBuilder {
     throw new Error('Not implemented')
   }
 

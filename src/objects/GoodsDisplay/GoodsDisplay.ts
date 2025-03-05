@@ -2,10 +2,10 @@ import { type GoodsDisplayLine } from './GoodsDisplayLine'
 
 export class GoodsDisplay {
   constructor (
-    public readonly GoodsDisplayLinesList: GoodsDisplayLine[][]
+    public readonly goodsDisplayLinesList: GoodsDisplayLine[][]
   ) {}
 
   public getGoodsDisplayLinesByDice (dice: number): GoodsDisplayLine[] {
-    throw new Error('Not implemented')
+    return this.goodsDisplayLinesList[dice - 1]
   }
 }

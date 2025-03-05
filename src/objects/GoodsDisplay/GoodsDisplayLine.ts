@@ -9,6 +9,8 @@ export class GoodsDisplayLine {
   ) {}
 
   public getGoodsCubes (quantity: number): GoodsCube[] {
-    throw new Error('Not implemented')
+    const goodsCubes = this.goodsDisplaySpaces.map(_ => _.goodsCube).filter(_ => _ !== null) as GoodsCube[]
+
+    return goodsCubes.slice(0, quantity)
   }
 }

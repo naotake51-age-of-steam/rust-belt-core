@@ -1,6 +1,6 @@
 import { MapSpaceType, PlacedLineType } from 'enums'
 import { type Player, context } from 'game'
-import { type MapSpace, CityTile, type TrackTile, type Town, type TownMarker, trackTiles } from 'objects'
+import { type MapSpace, CityTile, type TrackTile, Town, TownMarker, trackTiles } from 'objects'
 
 interface PlacedNewLine {
   type: PlacedLineType.NEW_LINE
@@ -65,7 +65,20 @@ export class Line {
    * 完成した線路であるか
    */
   public get isFixed (): boolean {
-    throw new Error('Not implemented')
+    if (this.mapSpace === null) throw new Error('Not placed')
+
+    const terminalObject = this.mapSpace.getLinkedTerminalObject(this.direction)
+    const isFixedTerminal = terminalObject instanceof CityTile || terminalObject instanceof TownMarker || terminalObject instanceof Town
+    if (!isFixedTerminal) return false
+
+    const internalLinkedObject = this.internalLinkedObject
+    if (internalLinkedObject instanceof Line) {
+      const internalTerminalObject = this.mapSpace.getLinkedTerminalObject(internalLinkedObject.direction)
+      const isFixedInternalTerminal = internalTerminalObject instanceof CityTile || internalTerminalObject instanceof TownMarker || internalTerminalObject instanceof Town
+      if (!isFixedInternalTerminal) return false
+    }
+
+    return true
   }
 
   /**

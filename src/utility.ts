@@ -18,6 +18,10 @@ export function shuffleArray <T> (array: T[]): T[] {
   return shuffledArray
 }
 
+export function random (from: number, to: number): number {
+  return Math.floor(Math.random() * (to - from + 1)) + from
+}
+
 export function createUniqueIndex <T, K extends keyof T> (items: T[], key: K): Map<NonNullable<T[K]>, T> {
   const index = new Map<NonNullable<T[K]>, T>()
   items.forEach((item) => {

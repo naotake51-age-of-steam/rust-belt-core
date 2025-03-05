@@ -32,7 +32,7 @@ test('setRound', () => {
 })
 
 test('setPhase', () => {
-  const phase = new EndGamePhase()
+  const phase = new EndGamePhase([])
 
   b.setPhase(phase)
 
