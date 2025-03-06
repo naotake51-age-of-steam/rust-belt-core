@@ -65,7 +65,7 @@ test('canPlaceToMapSpace 都市からつながっている町スペースに町�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -94,7 +94,7 @@ test('canPlaceToMapSpace 町スペース以外に町タイルをおけない', (
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -119,7 +119,7 @@ test('canPlaceToMapSpace マップ外へ出てしまう場合はFalse', () => {
   t(
     ...mapC2R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -143,7 +143,7 @@ test('canPlaceToMapSpace すでにタイルが置かれている場合はFalse',
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -168,7 +168,7 @@ test('canPlaceToMapSpace 他人の線路につながる場合はFalse', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -199,7 +199,7 @@ test('canReplaceToMapSpace フォローできない線路がある場合は置�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -224,7 +224,7 @@ test('canReplaceToMapSpace フォローできない線路がある場合は置�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -250,7 +250,7 @@ test('canReplaceToMapSpace すべての線路をフォローできる場合は�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -275,7 +275,7 @@ test('canReplaceToMapSpace すべての線路をフォローできる場合は�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -301,7 +301,7 @@ test('canReplaceToMapSpace 同じタイルタイプ、線路の方向が同じ�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -326,7 +326,7 @@ test('canReplaceToMapSpace 町ヘクスの置き換えによって、循環す�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b

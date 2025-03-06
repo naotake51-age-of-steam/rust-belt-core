@@ -48,7 +48,7 @@ test('canSelectGoodsCube マップ上に出ているキューブのみ選択可�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -82,7 +82,7 @@ test('actionSelectGoodsCube', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -121,7 +121,7 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving 移動力以上に�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -212,7 +212,7 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving/actionCompleteMovin
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b

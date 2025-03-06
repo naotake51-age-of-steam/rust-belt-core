@@ -1,10 +1,8 @@
-import { Game, type User, WaitingStartPhase, TrackTileState, CityTileState, GoodsCubeState, TownMarkerState } from 'game'
+import { Game, WaitingStartPhase, TrackTileState, CityTileState, GoodsCubeState, TownMarkerState } from 'game'
 import { cityTiles, goodsCubes, townMarkers, trackTiles } from 'objects'
 
-export const initializeGame = (id: string, adminUser: User): Game => {
+export const initializeGame = (): Game => {
   return new Game(
-    id,
-    adminUser,
     [],
     1,
     new WaitingStartPhase([]),

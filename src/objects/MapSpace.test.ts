@@ -48,7 +48,7 @@ test('getLinkedObject CityTileに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -76,7 +76,7 @@ test('getLinkedObject MapSpaceに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -104,7 +104,7 @@ test('getLinkedObject Lineに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -134,7 +134,7 @@ test('getLinkedObject TrackTileに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -163,7 +163,7 @@ test('getLinkedObject マップ外', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -191,7 +191,7 @@ test('getLinkedTerminalObject CityTileに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -219,7 +219,7 @@ test('getLinkedTerminalObject MapSpaceに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -247,7 +247,7 @@ test('getLinkedTerminalObject TrackTileに接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -276,7 +276,7 @@ test('getLinkedTerminalObject マップ外', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -304,7 +304,7 @@ test('getLinkedTerminalObject Lineを経由して都市に接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -333,7 +333,7 @@ test('getLinkedTerminalObject 複数Lineを経由して都市に接続', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -363,7 +363,7 @@ test('getLinkedTerminalObject 複数Lineを経由して町（TownMarker）に接
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -396,7 +396,7 @@ test('getLinkedTerminalObject 複数Lineを経由して町（Town）に接続', 
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b

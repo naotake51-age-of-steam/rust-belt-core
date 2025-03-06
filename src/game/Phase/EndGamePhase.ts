@@ -52,8 +52,6 @@ export class EndGamePhase implements Phase {
   }
 
   public actionFinishGame (): Game {
-    const { g } = context()
-
-    return initializeGame(g.id, g.adminUser)
+    return initializeGame()
   }
 }

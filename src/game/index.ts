@@ -1,4 +1,5 @@
-import { type Game } from './Game'
+import { plainToInstance, instanceToPlain } from 'class-transformer'
+import { Game } from './Game'
 import { type Player } from './Player'
 import { type User } from './User'
 
@@ -25,4 +26,12 @@ export function setContext (g: Game, u: User): Readonly<Context> {
 export function context (): Readonly<Context> {
   if (c === null) throw new Error('Context is not initialized')
   return c
+}
+
+export function toPlain (game: Game): object {
+  return instanceToPlain(game)
+}
+
+export function toInstance (plain: object): Game {
+  return plainToInstance(Game, plain)
 }

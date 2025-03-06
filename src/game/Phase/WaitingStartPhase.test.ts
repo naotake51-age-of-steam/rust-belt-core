@@ -7,7 +7,7 @@ let b: GameBuilder
 
 beforeEach(() => {
   u = new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-  g = initializeGame('00000000-0000-0000-0000-000000000000', u)
+  g = initializeGame()
   b = new GameBuilder(g)
 })
 

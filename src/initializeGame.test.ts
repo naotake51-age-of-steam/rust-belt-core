@@ -6,11 +6,7 @@ import { range } from 'utility'
 import { townMarkers } from './objects'
 
 test('initializeGame', () => {
-  const g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
-
-  expect(g.id).toBe('00000000-0000-0000-0000-000000000000')
-
-  expect(g.adminUser).toEqual({ id: '00000000-0000-0000-0000-000000000001', name: '山田太郎' })
+  const g = initializeGame()
 
   expect(g.users).toEqual([])
 

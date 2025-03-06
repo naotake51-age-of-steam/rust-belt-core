@@ -94,7 +94,7 @@ test('actionBuildTrackTile 新規配置できること。新規配置した線�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -148,7 +148,7 @@ test('actionBuildTrackTile 自身の線路の方向転換', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -186,7 +186,7 @@ test('actionBuildTrackTile 所有者なし線路の方向転換', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -222,7 +222,7 @@ test('actionBuildTrackTile 自身の線路の方向転換して所有者なし�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -269,7 +269,7 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して自信の�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -318,7 +318,7 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して所有者�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -363,7 +363,7 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して都市に�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -405,7 +405,7 @@ test('actionBuildTrackTile 所有者なし線路を拡張した場合、自信�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -442,7 +442,7 @@ test('actionBuildTrackTile 複数線路タイルで２つの都市から同時�
   t(
     ...mapC3R3_2,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -474,7 +474,7 @@ test('actionBuildTrackTile 所有者なし線路を拡張と方向転換を同�
   t(
     ...mapC3R3_3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -518,7 +518,7 @@ test('actionBuildTrackTile 自身が所有者の線路を拡張と方向転換�
   t(
     ...mapC3R3_3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -568,7 +568,7 @@ test('actionBuildTrackTile 都市にタイルを配置（SimpleTrackTileを配�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -606,7 +606,7 @@ test('actionBuildTrackTile 都市にタイルを配置（ComplexCoexistTrackTile
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -646,7 +646,7 @@ test('actionBuildTrackTile 都市にタイルを配置（TownTrackTileを配置�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -685,7 +685,7 @@ test('actionBuildTrackTile 都市にタイルを配置（自身が所有者の�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -729,7 +729,7 @@ test('actionBuildTrackTile 都市にタイルを配置（所有者なし線路�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -767,7 +767,7 @@ test('actionBuildTrackTile 町タイルの置き換え', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -814,7 +814,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -857,7 +857,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -896,7 +896,7 @@ test('actionBuildTrackTile 町タイルの置き換え（自身が所有して�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -939,7 +939,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -978,7 +978,7 @@ test('actionBuildTrackTile 町タイルの置き換え（自信が所有者の�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1022,7 +1022,7 @@ test('actionBuildCityTile 町スペースに都市を配置', () => {
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1053,7 +1053,7 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1085,7 +1085,7 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1128,7 +1128,7 @@ test('actionCompleteBuild 拡張しなかった線路は所有権を失う', () 
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1159,7 +1159,7 @@ test('actionCompleteBuild 拡張した線路は所有権を失わない', () => 
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1196,7 +1196,7 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1232,7 +1232,7 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1268,7 +1268,7 @@ test('actionCompleteBuild 方向転換および拡張した線路は所有権を
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1320,7 +1320,7 @@ test('actionCompleteBuild ComplexCoexistTrackTileで拡張と方向転換を同�
   t(
     ...mapC3R3_3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1374,7 +1374,7 @@ test('actionCompleteBuild 町タイルの置き換え（自信が所有者の線
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1432,7 +1432,7 @@ test('actionBuildTrackTile 通常プレイヤーは線路タイルを3個、都�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1472,7 +1472,7 @@ test('actionBuildTrackTile エンジニアアクションを選んだプレイ�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b
@@ -1516,7 +1516,7 @@ test('actionBuildTrackTile 都市化アクションを選んだプレイヤー�
   t(
     ...mapC3R3,
     function () {
-      g = initializeGame('00000000-0000-0000-0000-000000000000', new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+      g = initializeGame()
       b = new GameBuilder(g)
 
       g = b

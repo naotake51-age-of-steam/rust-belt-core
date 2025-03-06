@@ -1,33 +1,80 @@
-import { type Player, type GoodsCubeState, type TrackTileState, type CityTileState, type TownMarkerState, type Phase, type User } from 'game'
+import 'reflect-metadata'
+import { Type } from 'class-transformer'
+import { User, Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState, type Phase } from 'game'
 import { type MapSpace, type TrackTile, type CityTile, type GoodsCube, type TownMarker } from 'objects'
 import { createUniqueIndex, createIndex } from 'utility'
 
 export class Game {
-  public readonly trackTileStatesIndexByMapSpace: Map<number, TrackTileState>
-  public readonly cityTileStatesIndexByMapSpace: Map<number, CityTileState>
-  public readonly goodsCubeStatesIndexByMapSpace: Map<number, GoodsCubeState[]>
-  public readonly goodsCubeStatesIndexByGoodsDisplaySpace: Map<number, GoodsCubeState>
-  public readonly townMakerStatesIndexByTrackTile: Map<number, TownMarkerState>
+  private __trackTileStatesIndexByMapSpace?: Map<number, TrackTileState>
+
+  private __cityTileStatesIndexByMapSpace?: Map<number, CityTileState>
+  private __goodsCubeStatesIndexByMapSpace?: Map<number, GoodsCubeState[]>
+  private __goodsCubeStatesIndexByGoodsDisplaySpace?: Map<number, GoodsCubeState>
+  private __townMakerStatesIndexByTrackTile?: Map<number, TownMarkerState>
+
+  @Type(() => User)
+  public readonly users: User[]
+
+  @Type(() => Player)
+  public readonly players: Player[]
+
+  @Type(() => TrackTileState)
+  public readonly trackTileStates: TrackTileState[]
+
+  @Type(() => CityTileState)
+  public readonly cityTileStates: CityTileState[]
+
+  @Type(() => GoodsCubeState)
+  public readonly goodsCubeStates: GoodsCubeState[]
+
+  @Type(() => TownMarkerState)
+  public readonly townMakerStates: TownMarkerState[]
 
   constructor (
-    public readonly id: string,
-    public readonly adminUser: User,
-    public readonly users: User[],
+    users: User[],
     public readonly round: number,
     public readonly phase: Phase,
-    public readonly players: Player[], // ゲームが始まったら順序固定
+    players: Player[],
     public readonly turnPlayerId: number,
-    public readonly trackTileStates: TrackTileState[],
-    public readonly cityTileStates: CityTileState[],
-    public readonly goodsCubeStates: GoodsCubeState[],
-    public readonly townMakerStates: TownMarkerState[],
+    trackTileStates: TrackTileState[],
+    cityTileStates: CityTileState[],
+    goodsCubeStates: GoodsCubeState[],
+    townMakerStates: TownMarkerState[],
     public readonly histories: Array<{ id: string, fixed: boolean }>
   ) {
-    this.trackTileStatesIndexByMapSpace = createUniqueIndex(trackTileStates, 'mapSpaceId')
-    this.cityTileStatesIndexByMapSpace = createUniqueIndex(cityTileStates, 'mapSpaceId')
-    this.goodsCubeStatesIndexByMapSpace = createIndex(goodsCubeStates, 'mapSpaceId')
-    this.goodsCubeStatesIndexByGoodsDisplaySpace = createUniqueIndex(goodsCubeStates, 'goodsDisplaySpaceId')
-    this.townMakerStatesIndexByTrackTile = createUniqueIndex(townMakerStates, 'trackTileId')
+    this.users = users
+    this.players = players
+    this.trackTileStates = trackTileStates
+    this.cityTileStates = cityTileStates
+    this.goodsCubeStates = goodsCubeStates
+    this.townMakerStates = townMakerStates
+  }
+
+  get trackTileStatesIndexByMapSpace (): Map<number, TrackTileState> {
+    // eslint-disable-next-line no-return-assign
+    return this.__trackTileStatesIndexByMapSpace ??= createUniqueIndex(this.trackTileStates, 'mapSpaceId')
+  }
+
+  get cityTileStatesIndexByMapSpace (): Map<number, CityTileState> {
+    // eslint-disable-next-line no-return-assign
+    return this.__cityTileStatesIndexByMapSpace ??= createUniqueIndex(this.cityTileStates, 'mapSpaceId')
+  }
+
+  get goodsCubeStatesIndexByMapSpace (): Map<number, GoodsCubeState[]> {
+    // eslint-disable-next-line no-return-assign
+    return this.__goodsCubeStatesIndexByMapSpace ??= createIndex(this.goodsCubeStates, 'mapSpaceId')
+  }
+
+  get goodsCubeStatesIndexByGoodsDisplaySpace (): Map<number, GoodsCubeState> {
+    // eslint-disable-next-line no-return-assign
+    return this.__goodsCubeStatesIndexByGoodsDisplaySpace ??= createUniqueIndex(this.goodsCubeStates, 'goodsDisplaySpaceId')
+  }
+
+  get townMakerStatesIndexByTrackTile (): Map<number, TownMarkerState> {
+    if (this.__townMakerStatesIndexByTrackTile == null) {
+      this.__townMakerStatesIndexByTrackTile = createUniqueIndex(this.townMakerStates, 'trackTileId')
+    }
+    return this.__townMakerStatesIndexByTrackTile
   }
 
   public getTrackTileByMapSpace (mapSpace: MapSpace): TrackTile | null {
@@ -62,14 +109,8 @@ export class Game {
     throw new Error('Not implemented')
   }
 
-  public actionDestroy (): Game {
-    throw new Error('Not implemented')
-  }
-
   public deepCopy (): Game {
     return new Game(
-      this.id,
-      this.adminUser.deepCopy(),
       this.users.map(_ => _.deepCopy()),
       this.round,
       this.phase.deepCopy(),
