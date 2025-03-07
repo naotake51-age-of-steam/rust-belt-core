@@ -28,11 +28,11 @@ export function context (): Readonly<Context> {
   return _context
 }
 
-export function withContext<T> (context: Context, callback: () => T): T {
+export function withContext<T> (g: Game, u: User, callback: () => T): T {
   // NOTE:: 現状、非同期処理は考慮していない。必要であればAsyncLocalStorageを使って実すする。
   const prevContext = _context
   try {
-    _context = context
+    _context = setContext(g, u)
 
     return callback()
   } finally {
