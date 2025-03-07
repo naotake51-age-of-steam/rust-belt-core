@@ -1,4 +1,5 @@
 import { PhaseId } from 'enums'
+import { type PlayerColor } from 'enums/PlayerColor'
 import { GameError } from 'errors'
 import { type Game, type User, GameBuilder, context, type Phase, IssueSharesPhase, Player } from 'game'
 import { State } from 'game/State'
@@ -40,7 +41,7 @@ export class WaitingStartPhase extends State implements Phase {
     return g.players.findIndex(_ => _.uid === u.id) === -1
   }
 
-  public actionJoinUser (color: string): Game {
+  public actionJoinUser (color: PlayerColor): Game {
     const { g, u } = context()
     const b = new GameBuilder(g)
 

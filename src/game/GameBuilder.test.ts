@@ -1,6 +1,7 @@
 import { type Game, GameBuilder, Player, EndGamePhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { trackTiles, getMapSpace, goodsDisplaySpaces, cityTiles, townMarkers } from 'objects'
+import { PlayerColor } from '../enums/PlayerColor'
 import { goodsCubes } from '../objects/index'
 
 let g: Game
@@ -12,7 +13,7 @@ beforeEach(() => {
 })
 
 test('setTurnPlayer', () => {
-  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 4, 20, 0, 1)
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 4, 20, 0, 1)
 
   b.setTurnPlayer(player)
 
@@ -43,8 +44,8 @@ test('setPhase', () => {
 
 test('setPlayers', () => {
   const players = [
-    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 4, 20, 0, 1),
-    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 3, 15, 0, 1)
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 4, 20, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 3, 15, 0, 1)
   ]
 
   b.setPlayers(players)
@@ -168,7 +169,7 @@ test('setLineOwner', () => {
   const line = trackTile.lines[0]
   const mapSpace = getMapSpace(0)
 
-  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 4, 20, 0, 1)
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 4, 20, 0, 1)
 
   b.placeTrackTileToMapSpace(trackTile, mapSpace, 4) // 先にタイルが配置されている必要がある
   b.setLineOwner(line, player)

@@ -1,5 +1,6 @@
 import { setContext, type Game, User, GameBuilder, type WaitingStartPhase, IssueSharesPhase, Player } from 'game'
 import { initializeGame } from 'initializeGame'
+import { PlayerColor } from '../../enums/PlayerColor'
 
 let g: Game
 let u: User
@@ -23,7 +24,7 @@ test('canJoinUser ユーザーがまだ参加していない場合はTrue', () =
 
 test('canJoinUser ユーザーがすでに参加している場合はFalse', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000000', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.RED, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -35,12 +36,12 @@ test('canJoinUser ユーザーがすでに参加している場合はFalse', () 
 
 test('canJoinUser 参加上限に達している場合はFalse', () => {
   g = b.setPlayers([
-    new Player(0, '00000000-0000-0000-0000-000000000001', 'ユーザー1', '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', '#000004', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', '#000005', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000006', 'ユーザー6', '#000006', null, 1, 2, 10, 0, 1)
+    new Player(0, '00000000-0000-0000-0000-000000000001', 'ユーザー1', PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', PlayerColor.YELLOW, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', PlayerColor.PINK, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', PlayerColor.GRAY, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000006', 'ユーザー6', PlayerColor.ORANGE, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -57,12 +58,12 @@ test('actionJoinUser', () => {
 
   const phase = g.phase as WaitingStartPhase
 
-  expect(phase.actionJoinUser('#000000').players[0].uid).toEqual(u.id)
+  expect(phase.actionJoinUser(PlayerColor.RED).players[0].uid).toEqual(u.id)
 })
 
 test('canRemoveUser ユーザーが参加している場合はTrue', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000000', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.RED, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -84,7 +85,7 @@ test('canRemoveUser ユーザーが参加していない場合はFalse', () => {
 
 test('actionRemoveUser', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000000', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.RED, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -96,9 +97,9 @@ test('actionRemoveUser', () => {
 
 test('canStartGame ユーザーがゲームに参加していない場合はFalse', () => {
   g = b.setPlayers([
-    new Player(0, '00000000-0000-0000-0000-000000000001', 'ユーザー1', '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1)
+    new Player(0, '00000000-0000-0000-0000-000000000001', 'ユーザー1', PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', PlayerColor.YELLOW, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -110,8 +111,8 @@ test('canStartGame ユーザーがゲームに参加していない場合はFals
 
 test('canStartGame 参加ユーザーが下限に達していない場合はFalse', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -123,9 +124,9 @@ test('canStartGame 参加ユーザーが下限に達していない場合はFals
 
 test('canStartGame 参加ユーザーが下限に達している場合はTrue', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', PlayerColor.YELLOW, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -137,13 +138,13 @@ test('canStartGame 参加ユーザーが下限に達している場合はTrue', 
 
 test('canStartGame 参加ユーザー上限を超過している場合はFalse', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', '#000004', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', '#000005', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000006', 'ユーザー6', '#000006', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000007', 'ユーザー7', '#000007', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', PlayerColor.YELLOW, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', PlayerColor.PINK, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', PlayerColor.GRAY, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000006', 'ユーザー6', PlayerColor.ORANGE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000007', 'ユーザー7', PlayerColor.ORANGE, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -155,12 +156,12 @@ test('canStartGame 参加ユーザー上限を超過している場合はFalse',
 
 test('canStartGame 参加ユーザー上限を超過していない場合はTrue', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', '#000004', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', '#000005', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000007', 'ユーザー7', '#000007', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', PlayerColor.YELLOW, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', PlayerColor.PINK, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', PlayerColor.GRAY, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000007', 'ユーザー7', PlayerColor.ORANGE, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -171,9 +172,9 @@ test('canStartGame 参加ユーザー上限を超過していない場合はTrue
 })
 test('actionStartGame', () => {
   g = b.setPlayers([
-    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
-    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1)
+    new Player(0, u.id, u.name, PlayerColor.BLUE, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', PlayerColor.GREEN, null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', PlayerColor.YELLOW, null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)

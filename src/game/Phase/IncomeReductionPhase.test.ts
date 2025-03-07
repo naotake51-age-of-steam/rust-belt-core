@@ -1,5 +1,6 @@
 import { type Game, User, GameBuilder, Player, setContext, PayExpensesPhase, IncomeReductionPhase } from 'game'
 import { initializeGame } from 'initializeGame'
+import { PlayerColor } from '../../enums/PlayerColor'
 
 let g: Game
 let b: GameBuilder
@@ -14,7 +15,7 @@ test('prepare', () => {
 
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, income, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, income, 1)
     ])
     .setPhase(new PayExpensesPhase(''))
     .build()

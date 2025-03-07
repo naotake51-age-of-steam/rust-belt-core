@@ -1,5 +1,6 @@
 import { type Game, User, GameBuilder, Player, setContext, CollectIncomePhase, PayExpensesPhase } from 'game'
 import { initializeGame } from 'initializeGame'
+import { PlayerColor } from '../../enums/PlayerColor'
 
 let g: Game
 let b: GameBuilder
@@ -17,7 +18,7 @@ test('prepare', () => {
 
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, issuedShares, money, income, engine)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, issuedShares, money, income, engine)
     ])
     .setPhase(new CollectIncomePhase(''))
     .build()
@@ -40,7 +41,7 @@ test('prepare 所持金が足りない場合は収入を減らす', () => {
 
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, issuedShares, money, income, engine)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, issuedShares, money, income, engine)
     ])
     .setPhase(new CollectIncomePhase(''))
     .build()
@@ -64,7 +65,7 @@ test('prepare 所持金が足りない場合はエンジンを減らす 支払�
 
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, issuedShares, money, income, engine)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, issuedShares, money, income, engine)
     ])
     .setPhase(new CollectIncomePhase(''))
     .build()

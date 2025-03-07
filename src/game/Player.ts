@@ -1,4 +1,5 @@
 import { Action } from 'enums'
+import { type PlayerColor } from 'enums/PlayerColor'
 import { context } from 'game'
 import { State } from './State'
 
@@ -10,7 +11,7 @@ export class Player extends State {
     public readonly id: number,
     public readonly uid: string,
     public readonly name: string,
-    public readonly color: string,
+    public readonly color: PlayerColor,
     public readonly action: Action | null,
     public readonly order: number,
     public readonly issuedShares: number,

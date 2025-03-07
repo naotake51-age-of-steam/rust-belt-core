@@ -2,6 +2,7 @@ import { MapSpaceType, CityTileColor } from 'enums'
 import { type Game, GameBuilder, Player, User, setContext } from 'game'
 import { initializeGame } from 'initializeGame'
 import { CityTile, MapSpace, mapSpaces, cityTiles, trackTiles, getMapSpace, Line, TrackTile, townMarkers, TownMarker, Town } from 'objects'
+import { PlayerColor } from '../enums/PlayerColor'
 
 function forceReplaceArray<T> (target: readonly T[], replace: T[]): T[] {
   return (target as T[]).splice(0, target.length, ...replace)
@@ -53,7 +54,7 @@ test('getLinkedObject CityTileに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -78,7 +79,7 @@ test('getLinkedObject MapSpaceに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -103,7 +104,7 @@ test('getLinkedObject Lineに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
@@ -130,7 +131,7 @@ test('getLinkedObject TrackTileに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -156,7 +157,7 @@ test('getLinkedObject マップ外', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -181,7 +182,7 @@ test('getLinkedTerminalObject CityTileに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -206,7 +207,7 @@ test('getLinkedTerminalObject MapSpaceに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -231,7 +232,7 @@ test('getLinkedTerminalObject TrackTileに接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -257,7 +258,7 @@ test('getLinkedTerminalObject マップ外', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -282,7 +283,7 @@ test('getLinkedTerminalObject Lineを経由して都市に接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
@@ -308,7 +309,7 @@ test('getLinkedTerminalObject 複数Lineを経由して都市に接続', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 2)), 3)
@@ -335,7 +336,7 @@ test('getLinkedTerminalObject 複数Lineを経由して町（TownMarker）に接
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 0)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 1)
@@ -365,7 +366,7 @@ test('getLinkedTerminalObject 複数Lineを経由して町（Town）に接続', 
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 0)
         .placeTrackTileToMapSpace(trackTiles[144], getMapSpace(s(1, 1)), 1)

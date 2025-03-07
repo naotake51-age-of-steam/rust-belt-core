@@ -2,6 +2,7 @@ import { MapSpaceType, CityTileColor, Action } from 'enums'
 import { type Game, GameBuilder, Player, User, setContext, BuildTrackPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { CityTile, MapSpace, mapSpaces, cityTiles, trackTiles, getMapSpace, TownMarker, SimpleTrackTile, Town, TownTrackTile, townMarkers } from 'objects'
+import { PlayerColor } from '../../enums/PlayerColor'
 import { ComplexCoexistTrackTile } from '../../objects/TrackTile/ComplexCoexistTrackTile'
 import { ComplexCrossingTrackTile } from '../../objects/TrackTile/ComplexCrossingTrackTile'
 
@@ -99,7 +100,7 @@ test('actionBuildTrackTile 新規配置できること。新規配置した線�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -149,8 +150,8 @@ test('actionBuildTrackTile 自身の線路の方向転換', () => {
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
       ]
 
       g = b
@@ -186,8 +187,8 @@ test('actionBuildTrackTile 所有者なし線路の方向転換', () => {
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -217,14 +218,14 @@ test('actionBuildTrackTile 自身の線路の方向転換して所有者なし�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
       ]
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
@@ -265,8 +266,8 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して自信の�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
       ]
 
       g = b
@@ -313,8 +314,8 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して所有者�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
@@ -354,8 +355,8 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して都市に�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 4)
@@ -392,8 +393,8 @@ test('actionBuildTrackTile 所有者なし線路を拡張した場合、自信�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
@@ -425,8 +426,8 @@ test('actionBuildTrackTile 複数線路タイルで２つの都市から同時�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -453,7 +454,7 @@ test('actionBuildTrackTile 所有者なし線路を拡張と方向転換を同�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
@@ -493,7 +494,7 @@ test('actionBuildTrackTile 自身が所有者の線路を拡張と方向転換�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)]
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)]
 
       g = b
         .setPlayers(players)
@@ -541,7 +542,7 @@ test('actionBuildTrackTile 都市にタイルを配置（SimpleTrackTileを配�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -578,7 +579,7 @@ test('actionBuildTrackTile 都市にタイルを配置（ComplexCoexistTrackTile
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -617,7 +618,7 @@ test('actionBuildTrackTile 都市にタイルを配置（TownTrackTileを配置�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -655,7 +656,7 @@ test('actionBuildTrackTile 都市にタイルを配置（自身が所有者の�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -699,7 +700,7 @@ test('actionBuildTrackTile 都市にタイルを配置（所有者なし線路�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3) // 所有者なし
@@ -733,12 +734,12 @@ test('actionBuildTrackTile 町タイルの置き換え', () => {
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -782,7 +783,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -822,7 +823,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -857,7 +858,7 @@ test('actionBuildTrackTile 町タイルの置き換え（自身が所有して�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -900,7 +901,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -935,7 +936,7 @@ test('actionBuildTrackTile 町タイルの置き換え（自信が所有者の�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -978,12 +979,12 @@ test('actionBuildCityTile 町スペースに都市を配置', () => {
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.URBANIZATION, 1, 2, 10, 0, 1)
       ]
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -1011,7 +1012,7 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -1039,12 +1040,12 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.URBANIZATION, 1, 2, 10, 0, 1)
       ]
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -1083,12 +1084,12 @@ test('actionCompleteBuild 拡張しなかった線路は所有権を失う', () 
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -1115,7 +1116,7 @@ test('actionCompleteBuild 拡張した線路は所有権を失わない', () => 
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -1151,7 +1152,7 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -1186,7 +1187,7 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -1221,7 +1222,7 @@ test('actionCompleteBuild 方向転換および拡張した線路は所有権を
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -1272,7 +1273,7 @@ test('actionCompleteBuild ComplexCoexistTrackTileで拡張と方向転換を同�
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -1325,7 +1326,7 @@ test('actionCompleteBuild 町タイルの置き換え（自信が所有者の線
       b = new GameBuilder(g)
 
       const players = [
-        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
       ]
 
       g = b
@@ -1383,7 +1384,7 @@ test('actionBuildTrackTile 通常プレイヤーは線路タイルを3個、都�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.FIRST_MOVE, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.FIRST_MOVE, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -1420,7 +1421,7 @@ test('actionBuildTrackTile エンジニアアクションを選んだプレイ�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.ENGINEER, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.ENGINEER, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -1461,7 +1462,7 @@ test('actionBuildTrackTile 都市化アクションを選んだプレイヤー�
 
       g = b
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()

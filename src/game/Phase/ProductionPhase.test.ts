@@ -2,6 +2,7 @@ import { Action } from 'enums'
 import { type Game, User, GameBuilder, Player, setContext, IncomeReductionPhase, ProductionPhase, GoodsGrowthPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { getMapSpace, goodsCubes, goodsDisplayLines, s } from 'objects'
+import { PlayerColor } from '../../enums/PlayerColor'
 
 let g: Game
 let b: GameBuilder
@@ -14,7 +15,7 @@ beforeEach(() => {
 test('prepare Productionを選択しているプレイヤーがいればProductionPhaseに遷移', () => {
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
     .build()
@@ -30,7 +31,7 @@ test('prepare Productionを選択しているプレイヤーがいればProducti
 test('prepare Productionを選択しているプレイヤーがいなければGoodsGrowthPhaseに遷移', () => {
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.ENGINEER, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.ENGINEER, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
     .build()
@@ -46,7 +47,7 @@ test('prepare Productionを選択しているプレイヤーがいなければGo
 test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
     .build()
@@ -69,7 +70,7 @@ test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
 test('canPassProduction/actionProduceGoodsCubes', () => {
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
     .build()
@@ -92,7 +93,7 @@ test('canPassProduction/actionProduceGoodsCubes', () => {
 test('canPassProduction/actionPassProduction', () => {
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
     .build()
@@ -112,7 +113,7 @@ test('canPassProduction/actionPassProduction', () => {
 test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduction/actionCompleteProduction 商品を引いたら絶対に配置しないといけない', () => {
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
     .build()
@@ -159,7 +160,7 @@ test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduc
 test('canCompleteProduction 商品ディスプレイが空いていない場合は配置しなくてよい', () => {
   b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
 
@@ -190,7 +191,7 @@ test('canCompleteProduction 商品ディスプレイが空いていない場合�
 test('canCompleteProduction 商品が袋に残っていない場合は商品を補充できないのですぐに完了できる', () => {
   b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.PRODUCTION, 1, 2, 10, 0, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
     .setPhase(new IncomeReductionPhase(''))
 
