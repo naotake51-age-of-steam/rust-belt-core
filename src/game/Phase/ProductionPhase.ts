@@ -18,7 +18,7 @@ export class ProductionPhase extends State implements Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
-    const productionPlayer = b.game.players.find(_ => _.selectedAction === Action.PRODUCTION)
+    const productionPlayer = b.game.players.find(_ => _.action === Action.PRODUCTION)
     if (productionPlayer !== undefined) {
       b.setPhase(new ProductionPhase(false, [], []))
       b.setTurnPlayer(productionPlayer)

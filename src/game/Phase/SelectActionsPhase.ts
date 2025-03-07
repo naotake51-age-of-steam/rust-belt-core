@@ -10,15 +10,15 @@ export class SelectActionsPhase extends State implements Phase {
   public get selectableActions (): Action[] {
     const { g } = context()
 
-    const selectedActions = g.players.map(_ => _.selectedAction)
+    const actions = g.players.map(_ => _.action)
 
-    return allActions.filter(_ => !selectedActions.includes(_))
+    return allActions.filter(_ => !actions.includes(_))
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPlayers(b.game.players // DeterminePlayerOrderPhaseでorderを更新しているので、b.gameからデータを取得する必要がある
       .map(_ => _.produce((draft) => {
-        draft.selectedAction = null
+        draft.action = null
       })))
 
     b.setPhase(new SelectActionsPhase())
@@ -56,7 +56,7 @@ export class SelectActionsPhase extends State implements Phase {
 
     b.updatePlayer(
       p.produce(draft => {
-        draft.selectedAction = action
+        draft.action = action
       })
     )
 

@@ -62,10 +62,10 @@ export class BuildTrackPhase extends State implements Phase {
   public static getOrderedPlayers (): Player[] {
     const { g } = context()
     return [...g.players].sort((a, b) => {
-      if (a.selectedAction === Action.FIRST_BUILD) {
+      if (a.action === Action.FIRST_BUILD) {
         return -1
       }
-      if (b.selectedAction === Action.FIRST_BUILD) {
+      if (b.action === Action.FIRST_BUILD) {
         return 1
       }
       return a.order - b.order

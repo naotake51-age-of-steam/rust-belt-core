@@ -11,7 +11,7 @@ export class Player extends State {
     public readonly uid: string,
     public readonly name: string,
     public readonly color: string,
-    public readonly selectedAction: Action | null,
+    public readonly action: Action | null,
     public readonly order: number,
     public readonly issuedShares: number,
     public readonly money: number,
@@ -32,10 +32,10 @@ export class Player extends State {
   }
 
   public get placableTrackTileCount (): number {
-    return this.selectedAction === Action.ENGINEER ? 4 : 3
+    return this.action === Action.ENGINEER ? 4 : 3
   }
 
   public get placableCityTile (): number {
-    return this.selectedAction === Action.URBANIZATION ? 1 : 0
+    return this.action === Action.URBANIZATION ? 1 : 0
   }
 }

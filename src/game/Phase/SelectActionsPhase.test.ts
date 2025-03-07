@@ -28,9 +28,9 @@ test('prepare', () => {
 
   expect(phase).toBeInstanceOf(SelectActionsPhase)
 
-  expect(newGame.players[0].selectedAction).toBeNull()
-  expect(newGame.players[1].selectedAction).toBeNull()
-  expect(newGame.players[2].selectedAction).toBeNull()
+  expect(newGame.players[0].action).toBeNull()
+  expect(newGame.players[1].action).toBeNull()
+  expect(newGame.players[2].action).toBeNull()
 })
 
 test('canSelectAction まだ選択されていないアクションならTrue', () => {
@@ -86,7 +86,7 @@ test('actionSelectAction', () => {
 
   const newGame = phase.actionSelectAction(Action.LOCOMOTIVE)
 
-  expect(newGame.players[0].selectedAction).toBe(Action.LOCOMOTIVE)
+  expect(newGame.players[0].action).toBe(Action.LOCOMOTIVE)
   expect(newGame.turnPlayer.id).toBe(2)
 })
 
@@ -108,6 +108,6 @@ test('actionSelectAction 最終プレイヤーの場合は次のフェーズに�
 
   const newGame = phase.actionSelectAction(Action.LOCOMOTIVE)
 
-  expect(newGame.players[1].selectedAction).toBe(Action.LOCOMOTIVE)
+  expect(newGame.players[1].action).toBe(Action.LOCOMOTIVE)
   expect(newGame.phase).toBeInstanceOf(BuildTrackPhase)
 })

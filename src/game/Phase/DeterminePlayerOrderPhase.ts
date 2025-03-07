@@ -63,7 +63,7 @@ export class DeterminePlayerOrderPhase extends State implements Phase {
 
     const playerBids = [...g.players]
       .sort((a, b) => a.order - b.order)
-      .map(_ => new PlayerBid(_.id, 0, _.selectedAction === Action.TURN_ORDER_PASS, null))
+      .map(_ => new PlayerBid(_.id, 0, _.action === Action.TURN_ORDER_PASS, null))
 
     return b
       .setTurnPlayer(playerBids[0].player)
