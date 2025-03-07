@@ -45,8 +45,8 @@ export class EndGamePhase extends State implements Phase {
   public get message (): string {
     const { g } = context()
     return [
-      this.winners.map(_ => _.user.name).join('さん、') + 'さんが勝利しました！',
-      ...g.players.map((_, idx) => `${_.user.name}さん: ${this.playerScores[idx]}点`)
+      this.winners.map(_ => _.name).join('さん、') + 'さんが勝利しました！',
+      ...g.players.map((_, idx) => `${_.name}さん: ${this.playerScores[idx]}点`)
     ].join('\n')
   }
 

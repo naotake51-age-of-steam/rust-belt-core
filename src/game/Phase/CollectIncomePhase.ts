@@ -18,7 +18,7 @@ export class CollectIncomePhase extends State implements Phase, HasDelayExecute 
       const player = _.produce((draft) => {
         draft.money += _.income
       })
-      const message = `${_.user.name}さんは収入${_.income}$を得ます。（所持金: ${_.money + _.income}$）`
+      const message = `${_.name}さんは収入${_.income}$を得ます。（所持金: ${_.money + _.income}$）`
 
       newPlayers.push(player)
       playerMessages.push(message)

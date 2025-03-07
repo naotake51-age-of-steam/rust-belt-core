@@ -13,11 +13,8 @@ test('prepare', () => {
   const income = 11
 
   g = b
-    .setUsers([
-      new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-    ])
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, income, 1)
+      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, income, 1)
     ])
     .setPhase(new PayExpensesPhase(''))
     .build()

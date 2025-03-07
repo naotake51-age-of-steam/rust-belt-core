@@ -25,7 +25,7 @@ export class IncomeReductionPhase extends State implements Phase {
         draft.income = income
       })
 
-      const playerMessage = `${_.user.name}さんは収入が${reduceIncome}$減ります。（収入: ${income}$）`
+      const playerMessage = `${_.name}さんは収入が${reduceIncome}$減ります。（収入: ${income}$）`
 
       newPlayers.push(player)
       playerMessages.push(playerMessage)

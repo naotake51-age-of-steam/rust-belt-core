@@ -1,5 +1,5 @@
 import { type Action, PhaseId, allActions } from 'enums'
-import { type Game, context, Player, GameBuilder } from 'game'
+import { type Game, context, type Player, GameBuilder } from 'game'
 import { State } from 'game/State'
 import { BuildTrackPhase } from './BuildTrackPhase'
 import { type Phase } from './Phase'
@@ -36,7 +36,7 @@ export class SelectActionsPhase extends State implements Phase {
     if (p === null) throw new Error('user is not in the game')
     if (!p.hasTurn) throw new Error('user is not turn player')
 
-    return `${p.user.name}はアクションを選択してください`
+    return `${p.name}はアクションを選択してください`
   }
 
   public canSelectAction (action: Action): boolean {
@@ -54,7 +54,11 @@ export class SelectActionsPhase extends State implements Phase {
 
     const b = new GameBuilder(g)
 
-    b.updatePlayer(new Player(p.id, p.uid, action, p.order, p.issuedShares, p.money, p.income, p.engine))
+    b.updatePlayer(
+      p.produce(draft => {
+        draft.selectedAction = action
+      })
+    )
 
     if (nextPlayer !== null) {
       b.setTurnPlayer(nextPlayer)

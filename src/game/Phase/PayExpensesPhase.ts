@@ -28,7 +28,7 @@ export class PayExpensesPhase extends State implements Phase, HasDelayExecute {
         draft.income = income
       }))
 
-      let playerMessage = `${_.user.name}さんは${payment}$を支払います。（所持金: ${money}$）`
+      let playerMessage = `${_.name}さんは${payment}$を支払います。（所持金: ${money}$）`
 
       if (reduceIncome > 0) {
         playerMessage += ` 収入を${reduceIncome}$減らします。（収入: ${income}$）`

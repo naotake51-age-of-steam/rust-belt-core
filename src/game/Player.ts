@@ -1,5 +1,5 @@
 import { Action } from 'enums'
-import { type User, context } from 'game'
+import { context } from 'game'
 import { State } from './State'
 
 const MAX_ISSUABLE_SHARES = 15
@@ -9,6 +9,8 @@ export class Player extends State {
   constructor (
     public readonly id: number,
     public readonly uid: string,
+    public readonly name: string,
+    public readonly color: string,
     public readonly selectedAction: Action | null,
     public readonly order: number,
     public readonly issuedShares: number,
@@ -17,16 +19,6 @@ export class Player extends State {
     public readonly engine: number
   ) {
     super()
-  }
-
-  public get user (): User {
-    const { g } = context()
-
-    const user = g.users.find(u => u.id === this.uid)
-
-    if (user === undefined) throw new Error('user is not found')
-
-    return user
   }
 
   public get hasTurn (): boolean {

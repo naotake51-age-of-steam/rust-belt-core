@@ -34,7 +34,7 @@ export class ProductionPhase extends State implements Phase {
     if (p === null) throw new Error('user is not in the game')
     if (!p.hasTurn) throw new Error('user is not turn player')
 
-    return `${p.user.name}さんは商品を補充してください`
+    return `${p.name}さんは商品を補充してください`
   }
 
   public get placingGoodsCubes (): GoodsCube[] {

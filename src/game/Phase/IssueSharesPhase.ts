@@ -11,7 +11,7 @@ export class IssueSharesPhase extends State implements Phase {
   public get message (): string {
     const { g } = context()
 
-    const userName = g.turnPlayer.user.name
+    const userName = g.turnPlayer.name
     return `${userName}は株式を発行数を決定してください。`
   }
 

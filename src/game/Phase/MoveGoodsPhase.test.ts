@@ -52,13 +52,9 @@ test('canSelectGoodsCube マップ上に出ているキューブのみ選択可�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0)))
@@ -86,13 +82,9 @@ test('actionSelectGoodsCube', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0)))
@@ -125,41 +117,37 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving 移動力以上に�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 2),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 2),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
         // マップ端を一周
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 2)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(2, 0)), 0)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[111])
-        .setLineOwner(trackTiles[111].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[111].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[111].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[111].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(2, 1)), 0)
-        .setLineOwner(trackTiles[0].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[0].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 2)), 5)
-        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(0, 2)), 3)
         .placeTownMarkerToTrackTile(townMarkers[1], trackTiles[54])
-        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
-        .setLineOwner(trackTiles[1].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[1].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[1].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[1].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0))) // RED
         .placeGoodsCubeToMapSpace(goodsCubes[20], getMapSpace(s(0, 0))) // BLUE
@@ -216,41 +204,37 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving/actionCompleteMovin
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 3),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 3),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
       // マップ端を一周
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 2)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(2, 0)), 0)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[111])
-        .setLineOwner(trackTiles[111].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[111].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[111].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[111].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(2, 1)), 0)
-        .setLineOwner(trackTiles[0].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[0].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 2)), 5)
-        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(0, 2)), 3)
         .placeTownMarkerToTrackTile(townMarkers[1], trackTiles[54])
-        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
-        .setLineOwner(trackTiles[1].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[1].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[1].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[1].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
 
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0))) // RED
         .placeGoodsCubeToMapSpace(goodsCubes[20], getMapSpace(s(0, 0))) // BLUE

@@ -73,7 +73,7 @@ export class DeterminePlayerOrderPhase extends State implements Phase {
   public get message (): string {
     const { g } = context()
 
-    return `${this.latestActionMessage} ${g.turnPlayer.user.name}はアクションを決定してください。`
+    return `${this.latestActionMessage} ${g.turnPlayer.name}はアクションを決定してください。`
   }
 
   public minBids (): number {
@@ -111,7 +111,7 @@ export class DeterminePlayerOrderPhase extends State implements Phase {
 
     b.setPhase(new DeterminePlayerOrderPhase(
       this.playerBids.map(_ => _.playerId === p.id ? new PlayerBid(_.playerId, money, _.canSoftPass, _.order) : _),
-      `${p.user.name}は${money}をビットしました。`
+      `${p.name}は${money}をビットしました。`
     ))
 
     const nextPlayer = this.getNextPlayer()
@@ -145,7 +145,7 @@ export class DeterminePlayerOrderPhase extends State implements Phase {
 
     b.setPhase(new DeterminePlayerOrderPhase(
       this.playerBids.map(_ => _.playerId === p.id ? new PlayerBid(_.playerId, _.money, false, _.order) : _),
-      `${p.user.name}はソフトパスしました。`
+      `${p.name}はソフトパスしました。`
     ))
 
     const nextPlayer = this.getNextPlayer()
@@ -179,7 +179,7 @@ export class DeterminePlayerOrderPhase extends State implements Phase {
     } else {
       b.setPhase(new DeterminePlayerOrderPhase(
         this.playerBids.map(_ => _.playerId === p.id ? new PlayerBid(_.playerId, _.money, _.canSoftPass, unorderedPlayerBids) : _),
-        `${p.user.name}は降りました。`
+        `${p.name}は降りました。`
       ))
 
       const nextPlayer = this.getNextPlayer()

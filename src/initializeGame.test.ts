@@ -8,8 +8,6 @@ import { townMarkers } from './objects'
 test('initializeGame', () => {
   const g = initializeGame()
 
-  expect(g.users).toEqual([])
-
   expect(g.round).toBe(1)
 
   expect(g.phase).toEqual(new WaitingStartPhase([]))

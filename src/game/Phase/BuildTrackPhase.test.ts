@@ -98,11 +98,8 @@ test('actionBuildTrackTile 新規配置できること。新規配置した線�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -152,18 +149,14 @@ test('actionBuildTrackTile 自身の線路の方向転換', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -190,13 +183,9 @@ test('actionBuildTrackTile 所有者なし線路の方向転換', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -226,19 +215,15 @@ test('actionBuildTrackTile 自身の線路の方向転換して所有者なし�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         // 二本目
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(0, 2)), 3)
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(1, 2)), 2)
@@ -273,24 +258,20 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して自信の�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         // 二本目
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(0, 2)), 3)
-        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(1, 2)), 2)
-        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -322,13 +303,9 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して所有者�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
@@ -367,13 +344,9 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して都市に�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 4)
@@ -409,13 +382,9 @@ test('actionBuildTrackTile 所有者なし線路を拡張した場合、自信�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
@@ -446,13 +415,9 @@ test('actionBuildTrackTile 複数線路タイルで２つの都市から同時�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -478,11 +443,8 @@ test('actionBuildTrackTile 所有者なし線路を拡張と方向転換を同�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
@@ -522,24 +484,21 @@ test('actionBuildTrackTile 自身が所有者の線路を拡張と方向転換�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         // 2本目
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
-        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 0)
-        .setLineOwner(trackTiles[0].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[0].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -572,16 +531,13 @@ test('actionBuildTrackTile 都市にタイルを配置（SimpleTrackTileを配�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -610,16 +566,13 @@ test('actionBuildTrackTile 都市にタイルを配置（ComplexCoexistTrackTile
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -650,16 +603,13 @@ test('actionBuildTrackTile 都市にタイルを配置（TownTrackTileを配置�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -689,21 +639,18 @@ test('actionBuildTrackTile 都市にタイルを配置（自身が所有者の�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         // 2本目
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
-        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -733,11 +680,8 @@ test('actionBuildTrackTile 都市にタイルを配置（所有者なし線路�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3) // 所有者なし
@@ -771,20 +715,17 @@ test('actionBuildTrackTile 町タイルの置き換え', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[0])
-        .setLineOwner(trackTiles[0].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[0].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -818,11 +759,8 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -861,11 +799,8 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -900,19 +835,16 @@ test('actionBuildTrackTile 町タイルの置き換え（自身が所有して�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
-        .setLineOwner(trackTiles[0].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[0].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[0].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[0])
         .build()
 
@@ -943,11 +875,8 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -982,20 +911,17 @@ test('actionBuildTrackTile 町タイルの置き換え（自信が所有者の�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[144], getMapSpace(s(1, 1)), 2) // 0, 3, 5
-        .setLineOwner(trackTiles[144].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[144].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[144].lines[2], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[144].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[144].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[144].lines[2], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1026,16 +952,13 @@ test('actionBuildCityTile 町スペースに都市を配置', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', Action.URBANIZATION, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', Action.URBANIZATION, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1057,11 +980,8 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -1089,18 +1009,15 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 2)
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[53])
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(2, 1)), 1)
         .build()
@@ -1132,16 +1049,13 @@ test('actionCompleteBuild 拡張しなかった線路は所有権を失う', () 
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1163,16 +1077,13 @@ test('actionCompleteBuild 拡張した線路は所有権を失わない', () => 
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1200,16 +1111,13 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1236,16 +1144,13 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1272,16 +1177,13 @@ test('actionCompleteBuild 方向転換および拡張した線路は所有権を
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1324,24 +1226,21 @@ test('actionCompleteBuild ComplexCoexistTrackTileで拡張と方向転換を同�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
       // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 0)
-        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[53].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
       // 2本目
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(1, 0)), 0)
-        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[54].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1378,20 +1277,17 @@ test('actionCompleteBuild 町タイルの置き換え（自信が所有者の線
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[144], getMapSpace(s(1, 1)), 2) // 0, 3, 5
-        .setLineOwner(trackTiles[144].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[144].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[144].lines[2], new Player(0, '00000000-0000-0000-0000-000000000001', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[144].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[144].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[144].lines[2], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 2, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1436,11 +1332,8 @@ test('actionBuildTrackTile 通常プレイヤーは線路タイルを3個、都�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', Action.FIRST_MOVE, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.FIRST_MOVE, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -1476,11 +1369,8 @@ test('actionBuildTrackTile エンジニアアクションを選んだプレイ�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', Action.ENGINEER, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.ENGINEER, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()
@@ -1520,11 +1410,8 @@ test('actionBuildTrackTile 都市化アクションを選んだプレイヤー�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', Action.URBANIZATION, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', Action.URBANIZATION, 1, 2, 10, 0, 1)
         ])
         .setPhase(new BuildTrackPhase([], [], []))
         .build()

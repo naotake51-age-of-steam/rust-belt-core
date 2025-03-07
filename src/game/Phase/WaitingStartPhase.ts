@@ -1,14 +1,17 @@
 import { PhaseId } from 'enums'
 import { GameError } from 'errors'
-import { type Game, type User, GameBuilder, Player, context, type Phase, IssueSharesPhase } from 'game'
+import { type Game, type User, GameBuilder, context, type Phase, IssueSharesPhase, Player } from 'game'
 import { State } from 'game/State'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
-import { shuffleArray } from 'utility'
+import { range, shuffleArray } from 'utility'
 
 const MIN_PLAYERS = 3
 const MAX_PLAYERS = 6
+
 const INITIALIZE_ISSUE_SHARES = 2
 const INITIALIZE_MONEY = 10
+const INITIALIZE_INCOME = 0
+const INITIALIZE_ENGINE = 1
 
 export class WaitingStartPhase extends State implements Phase {
   public readonly id = PhaseId.WAITING_START
@@ -30,14 +33,14 @@ export class WaitingStartPhase extends State implements Phase {
   public canJoinUser (): boolean {
     const { g, u } = context()
 
-    if (MAX_PLAYERS <= g.users.length) {
+    if (MAX_PLAYERS <= g.players.length) {
       return false
     }
 
-    return g.users.findIndex(_ => _.id === u.id) === -1
+    return g.players.findIndex(_ => _.uid === u.id) === -1
   }
 
-  public actionJoinUser (): Game {
+  public actionJoinUser (color: string): Game {
     const { g, u } = context()
     const b = new GameBuilder(g)
 
@@ -45,13 +48,26 @@ export class WaitingStartPhase extends State implements Phase {
       throw new GameError('Cannot join user')
     }
 
-    return b.setUsers([...g.users, u]).build()
+    return b.setPlayers([
+      ...g.players,
+      new Player(
+        g.players.length,
+        u.id,
+        u.name,
+        color,
+        null,
+        0,
+        INITIALIZE_ISSUE_SHARES,
+        INITIALIZE_MONEY,
+        INITIALIZE_INCOME,
+        INITIALIZE_ENGINE
+      )]).build()
   }
 
   public canRemoveUser (): boolean {
     const { g, u } = context()
 
-    return g.users.findIndex(_ => _.id === u.id) !== -1
+    return g.players.findIndex(_ => _.uid === u.id) !== -1
   }
 
   public actionRemoveUser (): Game {
@@ -62,18 +78,18 @@ export class WaitingStartPhase extends State implements Phase {
       throw new GameError('Cannot remove user')
     }
 
-    return b.setUsers(g.users.filter(_ => _.id !== u.id)).build()
+    return b.setPlayers(g.players.filter(_ => _.uid !== u.id)).build()
   }
 
   public canStartGame (): boolean {
     const { g, u } = context()
 
-    if (g.users.findIndex(_ => _.id === u.id) === -1) {
+    if (g.players.findIndex(_ => _.uid === u.id) === -1) {
       // 参加しているユーザーでない場合はゲーム開始できない
       return false
     }
 
-    return MIN_PLAYERS <= g.users.length && g.users.length <= MAX_PLAYERS
+    return MIN_PLAYERS <= g.players.length && g.players.length <= MAX_PLAYERS
   }
 
   public actionStartGame (): Game {
@@ -84,9 +100,14 @@ export class WaitingStartPhase extends State implements Phase {
       throw new GameError('Cannot start game')
     }
 
+    const orders = shuffleArray(range(1, g.players.length))
+
     b.setPlayers(
-      shuffleArray(g.users)
-        .map((_, i) => new Player(i, _.id, null, i + 1, INITIALIZE_ISSUE_SHARES, INITIALIZE_MONEY, 0, 1))
+      g.players.map((_, i) => {
+        return _.produce(draft => {
+          draft.order = orders[i]
+        })
+      })
     )
 
     b.setPhase(

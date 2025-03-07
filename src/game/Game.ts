@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Type } from 'class-transformer'
-import { User, Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState, type Phase } from 'game'
+import { Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState, type Phase } from 'game'
 import { type MapSpace, type TrackTile, type CityTile, type GoodsCube, type TownMarker } from 'objects'
 import { createUniqueIndex, createIndex } from 'utility'
 import { State } from './State'
@@ -11,9 +11,6 @@ export class Game extends State {
   private __goodsCubeStatesIndexByMapSpace?: Map<number, GoodsCubeState[]>
   private __goodsCubeStatesIndexByGoodsDisplaySpace?: Map<number, GoodsCubeState>
   private __townMakerStatesIndexByTrackTile?: Map<number, TownMarkerState>
-
-  @Type(() => User)
-  public readonly users: User[]
 
   @Type(() => Player)
   public readonly players: Player[]
@@ -31,10 +28,9 @@ export class Game extends State {
   public readonly townMakerStates: TownMarkerState[]
 
   constructor (
-    users: User[],
+    players: Player[],
     public readonly round: number,
     public readonly phase: Phase,
-    players: Player[],
     public readonly turnPlayerId: number,
     trackTileStates: TrackTileState[],
     cityTileStates: CityTileState[],
@@ -44,7 +40,6 @@ export class Game extends State {
   ) {
     super()
 
-    this.users = users
     this.players = players
     this.trackTileStates = trackTileStates
     this.cityTileStates = cityTileStates

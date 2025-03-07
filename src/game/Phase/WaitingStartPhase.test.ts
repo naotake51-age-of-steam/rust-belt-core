@@ -1,4 +1,4 @@
-import { setContext, type Game, User, GameBuilder, type WaitingStartPhase, IssueSharesPhase } from 'game'
+import { setContext, type Game, User, GameBuilder, type WaitingStartPhase, IssueSharesPhase, Player } from 'game'
 import { initializeGame } from 'initializeGame'
 
 let g: Game
@@ -6,7 +6,7 @@ let u: User
 let b: GameBuilder
 
 beforeEach(() => {
-  u = new User('00000000-0000-0000-0000-000000000001', '山田太郎')
+  u = new User('00000000-0000-0000-0000-000000000000', '山田太郎')
   g = initializeGame()
   b = new GameBuilder(g)
 })
@@ -22,7 +22,9 @@ test('canJoinUser ユーザーがまだ参加していない場合はTrue', () =
 })
 
 test('canJoinUser ユーザーがすでに参加している場合はFalse', () => {
-  g = b.setUsers([u]).build()
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000000', null, 1, 2, 10, 0, 1)
+  ]).build()
 
   setContext(g, u)
 
@@ -32,13 +34,13 @@ test('canJoinUser ユーザーがすでに参加している場合はFalse', () 
 })
 
 test('canJoinUser 参加上限に達している場合はFalse', () => {
-  g = b.setUsers([
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA'),
-    new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB'),
-    new User('00000000-0000-0000-0000-00000000000c', 'ユーザーC'),
-    new User('00000000-0000-0000-0000-00000000000d', 'ユーザーD'),
-    new User('00000000-0000-0000-0000-00000000000e', 'ユーザーE'),
-    new User('00000000-0000-0000-0000-00000000000f', 'ユーザーF')
+  g = b.setPlayers([
+    new Player(0, '00000000-0000-0000-0000-000000000001', 'ユーザー1', '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', '#000004', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', '#000005', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000006', 'ユーザー6', '#000006', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -55,11 +57,13 @@ test('actionJoinUser', () => {
 
   const phase = g.phase as WaitingStartPhase
 
-  expect(phase.actionJoinUser().users).toEqual([u])
+  expect(phase.actionJoinUser('#000000').players[0].uid).toEqual(u.id)
 })
 
 test('canRemoveUser ユーザーが参加している場合はTrue', () => {
-  g = b.setUsers([u]).build()
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000000', null, 1, 2, 10, 0, 1)
+  ]).build()
 
   setContext(g, u)
 
@@ -69,7 +73,7 @@ test('canRemoveUser ユーザーが参加している場合はTrue', () => {
 })
 
 test('canRemoveUser ユーザーが参加していない場合はFalse', () => {
-  g = b.setUsers([]).build()
+  g = b.setPlayers([]).build()
 
   setContext(g, u)
 
@@ -79,20 +83,22 @@ test('canRemoveUser ユーザーが参加していない場合はFalse', () => {
 })
 
 test('actionRemoveUser', () => {
-  g = b.setUsers([u]).build()
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000000', null, 1, 2, 10, 0, 1)
+  ]).build()
 
   setContext(g, u)
 
   const phase = g.phase as WaitingStartPhase
 
-  expect(phase.actionRemoveUser().users).toEqual([])
+  expect(phase.actionRemoveUser().players).toEqual([])
 })
 
 test('canStartGame ユーザーがゲームに参加していない場合はFalse', () => {
-  g = b.setUsers([
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA'),
-    new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB'),
-    new User('00000000-0000-0000-0000-00000000000c', 'ユーザーC')
+  g = b.setPlayers([
+    new Player(0, '00000000-0000-0000-0000-000000000001', 'ユーザー1', '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -103,9 +109,9 @@ test('canStartGame ユーザーがゲームに参加していない場合はFals
 })
 
 test('canStartGame 参加ユーザーが下限に達していない場合はFalse', () => {
-  g = b.setUsers([
-    u,
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA')
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -116,10 +122,10 @@ test('canStartGame 参加ユーザーが下限に達していない場合はFals
 })
 
 test('canStartGame 参加ユーザーが下限に達している場合はTrue', () => {
-  g = b.setUsers([
-    u,
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA'),
-    new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB')
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -130,14 +136,14 @@ test('canStartGame 参加ユーザーが下限に達している場合はTrue', 
 })
 
 test('canStartGame 参加ユーザー上限を超過している場合はFalse', () => {
-  g = b.setUsers([
-    u,
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA'),
-    new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB'),
-    new User('00000000-0000-0000-0000-00000000000c', 'ユーザーC'),
-    new User('00000000-0000-0000-0000-00000000000d', 'ユーザーD'),
-    new User('00000000-0000-0000-0000-00000000000e', 'ユーザーE'),
-    new User('00000000-0000-0000-0000-00000000000f', 'ユーザーF')
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', '#000004', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', '#000005', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000006', 'ユーザー6', '#000006', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000007', 'ユーザー7', '#000007', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -148,13 +154,13 @@ test('canStartGame 参加ユーザー上限を超過している場合はFalse',
 })
 
 test('canStartGame 参加ユーザー上限を超過していない場合はTrue', () => {
-  g = b.setUsers([
-    u,
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA'),
-    new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB'),
-    new User('00000000-0000-0000-0000-00000000000c', 'ユーザーC'),
-    new User('00000000-0000-0000-0000-00000000000d', 'ユーザーD'),
-    new User('00000000-0000-0000-0000-00000000000e', 'ユーザーE')
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000004', 'ユーザー4', '#000004', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000005', 'ユーザー5', '#000005', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000007', 'ユーザー7', '#000007', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -164,10 +170,10 @@ test('canStartGame 参加ユーザー上限を超過していない場合はTrue
   expect(phase.canStartGame()).toBe(true)
 })
 test('actionStartGame', () => {
-  g = b.setUsers([
-    u,
-    new User('00000000-0000-0000-0000-00000000000a', 'ユーザーA'),
-    new User('00000000-0000-0000-0000-00000000000b', 'ユーザーB')
+  g = b.setPlayers([
+    new Player(0, u.id, u.name, '#000001', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000002', 'ユーザー2', '#000002', null, 1, 2, 10, 0, 1),
+    new Player(0, '00000000-0000-0000-0000-000000000003', 'ユーザー3', '#000003', null, 1, 2, 10, 0, 1)
   ]).build()
 
   setContext(g, u)
@@ -176,7 +182,7 @@ test('actionStartGame', () => {
 
   const newGame = phase.actionStartGame()
 
-  expect(newGame.players.length).toBe(3) // 順番はシャッフルされる
+  expect(newGame.players.length).toBe(3)
 
   expect(newGame.phase).toBeInstanceOf(IssueSharesPhase)
 

@@ -74,11 +74,8 @@ test('canPlaceToMapSpace 都市から線路を延ばせる', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -109,11 +106,8 @@ test('canPlaceToMapSpace タイル向きごとの都市接続判定', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -141,11 +135,8 @@ test('canPlaceToMapSpace 線路への接続判定', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .build()
@@ -165,11 +156,8 @@ test('canPlaceToMapSpace マップ外へ出てしまう場合はFalse', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .build()
@@ -189,11 +177,8 @@ test('canPlaceToMapSpace 都市から出て町へ線路を敷くケース', () =
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -213,11 +198,8 @@ test('canPlaceToMapSpace いきなり町へ線路を敷くことはできない'
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .build()
 
@@ -236,11 +218,8 @@ test('canPlaceToMapSpace すでにタイルが置かれている場合はFalse',
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .build()
@@ -260,13 +239,9 @@ test('canPlaceToMapSpace 他線路と都市に同時につながる場合', () =
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 2)), 3)
@@ -287,20 +262,16 @@ test('canPlaceToMapSpace 他人の線路につながる場合はFalse', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎'),
-          new User('00000000-0000-0000-0000-000000000002', '鈴木二郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1),
+          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
-        .setLineOwner(trackTiles[1].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[1].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[1].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[1].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 2)), 3)
-        .setLineOwner(trackTiles[52].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
-        .setLineOwner(trackTiles[52].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[0], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1))
+        .setLineOwner(trackTiles[52].lines[1], new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', '#000001', null, 3, 2, 10, 0, 1))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -319,11 +290,8 @@ test('canPlaceToMapSpace 町に配置して自身の町に戻らない場合はT
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
@@ -344,11 +312,8 @@ test('canPlaceToMapSpace 町以外に配置して同じ町、都市に戻らな�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 1)), 2)
@@ -370,11 +335,8 @@ test('canPlaceToMapSpace 循環するリンクができあがる場合はFalse',
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 0)), 0)
@@ -395,11 +357,8 @@ test('canReplaceToMapSpace 方向転換', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .build()
@@ -419,11 +378,8 @@ test('canReplaceToMapSpace 都市から2本目の線路を方向転換', () => {
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 2)), 3)
@@ -444,11 +400,8 @@ test('canReplaceToMapSpace 先端でない線路は方向転換できない', ()
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[1], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 2)), 3)
@@ -469,11 +422,8 @@ test('canReplaceToMapSpace フォローできない線路がある場合は置�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[119], getMapSpace(s(0, 1)), 0)
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 0)), 1)
@@ -494,11 +444,8 @@ test('canReplaceToMapSpace 同じタイルタイプ、線路の方向が同じ�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
@@ -519,11 +466,8 @@ test('canReplaceToMapSpace 町ヘクスに敷かれているタイルは方向�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 2)
@@ -544,11 +488,8 @@ test('canReplaceToMapSpace 町へ敷かれている線路の置き換え、フ�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 2)
@@ -569,11 +510,8 @@ test('canReplaceToMapSpace 町ヘクスの置き換えによって、循環す�
       b = new GameBuilder(g)
 
       g = b
-        .setUsers([
-          new User('00000000-0000-0000-0000-000000000001', '山田太郎')
-        ])
         .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', null, 1, 2, 10, 0, 1)
+          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', '#000000', null, 1, 2, 10, 0, 1)
         ])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 0)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(1, 1)), 1)

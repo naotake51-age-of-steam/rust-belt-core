@@ -1,4 +1,4 @@
-import { type Phase, type Game, type Player, type User, TrackTileState, GoodsCubeState, CityTileState, TownMarkerState } from 'game'
+import { type Phase, type Game, type Player, TrackTileState, GoodsCubeState, CityTileState, TownMarkerState } from 'game'
 import { type MapSpace, type GoodsCube, type Line, type TrackTile, type GoodsDisplaySpace, type CityTile, type TownMarker } from 'objects'
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] }
@@ -26,12 +26,6 @@ export class GameBuilder {
 
   public setPhase (phase: Phase): GameBuilder {
     this.game.phase = phase
-
-    return this
-  }
-
-  public setUsers (users: User[]): GameBuilder {
-    this.game.users = users
 
     return this
   }

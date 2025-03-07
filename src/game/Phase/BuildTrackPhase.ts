@@ -26,9 +26,9 @@ export class BuildTrackPhase extends State implements Phase {
   public get message (): string {
     const { g } = context()
     if (g.turnPlayer.placableTrackTileCount > 0) {
-      return `${g.turnPlayer.user.name}は都市(${g.turnPlayer.placableTrackTileCount})と線路(${g.turnPlayer.placableTrackTileCount})を敷設してください。`
+      return `${g.turnPlayer.name}は都市(${g.turnPlayer.placableTrackTileCount})と線路(${g.turnPlayer.placableTrackTileCount})を敷設してください。`
     } else {
-      return `${g.turnPlayer.user.name}は線路(${g.turnPlayer.placableTrackTileCount})を敷設してください。`
+      return `${g.turnPlayer.name}は線路(${g.turnPlayer.placableTrackTileCount})を敷設してください。`
     }
   }
 
