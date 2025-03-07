@@ -1,16 +1,12 @@
+import { State } from 'game/State'
 import { type TrackTile, type TownMarker, townMarkers, trackTiles } from 'objects'
 
-export class TownMarkerState {
+export class TownMarkerState extends State {
   constructor (
     public readonly id: number,
     public readonly trackTileId: number | null
-  ) { }
-
-  public deepCopy (): TownMarkerState {
-    return new TownMarkerState(
-      this.id,
-      this.trackTileId
-    )
+  ) {
+    super()
   }
 
   public get townMarker (): TownMarker {

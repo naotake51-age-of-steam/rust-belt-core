@@ -1,16 +1,12 @@
+import { State } from 'game/State'
 import { getMapSpace, type MapSpace, cityTiles, type CityTile } from 'objects'
 
-export class CityTileState {
+export class CityTileState extends State {
   constructor (
     public readonly id: number,
     public readonly mapSpaceId: number | null
-  ) { }
-
-  public deepCopy (): CityTileState {
-    return new CityTileState(
-      this.id,
-      this.mapSpaceId
-    )
+  ) {
+    super()
   }
 
   public get cityTile (): CityTile {

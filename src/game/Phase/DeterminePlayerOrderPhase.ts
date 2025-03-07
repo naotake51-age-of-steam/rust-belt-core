@@ -1,24 +1,18 @@
 import { Action, PhaseId } from 'enums'
 import { GameError } from 'errors'
-import { Player, type Game, GameBuilder, context } from 'game'
+import { type Player, type Game, GameBuilder, context } from 'game'
+import { State } from 'game/State'
 import { type Phase } from './Phase'
 import { SelectActionsPhase } from './SelectActionsPhase'
 
-export class PlayerBid {
+export class PlayerBid extends State {
   constructor (
     public readonly playerId: number,
     public readonly money: number,
     public readonly canSoftPass: boolean,
     public readonly order: number | null
-  ) {}
-
-  public deepCopy (): PlayerBid {
-    return new PlayerBid(
-      this.playerId,
-      this.money,
-      this.canSoftPass,
-      this.order
-    )
+  ) {
+    super()
   }
 
   public get player (): Player {
@@ -55,18 +49,13 @@ export class PlayerBid {
   }
 }
 
-export class DeterminePlayerOrderPhase implements Phase {
+export class DeterminePlayerOrderPhase extends State implements Phase {
   public readonly id = PhaseId.DETERMINE_PLAYER_ORDER
   constructor (
     public readonly playerBids: PlayerBid[], // order順
     public readonly latestActionMessage: string
-  ) { }
-
-  public deepCopy (): DeterminePlayerOrderPhase {
-    return new DeterminePlayerOrderPhase(
-      this.playerBids.map(_ => _.deepCopy()),
-      this.latestActionMessage
-    )
+  ) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -179,16 +168,10 @@ export class DeterminePlayerOrderPhase implements Phase {
     if (unorderedPlayerBids === 2) {
       this.playerBids.forEach(_ => {
         b.updatePlayer(
-          new Player(
-            _.player.id,
-            _.player.userId,
-            _.player.selectedAction,
-            _.getResultOrder(p),
-            _.player.issuedShares,
-            _.player.money - _.calculatePaymentAmount(this.playerBids.length),
-            _.player.income,
-            _.player.engine
-          )
+          _.player.produce((draft) => {
+            draft.order = _.getResultOrder(p)
+            draft.money -= _.calculatePaymentAmount(this.playerBids.length)
+          })
         )
       })
 

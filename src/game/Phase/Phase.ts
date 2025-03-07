@@ -4,7 +4,7 @@ import { type Game } from 'game/Game'
 export interface Phase {
   id: PhaseId
   message: string
-  deepCopy: () => Phase
+  cloneDeep: () => Phase
 }
 
 export interface HasDelayExecute {

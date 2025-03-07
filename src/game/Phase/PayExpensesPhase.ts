@@ -1,16 +1,15 @@
 import { PhaseId } from 'enums'
 import { type Game, context, IncomeReductionPhase } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
-import { Player } from 'game/Player'
+import { type Player } from 'game/Player'
+import { State } from 'game/State'
 import { type HasDelayExecute, type Phase } from './Phase'
 
-export class PayExpensesPhase implements Phase, HasDelayExecute {
+export class PayExpensesPhase extends State implements Phase, HasDelayExecute {
   public readonly id = PhaseId.PAY_EXPENSES
 
-  public constructor (public readonly message: string) {}
-
-  public deepCopy (): PayExpensesPhase {
-    return new PayExpensesPhase(this.message)
+  public constructor (public readonly message: string) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -24,16 +23,10 @@ export class PayExpensesPhase implements Phase, HasDelayExecute {
       const income = _.income < reduceIncome ? 0 : _.income - reduceIncome
       const shortage = reduceIncome - _.income
 
-      newPlayers.push(new Player(
-        _.id,
-        _.userId,
-        _.selectedAction,
-        _.order,
-        _.issuedShares,
-        money,
-        income,
-        _.engine
-      ))
+      newPlayers.push(_.produce((draft) => {
+        draft.money = money
+        draft.income = income
+      }))
 
       let playerMessage = `${_.user.name}さんは${payment}$を支払います。（所持金: ${money}$）`
 

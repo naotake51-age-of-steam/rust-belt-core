@@ -1,5 +1,5 @@
 import { MapSpaceType } from 'enums'
-import { User, GoodsCubeState, TownMarkerState, TrackTileState, WaitingStartPhase } from 'game'
+import { GoodsCubeState, TownMarkerState, TrackTileState, WaitingStartPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { cityTiles, goodsCubes, trackTiles } from 'objects'
 import { range } from 'utility'

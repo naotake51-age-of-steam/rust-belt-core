@@ -9,7 +9,7 @@ export class GoodsDisplayLine {
   ) {}
 
   public getGoodsCubes (quantity: number): GoodsCube[] {
-    const goodsCubes = this.goodsDisplaySpaces.map(_ => _.goodsCube).filter(_ => _ !== null) as GoodsCube[]
+    const goodsCubes = this.goodsDisplaySpaces.map(_ => _.goodsCube).filter(_ => _ !== null)
 
     return goodsCubes.slice(0, quantity)
   }

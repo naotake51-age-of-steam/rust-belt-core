@@ -1,12 +1,9 @@
 import { PhaseId } from 'enums'
+import { State } from 'game/State'
 import { type Phase } from './Phase'
 
-export class DestroyedGamePhase implements Phase {
+export class DestroyedGamePhase extends State implements Phase {
   public readonly id = PhaseId.DESTROYED_GAME
-
-  public deepCopy (): DestroyedGamePhase {
-    return new DestroyedGamePhase()
-  }
 
   public get message (): string {
     throw new Error('Not implemented')

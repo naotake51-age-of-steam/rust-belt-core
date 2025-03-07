@@ -2,20 +2,19 @@ import { PhaseId } from 'enums'
 import { context } from 'game'
 import { type Game } from 'game/Game'
 import { GameBuilder } from 'game/GameBuilder'
+import { State } from 'game/State'
 import { type GoodsDisplay, goodsDisplayBlack, goodsDisplayWhite } from 'objects'
 import { random, range } from 'utility'
 import { AdvanceTurnMarkerPhase } from './AdvanceTurnMarkerPhase'
 import { type HasDelayExecute, type Phase } from './Phase'
 
-export class GoodsGrowthPhase implements Phase, HasDelayExecute {
+export class GoodsGrowthPhase extends State implements Phase, HasDelayExecute {
   public readonly id = PhaseId.GOODS_GROWTH
 
   public constructor (
     public readonly message: string
-  ) {}
-
-  public deepCopy (): GoodsGrowthPhase {
-    return new GoodsGrowthPhase(this.message)
+  ) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {

@@ -9,7 +9,7 @@ export class GameBuilder {
   constructor (
     original: Game
   ) {
-    this.game = original.deepCopy()
+    this.game = original.cloneDeep()
   }
 
   public setTurnPlayer (player: Player): GameBuilder {
@@ -115,6 +115,6 @@ export class GameBuilder {
   }
 
   public build (): Game {
-    return this.game.deepCopy()
+    return this.game.cloneDeep().flesh()
   }
 }

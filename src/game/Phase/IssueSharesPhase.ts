@@ -1,15 +1,12 @@
 import { PhaseId } from 'enums'
 import { GameError } from 'errors'
-import { context, Player, GameBuilder, type Game } from 'game'
+import { context, type Player, GameBuilder, type Game } from 'game'
+import { State } from 'game/State'
 import { DeterminePlayerOrderPhase } from './DeterminePlayerOrderPhase'
 import { type Phase } from './Phase'
 
-export class IssueSharesPhase implements Phase {
+export class IssueSharesPhase extends State implements Phase {
   public readonly id = PhaseId.ISSUE_SHARES
-
-  public deepCopy (): IssueSharesPhase {
-    return new IssueSharesPhase()
-  }
 
   public get message (): string {
     const { g } = context()
@@ -57,16 +54,12 @@ export class IssueSharesPhase implements Phase {
 
     const nextPlayer = this.getNextPlayer(p)
 
-    b.updatePlayer(new Player(
-      p.id,
-      p.userId,
-      p.selectedAction,
-      p.order,
-      p.issuedShares + count,
-      p.money + count * 5,
-      p.income,
-      p.engine
-    ))
+    b.updatePlayer(
+      p.produce(draft => {
+        draft.issuedShares += count
+        draft.money += count * 5
+      })
+    )
 
     if (nextPlayer !== null) {
       b.setTurnPlayer(nextPlayer)

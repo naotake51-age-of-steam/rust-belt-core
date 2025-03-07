@@ -1,15 +1,12 @@
 import { PhaseId } from 'enums'
 import { EndGamePhase, type Game, IssueSharesPhase, context } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
+import { State } from 'game/State'
 import { type Phase } from './Phase'
 
-export class AdvanceTurnMarkerPhase implements Phase {
+export class AdvanceTurnMarkerPhase extends State implements Phase {
   public readonly id = PhaseId.BUILD_TRACK
   public readonly message = 'ターンマーカーを進めます。'
-
-  public deepCopy (): AdvanceTurnMarkerPhase {
-    return new AdvanceTurnMarkerPhase()
-  }
 
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPhase(new AdvanceTurnMarkerPhase())

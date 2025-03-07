@@ -1,7 +1,6 @@
-import { User } from 'game'
 import { initializeGame } from 'initializeGame'
 
-test('deepCopy', function () {
+test('cloneDeep', function () {
   const g = initializeGame()
-  expect(g.deepCopy()).toEqual(g)
+  expect(g.cloneDeep()).toEqual(g)
 })

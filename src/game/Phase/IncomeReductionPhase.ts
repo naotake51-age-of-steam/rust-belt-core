@@ -1,17 +1,16 @@
 import { PhaseId } from 'enums'
 import { type Game, context } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
-import { Player } from 'game/Player'
+import { type Player } from 'game/Player'
+import { State } from 'game/State'
 import { type Phase } from './Phase'
 import { ProductionPhase } from './ProductionPhase'
 
-export class IncomeReductionPhase implements Phase {
+export class IncomeReductionPhase extends State implements Phase {
   public readonly id = PhaseId.INCOME_REDUCTION
 
-  public constructor (public readonly message: string) {}
-
-  public deepCopy (): IncomeReductionPhase {
-    return new IncomeReductionPhase(this.message)
+  public constructor (public readonly message: string) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -22,16 +21,9 @@ export class IncomeReductionPhase implements Phase {
       const reduceIncome = this.getReduceIncome(_.income)
       const income = _.income - reduceIncome
 
-      const player = new Player(
-        _.id,
-        _.userId,
-        _.selectedAction,
-        _.order,
-        _.issuedShares,
-        _.money,
-        income,
-        _.engine
-      )
+      const player = _.produce((draft) => {
+        draft.income = income
+      })
 
       const playerMessage = `${_.user.name}さんは収入が${reduceIncome}$減ります。（収入: ${income}$）`
 

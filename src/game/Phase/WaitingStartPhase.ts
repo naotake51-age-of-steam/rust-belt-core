@@ -1,6 +1,7 @@
 import { PhaseId } from 'enums'
 import { GameError } from 'errors'
 import { type Game, type User, GameBuilder, Player, context, type Phase, IssueSharesPhase } from 'game'
+import { State } from 'game/State'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
 import { shuffleArray } from 'utility'
 
@@ -9,17 +10,13 @@ const MAX_PLAYERS = 6
 const INITIALIZE_ISSUE_SHARES = 2
 const INITIALIZE_MONEY = 10
 
-export class WaitingStartPhase implements Phase {
+export class WaitingStartPhase extends State implements Phase {
   public readonly id = PhaseId.WAITING_START
 
   constructor (
     public readonly joinedUsers: User[]
-  ) { }
-
-  public deepCopy (): WaitingStartPhase {
-    return new WaitingStartPhase(
-      this.joinedUsers.map(_ => _.deepCopy())
-    )
+  ) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {

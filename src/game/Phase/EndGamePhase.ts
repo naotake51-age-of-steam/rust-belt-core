@@ -2,17 +2,16 @@ import { PhaseId } from 'enums'
 import { type Game, context } from 'game'
 import { type GameBuilder } from 'game/GameBuilder'
 import { type Player } from 'game/Player'
+import { State } from 'game/State'
 import { initializeGame } from 'initializeGame'
 import { trackTiles } from 'objects'
 import { type Phase } from './Phase'
 
-export class EndGamePhase implements Phase {
+export class EndGamePhase extends State implements Phase {
   public readonly id = PhaseId.END_GAME
 
-  public constructor (public readonly playerScores: number[]) {}
-
-  public deepCopy (): EndGamePhase {
-    return new EndGamePhase(this.playerScores)
+  public constructor (public readonly playerScores: number[]) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {

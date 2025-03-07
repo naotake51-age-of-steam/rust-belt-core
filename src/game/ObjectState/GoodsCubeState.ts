@@ -1,17 +1,12 @@
+import { State } from 'game/State'
 import { type MapSpace, type GoodsDisplaySpace, getMapSpace, goodsDisplaySpaces, goodsCubes, type GoodsCube } from 'objects'
-export class GoodsCubeState {
+export class GoodsCubeState extends State {
   constructor (
     public readonly id: number,
     public readonly mapSpaceId: number | null, // 拡張マップで都市以外のスペースに配置する場合があるため、CityTileではなくMapSpaceに紐づける
     public readonly goodsDisplaySpaceId: number | null
-  ) { }
-
-  public deepCopy (): GoodsCubeState {
-    return new GoodsCubeState(
-      this.id,
-      this.mapSpaceId,
-      this.goodsDisplaySpaceId
-    )
+  ) {
+    super()
   }
 
   public get goodsCube (): GoodsCube {

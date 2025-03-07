@@ -1,11 +1,12 @@
 import { PhaseId, Action, MapSpaceType } from 'enums'
-import { GameBuilder, type Game, context, Player, MAX_ENGINE } from 'game'
+import { GameBuilder, type Game, context, type Player, MAX_ENGINE } from 'game'
+import { State } from 'game/State'
 import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker } from 'objects'
 import { Town } from '../../objects/TrackTile/Town'
 import { CollectIncomePhase } from './CollectIncomePhase'
 import { type Phase } from './Phase'
 
-export class MoveGoodsPhase implements Phase {
+export class MoveGoodsPhase extends State implements Phase {
   public readonly id = PhaseId.MOVE_GOODS
 
   constructor (
@@ -13,15 +14,8 @@ export class MoveGoodsPhase implements Phase {
     public readonly movingList: Array<{ spaceMapId: number, playerId: number | null }>,
     public readonly movingCounter: number, // 1 or 2
     public readonly incrementedLocomotivePlayerIds: number[] // プレイヤーは二回の輸送のうち一回だけ機関車を進められる
-  ) {}
-
-  public deepCopy (): MoveGoodsPhase {
-    return new MoveGoodsPhase(
-      this.selectedGoodsCubeId,
-      [...this.movingList],
-      this.movingCounter,
-      [...this.incrementedLocomotivePlayerIds]
-    )
+  ) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -180,16 +174,11 @@ export class MoveGoodsPhase implements Phase {
 
     if (!this.canCompleteMoving()) throw new Error('cannot complete moving')
 
-    b.setPlayers(g.players.map(_ => new Player(
-      _.id,
-      _.userId,
-      _.selectedAction,
-      _.order,
-      _.issuedShares,
-      _.money,
-      _.income + this.movingList.filter(moving => moving.playerId === _.id).length,
-      _.engine
-    )))
+    b.setPlayers(g.players.map(
+      _ => _.produce(draft => {
+        draft.income += this.movingList.filter(moving => moving.playerId === _.id).length
+      }))
+    )
 
     return this.next(b).build()
   }
@@ -225,16 +214,9 @@ export class MoveGoodsPhase implements Phase {
 
     const b = new GameBuilder(g)
 
-    b.updatePlayer(new Player(
-      p.id,
-      p.userId,
-      p.selectedAction,
-      p.order,
-      p.issuedShares,
-      p.money,
-      p.income,
-      p.engine + 1
-    ))
+    b.updatePlayer(p.produce(draft => {
+      draft.engine += 1
+    }))
 
     b.setPhase(new MoveGoodsPhase(
       this.selectedGoodsCubeId,

@@ -1,14 +1,11 @@
 import { type Action, PhaseId, allActions } from 'enums'
 import { type Game, context, Player, GameBuilder } from 'game'
+import { State } from 'game/State'
 import { BuildTrackPhase } from './BuildTrackPhase'
 import { type Phase } from './Phase'
 
-export class SelectActionsPhase implements Phase {
+export class SelectActionsPhase extends State implements Phase {
   public readonly id = PhaseId.SELECT_ACTIONS
-
-  public deepCopy (): SelectActionsPhase {
-    return new SelectActionsPhase()
-  }
 
   public get selectableActions (): Action[] {
     const { g } = context()
@@ -20,7 +17,10 @@ export class SelectActionsPhase implements Phase {
 
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPlayers(b.game.players // DeterminePlayerOrderPhaseでorderを更新しているので、b.gameからデータを取得する必要がある
-      .map(_ => new Player(_.id, _.userId, null, _.order, _.issuedShares, _.money, _.income, _.engine)))
+      .map(_ => _.produce((draft) => {
+        draft.selectedAction = null
+      })))
+
     b.setPhase(new SelectActionsPhase())
 
     const firstPlayer = b.game.players.find(_ => _.order === 1)
@@ -54,7 +54,7 @@ export class SelectActionsPhase implements Phase {
 
     const b = new GameBuilder(g)
 
-    b.updatePlayer(new Player(p.id, p.userId, action, p.order, p.issuedShares, p.money, p.income, p.engine))
+    b.updatePlayer(new Player(p.id, p.uid, action, p.order, p.issuedShares, p.money, p.income, p.engine))
 
     if (nextPlayer !== null) {
       b.setTurnPlayer(nextPlayer)

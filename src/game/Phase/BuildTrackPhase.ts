@@ -1,11 +1,12 @@
 import { PhaseId, Action, MapSpaceType } from 'enums'
-import { GameBuilder, type Game, context, Player } from 'game'
+import { GameBuilder, type Game, context, type Player } from 'game'
+import { State } from 'game/State'
 import { trackTiles, getMapSpace, cityTiles, Line, TownMarker, TownTrackTile, townMarkers } from 'objects'
 import { determineNewLineOwner } from './BuildTrackPhase/DetermineNewLineOwner'
 import { MoveGoodsPhase } from './MoveGoodsPhase'
 import { type Phase } from './Phase'
 
-export class BuildTrackPhase implements Phase {
+export class BuildTrackPhase extends State implements Phase {
   public readonly id = PhaseId.BUILD_TRACK
 
   constructor (
@@ -13,16 +14,7 @@ export class BuildTrackPhase implements Phase {
     public readonly buildingCityTileIds: number[], // buildingTrackTileIdsに合わせて配列で持つようにした
     public readonly newLines: Array<{ trackTileId: number, number: number }> // 置き換え/方向転換しただけの線路は拡張にならないので、ターン終了後に所有権がなくなる
   ) {
-  }
-
-  public deepCopy (): BuildTrackPhase {
-    return new BuildTrackPhase(
-      [...this.buildingTrackTileIds],
-      [...this.buildingCityTileIds],
-      this.newLines.map(_ => {
-        return { ..._ }
-      })
-    )
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -110,16 +102,11 @@ export class BuildTrackPhase implements Phase {
     const mapSpace = getMapSpace(mapSpaceId)
 
     const buildingCost = mapSpace.trackTile === null ? trackTile.calculateCostOfPlaceToMapSpace(mapSpace) : trackTile.calculateCostOfReplaceToMapSpace(mapSpace)
-    b.updatePlayer(new Player(
-      p.id,
-      p.userId,
-      p.selectedAction,
-      p.order,
-      p.issuedShares,
-      p.money - buildingCost,
-      p.income,
-      p.engine
-    ))
+    b.updatePlayer(
+      p.produce(draft => {
+        draft.money -= buildingCost
+      })
+    )
 
     let releaseTownMarker: TownMarker | null = null
     if (mapSpace.trackTile !== null) {

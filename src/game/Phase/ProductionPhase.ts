@@ -1,25 +1,20 @@
 import { Action, PhaseId } from 'enums'
 import { type Game, context } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
+import { State } from 'game/State'
 import { type GoodsCube, clothBag, goodsCubes, goodsDisplayLines } from 'objects'
 import { GoodsGrowthPhase } from './GoodsGrowthPhase'
 import { type Phase } from './Phase'
 
-export class ProductionPhase implements Phase {
+export class ProductionPhase extends State implements Phase {
   public readonly id = PhaseId.PRODUCTION
 
   constructor (
     public readonly isExecuteProduction: boolean, // 商品を引いたら絶対に配置しないといけないらしい
     public readonly placingGoodsCubeIds: number[], // 商品が残っていない可能性があるので[number, number]とはしない。
     public readonly placedGoodsDisplayLineIds: number[] // 同じ都市に複数個置くことはできない
-  ) {}
-
-  public deepCopy (): ProductionPhase {
-    return new ProductionPhase(
-      this.isExecuteProduction,
-      [...this.placingGoodsCubeIds],
-      [...this.placedGoodsDisplayLineIds]
-    )
+  ) {
+    super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
