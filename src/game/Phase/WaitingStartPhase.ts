@@ -32,13 +32,13 @@ export class WaitingStartPhase extends State implements Phase {
   }
 
   public canJoinUser (): boolean {
-    const { g, u } = context()
+    const { g, p } = context()
 
     if (MAX_PLAYERS <= g.players.length) {
       return false
     }
 
-    return g.players.findIndex(_ => _.uid === u.id) === -1
+    return p === null
   }
 
   public actionJoinUser (color: PlayerColor): Game {
@@ -66,26 +66,26 @@ export class WaitingStartPhase extends State implements Phase {
   }
 
   public canRemoveUser (): boolean {
-    const { g, u } = context()
+    const { p } = context()
 
-    return g.players.findIndex(_ => _.uid === u.id) !== -1
+    return p !== null
   }
 
   public actionRemoveUser (): Game {
-    const { g, u } = context()
+    const { g, p } = context()
     const b = new GameBuilder(g)
 
     if (!this.canRemoveUser()) {
       throw new GameError('Cannot remove user')
     }
 
-    return b.setPlayers(g.players.filter(_ => _.uid !== u.id)).build()
+    return b.setPlayers(g.players.filter(_ => _.id !== p?.id)).build()
   }
 
   public canStartGame (): boolean {
-    const { g, u } = context()
+    const { g, p } = context()
 
-    if (g.players.findIndex(_ => _.uid === u.id) === -1) {
+    if (p === null) {
       // 参加しているユーザーでない場合はゲーム開始できない
       return false
     }
