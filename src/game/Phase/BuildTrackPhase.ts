@@ -1,12 +1,11 @@
 import { PhaseId, Action, MapSpaceType } from 'enums'
 import { GameBuilder, type Game, context, type Player } from 'game'
-import { State } from 'game/State'
 import { trackTiles, getMapSpace, cityTiles, Line, TownMarker, TownTrackTile, townMarkers } from 'objects'
 import { determineNewLineOwner } from './BuildTrackPhase/DetermineNewLineOwner'
 import { MoveGoodsPhase } from './MoveGoodsPhase'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class BuildTrackPhase extends State implements Phase {
+export class BuildTrackPhase extends Phase {
   public readonly id = PhaseId.BUILD_TRACK
 
   constructor (

@@ -1,10 +1,9 @@
 import { PhaseId } from 'enums'
 import { EndGamePhase, type Game, IssueSharesPhase, context } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
-import { State } from 'game/State'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class AdvanceTurnMarkerPhase extends State implements Phase {
+export class AdvanceTurnMarkerPhase extends Phase {
   public readonly id = PhaseId.BUILD_TRACK
   public readonly message = 'ターンマーカーを進めます。'
 

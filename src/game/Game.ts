@@ -1,7 +1,25 @@
 import 'reflect-metadata'
-import { Type } from 'class-transformer'
-import { Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState, type Phase } from 'game'
+import { Type, Transform, plainToInstance } from 'class-transformer'
+import { PhaseId } from 'enums'
+import { type Phase, Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState } from 'game'
+import {
+  WaitingStartPhase,
+  IssueSharesPhase,
+  DeterminePlayerOrderPhase,
+  SelectActionsPhase,
+  BuildTrackPhase,
+  MoveGoodsPhase,
+  CollectIncomePhase,
+  PayExpensesPhase,
+  IncomeReductionPhase,
+  ProductionPhase,
+  GoodsGrowthPhase,
+  AdvanceTurnMarkerPhase,
+  EndGamePhase,
+  DestroyedGamePhase
+} from 'game'
 import { type MapSpace, type TrackTile, type CityTile, type GoodsCube, type TownMarker } from 'objects'
+import { match } from 'ts-pattern'
 import { createUniqueIndex, createIndex } from 'utility'
 import { State } from './State'
 
@@ -27,10 +45,34 @@ export class Game extends State {
   @Type(() => TownMarkerState)
   public readonly townMakerStates: TownMarkerState[]
 
+  @Transform(({ value }) => {
+    return plainToInstance(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+      match(PhaseId[value.id])
+        .with(PhaseId.WAITING_START, () => WaitingStartPhase)
+        .with(PhaseId.ISSUE_SHARES, () => IssueSharesPhase)
+        .with(PhaseId.DETERMINE_PLAYER_ORDER, () => DeterminePlayerOrderPhase)
+        .with(PhaseId.SELECT_ACTIONS, () => SelectActionsPhase)
+        .with(PhaseId.BUILD_TRACK, () => BuildTrackPhase)
+        .with(PhaseId.MOVE_GOODS, () => MoveGoodsPhase)
+        .with(PhaseId.COLLECT_INCOME, () => CollectIncomePhase)
+        .with(PhaseId.PAY_EXPENSES, () => PayExpensesPhase)
+        .with(PhaseId.INCOME_REDUCTION, () => IncomeReductionPhase)
+        .with(PhaseId.PRODUCTION, () => ProductionPhase)
+        .with(PhaseId.GOODS_GROWTH, () => GoodsGrowthPhase)
+        .with(PhaseId.ADVANCE_TURN_MARKER, () => AdvanceTurnMarkerPhase)
+        .with(PhaseId.END_GAME, () => EndGamePhase)
+        .with(PhaseId.DESTROYED_GAME, () => DestroyedGamePhase)
+        .exhaustive()
+      , value)
+  })
+  public readonly phase: Phase
+
   constructor (
     players: Player[],
     public readonly round: number,
-    public readonly phase: Phase,
+    phase: Phase,
     public readonly turnPlayerId: number,
     trackTileStates: TrackTileState[],
     cityTileStates: CityTileState[],
@@ -41,6 +83,7 @@ export class Game extends State {
     super()
 
     this.players = players
+    this.phase = phase
     this.trackTileStates = trackTileStates
     this.cityTileStates = cityTileStates
     this.goodsCubeStates = goodsCubeStates

@@ -2,12 +2,11 @@ import { PhaseId } from 'enums'
 import { type Game, context } from 'game'
 import { type GameBuilder } from 'game/GameBuilder'
 import { type Player } from 'game/Player'
-import { State } from 'game/State'
 import { initializeGame } from 'initializeGame'
 import { trackTiles } from 'objects'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class EndGamePhase extends State implements Phase {
+export class EndGamePhase extends Phase {
   public readonly id = PhaseId.END_GAME
 
   public constructor (public readonly playerScores: number[]) {

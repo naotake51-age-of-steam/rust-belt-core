@@ -2,7 +2,7 @@ import { Action, PhaseId } from 'enums'
 import { GameError } from 'errors'
 import { type Player, type Game, GameBuilder, context } from 'game'
 import { State } from 'game/State'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 import { SelectActionsPhase } from './SelectActionsPhase'
 
 export class PlayerBid extends State {
@@ -49,7 +49,7 @@ export class PlayerBid extends State {
   }
 }
 
-export class DeterminePlayerOrderPhase extends State implements Phase {
+export class DeterminePlayerOrderPhase extends Phase {
   public readonly id = PhaseId.DETERMINE_PLAYER_ORDER
   constructor (
     public readonly playerBids: PlayerBid[], // order順

@@ -1,8 +1,7 @@
 import { PhaseId } from 'enums'
-import { State } from 'game/State'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class DestroyedGamePhase extends State implements Phase {
+export class DestroyedGamePhase extends Phase {
   public readonly id = PhaseId.DESTROYED_GAME
 
   public get message (): string {

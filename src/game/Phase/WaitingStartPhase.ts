@@ -1,10 +1,10 @@
 import { PhaseId } from 'enums'
 import { type PlayerColor } from 'enums/PlayerColor'
 import { GameError } from 'errors'
-import { type Game, type User, GameBuilder, context, type Phase, IssueSharesPhase, Player } from 'game'
-import { State } from 'game/State'
+import { type Game, type User, GameBuilder, context, IssueSharesPhase, Player } from 'game'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
 import { range, shuffleArray } from 'utility'
+import { Phase } from './Phase'
 
 const MIN_PLAYERS = 3
 const MAX_PLAYERS = 6
@@ -14,7 +14,7 @@ const INITIALIZE_MONEY = 10
 const INITIALIZE_INCOME = 0
 const INITIALIZE_ENGINE = 1
 
-export class WaitingStartPhase extends State implements Phase {
+export class WaitingStartPhase extends Phase {
   public readonly id = PhaseId.WAITING_START
 
   constructor (

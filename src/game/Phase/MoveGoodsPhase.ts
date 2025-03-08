@@ -1,12 +1,11 @@
 import { PhaseId, Action, MapSpaceType } from 'enums'
 import { GameBuilder, type Game, context, type Player, MAX_ENGINE } from 'game'
-import { State } from 'game/State'
 import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker } from 'objects'
 import { Town } from '../../objects/TrackTile/Town'
 import { CollectIncomePhase } from './CollectIncomePhase'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class MoveGoodsPhase extends State implements Phase {
+export class MoveGoodsPhase extends Phase {
   public readonly id = PhaseId.MOVE_GOODS
 
   constructor (

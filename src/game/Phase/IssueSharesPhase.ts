@@ -1,11 +1,10 @@
 import { PhaseId } from 'enums'
 import { GameError } from 'errors'
 import { context, type Player, GameBuilder, type Game } from 'game'
-import { State } from 'game/State'
 import { DeterminePlayerOrderPhase } from './DeterminePlayerOrderPhase'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class IssueSharesPhase extends State implements Phase {
+export class IssueSharesPhase extends Phase {
   public readonly id = PhaseId.ISSUE_SHARES
 
   public get message (): string {

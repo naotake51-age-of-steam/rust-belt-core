@@ -2,11 +2,10 @@ import { PhaseId } from 'enums'
 import { type Game, context } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
 import { type Player } from 'game/Player'
-import { State } from 'game/State'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 import { ProductionPhase } from './ProductionPhase'
 
-export class IncomeReductionPhase extends State implements Phase {
+export class IncomeReductionPhase extends Phase {
   public readonly id = PhaseId.INCOME_REDUCTION
 
   public constructor (public readonly message: string) {

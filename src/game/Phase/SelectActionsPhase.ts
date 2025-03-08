@@ -1,10 +1,9 @@
 import { type Action, PhaseId, allActions } from 'enums'
 import { type Game, context, type Player, GameBuilder } from 'game'
-import { State } from 'game/State'
 import { BuildTrackPhase } from './BuildTrackPhase'
-import { type Phase } from './Phase'
+import { Phase } from './Phase'
 
-export class SelectActionsPhase extends State implements Phase {
+export class SelectActionsPhase extends Phase {
   public readonly id = PhaseId.SELECT_ACTIONS
 
   public get selectableActions (): Action[] {
