@@ -32,8 +32,8 @@ export class SelectActionsPhase extends Phase {
 
   public get message (): string {
     const { p } = context()
+
     if (p === null) throw new Error('user is not in the game')
-    if (!p.hasTurn) throw new Error('user is not turn player')
 
     return `${p.name}はアクションを選択してください`
   }

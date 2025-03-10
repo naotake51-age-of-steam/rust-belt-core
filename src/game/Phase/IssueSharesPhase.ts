@@ -24,6 +24,12 @@ export class IssueSharesPhase extends Phase {
     return b
   }
 
+  public isTurnPlayer (): boolean {
+    const { p } = context()
+
+    return p?.hasTurn ?? false
+  }
+
   public maxIssueShares (): number {
     const { p } = context()
 

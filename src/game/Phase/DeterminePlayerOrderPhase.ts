@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer'
 import { Action, PhaseId } from 'enums'
 import { GameError } from 'errors'
 import { type Player, type Game, GameBuilder, context } from 'game'
@@ -51,11 +52,17 @@ export class PlayerBid extends State {
 
 export class DeterminePlayerOrderPhase extends Phase {
   public readonly id = PhaseId.DETERMINE_PLAYER_ORDER
+
+  @Type(() => PlayerBid)
+  public readonly playerBids: PlayerBid[] // order順
+
   constructor (
-    public readonly playerBids: PlayerBid[], // order順
+    playerBids: PlayerBid[], // order順
     public readonly latestActionMessage: string
   ) {
     super()
+
+    this.playerBids = playerBids
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -73,7 +80,13 @@ export class DeterminePlayerOrderPhase extends Phase {
   public get message (): string {
     const { g } = context()
 
-    return `${this.latestActionMessage} ${g.turnPlayer.name}はビット数を決定してください。`
+    return `${this.latestActionMessage} ${g.turnPlayer.name}はビットを行ってください。`
+  }
+
+  public isTurnPlayer (): boolean {
+    const { p } = context()
+
+    return p?.hasTurn ?? false
   }
 
   public minBids (): number {

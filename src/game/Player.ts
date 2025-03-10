@@ -23,9 +23,9 @@ export class Player extends State {
   }
 
   public get hasTurn (): boolean {
-    const { g, p } = context()
+    const { g } = context()
 
-    return g.turnPlayer.id === p?.id
+    return g.turnPlayer.id === this.id
   }
 
   public get remainingIssuableShares (): number {
