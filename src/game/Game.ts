@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { Type, Transform, plainToInstance } from 'class-transformer'
+import { Type, Transform, plainToInstance, Exclude } from 'class-transformer'
 import { PhaseId } from 'enums'
 import { type Phase, Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState } from 'game'
 import {
@@ -24,10 +24,19 @@ import { createUniqueIndex, createIndex } from 'utility'
 import { State } from './State'
 
 export class Game extends State {
-  protected __trackTileStatesIndexByMapSpace?: Map<number, TrackTileState>
+  @Exclude()
+  private __trackTileStatesIndexByMapSpace?: Map<number, TrackTileState>
+
+  @Exclude()
   private __cityTileStatesIndexByMapSpace?: Map<number, CityTileState>
+
+  @Exclude()
   private __goodsCubeStatesIndexByMapSpace?: Map<number, GoodsCubeState[]>
+
+  @Exclude()
   private __goodsCubeStatesIndexByGoodsDisplaySpace?: Map<number, GoodsCubeState>
+
+  @Exclude()
   private __townMakerStatesIndexByTrackTile?: Map<number, TownMarkerState>
 
   @Type(() => Player)
@@ -77,8 +86,7 @@ export class Game extends State {
     trackTileStates: TrackTileState[],
     cityTileStates: CityTileState[],
     goodsCubeStates: GoodsCubeState[],
-    townMakerStates: TownMarkerState[],
-    public readonly histories: Array<{ id: string, fixed: boolean }>
+    townMakerStates: TownMarkerState[]
   ) {
     super()
 

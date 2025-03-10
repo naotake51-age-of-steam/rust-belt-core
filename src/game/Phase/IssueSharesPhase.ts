@@ -79,22 +79,4 @@ export class IssueSharesPhase extends Phase {
 
     return players[nextIndex]
   }
-
-  public actionPassShares (): Game {
-    const { p, g } = context()
-    const b = new GameBuilder(g)
-
-    if (p === null) throw new Error('user is not in the game')
-    if (!p.hasTurn) throw new Error('user is not turn player')
-
-    const nextPlayer = this.getNextPlayer(p)
-
-    if (nextPlayer !== null) {
-      b.setTurnPlayer(nextPlayer)
-    } else {
-      DeterminePlayerOrderPhase.prepare(b)
-    }
-
-    return b.build()
-  }
 }

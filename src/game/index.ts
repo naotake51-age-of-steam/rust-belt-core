@@ -25,6 +25,7 @@ export function setContext (g: Game, u: User): Readonly<Context> {
 
 export function context (): Readonly<Context> {
   if (_context === null) throw new Error('Context is not initialized')
+
   return _context
 }
 

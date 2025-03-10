@@ -1,4 +1,5 @@
 export * from './enums'
 export * from './game'
 export * from './objects'
+export * from './errors'
 export * from './initializeGame'

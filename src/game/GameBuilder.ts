@@ -102,12 +102,6 @@ export class GameBuilder {
     return this
   }
 
-  public pushHistory (id: string, fixed: boolean): GameBuilder {
-    this.game.histories.push({ id, fixed })
-
-    return this
-  }
-
   public build (): Game {
     return this.game.cloneDeep().flesh()
   }

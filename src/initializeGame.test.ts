@@ -34,6 +34,4 @@ test('initializeGame', () => {
 
   expect(g.townMakerStates.length).toBe(townMarkers.length)
   expect(g.townMakerStates[0]).toEqual(new TownMarkerState(0, null))
-
-  expect(g.histories).toEqual([])
 })

@@ -178,13 +178,3 @@ test('setLineOwner', () => {
 
   expect(newGame.trackTileStates[0].lineOwners).toEqual([0, null])
 })
-
-test('pushHistory', () => {
-  b.pushHistory('00000000-0000-0000-0000-000000000000', true)
-
-  const newGame = b.build()
-
-  expect(newGame.histories).toEqual([
-    { id: '00000000-0000-0000-0000-000000000000', fixed: true }
-  ])
-})

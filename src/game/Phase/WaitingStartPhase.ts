@@ -4,10 +4,8 @@ import { GameError } from 'errors'
 import { type Game, type User, GameBuilder, context, IssueSharesPhase, Player } from 'game'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
 import { range, shuffleArray } from 'utility'
+import { MIN_PLAYERS, MAX_PLAYERS } from '../../objects/index'
 import { Phase } from './Phase'
-
-const MIN_PLAYERS = 3
-const MAX_PLAYERS = 6
 
 const INITIALIZE_ISSUE_SHARES = 2
 const INITIALIZE_MONEY = 10
@@ -27,8 +25,9 @@ export class WaitingStartPhase extends Phase {
     throw new Error('Not implemented')
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
   public get message (): string {
-    throw new Error('Not implemented')
+    return '参加者募集中'
   }
 
   public canJoinUser (): boolean {
@@ -41,12 +40,22 @@ export class WaitingStartPhase extends Phase {
     return p === null
   }
 
+  public canSelectColor (color: PlayerColor): boolean {
+    const { g } = context()
+
+    return g.players.every((_) => _.color !== color)
+  }
+
   public actionJoinUser (color: PlayerColor): Game {
     const { g, u } = context()
     const b = new GameBuilder(g)
 
     if (!this.canJoinUser()) {
       throw new GameError('Cannot join user')
+    }
+
+    if (!this.canSelectColor(color)) {
+      throw new GameError('Cannot select color')
     }
 
     return b.setPlayers([

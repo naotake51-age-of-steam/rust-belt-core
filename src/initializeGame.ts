@@ -10,7 +10,6 @@ export const initializeGame = (): Game => {
     trackTiles.map(_ => new TrackTileState(_.id, null, null, null)),
     cityTiles.map(_ => new CityTileState(_.id, _.initialize?.mapSpaceId ?? null)),
     goodsCubes.map(_ => new GoodsCubeState(_.id, null, null)),
-    townMarkers.map(_ => new TownMarkerState(_.id, null)),
-    []
+    townMarkers.map(_ => new TownMarkerState(_.id, null))
   )
 }

@@ -73,7 +73,7 @@ export class DeterminePlayerOrderPhase extends Phase {
   public get message (): string {
     const { g } = context()
 
-    return `${this.latestActionMessage} ${g.turnPlayer.name}はアクションを決定してください。`
+    return `${this.latestActionMessage} ${g.turnPlayer.name}はビット数を決定してください。`
   }
 
   public minBids (): number {
