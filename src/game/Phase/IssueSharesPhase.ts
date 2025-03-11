@@ -78,11 +78,11 @@ export class IssueSharesPhase extends Phase {
   private getNextPlayer (player: Player): Player | null {
     const { g } = context()
 
-    const players = g.players.filter(_ => _.remainingIssuableShares > 0)
+    const players = g.players
+      .filter(_ => _.remainingIssuableShares > 0)
+      .filter(_ => _.order > player.order)
+      .sort((a, b) => a.order - b.order)
 
-    const nextIndex = players.findIndex(_ => _.id === player.id) + 1
-    if (players.length <= nextIndex) return null
-
-    return players[nextIndex]
+    return players[0] ?? null
   }
 }

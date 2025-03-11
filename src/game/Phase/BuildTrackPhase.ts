@@ -22,12 +22,18 @@ export class BuildTrackPhase extends Phase {
     return b.setPhase(new BuildTrackPhase([], [], []))
   }
 
+  public isTurnPlayer (): boolean {
+    const { p } = context()
+
+    return p?.hasTurn ?? false
+  }
+
   public get message (): string {
     const { g } = context()
-    if (g.turnPlayer.placableTrackTileCount > 0) {
-      return `${g.turnPlayer.name}は都市(${g.turnPlayer.placableTrackTileCount})と線路(${g.turnPlayer.placableTrackTileCount})を敷設してください。`
+    if (g.turnPlayer.placableCityTile > 0) {
+      return `${g.turnPlayer.name}は都市と線路を敷設してください。（最大${g.turnPlayer.placableTrackTileCount}本）`
     } else {
-      return `${g.turnPlayer.name}は線路(${g.turnPlayer.placableTrackTileCount})を敷設してください。`
+      return `${g.turnPlayer.name}は線路を敷設してください。（最大${g.turnPlayer.placableTrackTileCount}本）`
     }
   }
 

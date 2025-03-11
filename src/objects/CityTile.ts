@@ -72,7 +72,6 @@ export class CityTile {
     const { p } = context()
 
     if (p === null) throw new Error('user is not in the game')
-    if (!p.hasTurn) throw new Error('user is not turn player')
 
     // 町スペース以外
     if (mapSpace.type !== MapSpaceType.TOWN) return false

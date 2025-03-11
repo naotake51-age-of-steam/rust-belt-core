@@ -29,7 +29,6 @@ export abstract class BaseTrackTile extends TrackTile {
     const { p } = context()
 
     if (p === null) throw new Error('user is not in the game')
-    if (!p.hasTurn) throw new Error('user is not turn player')
 
     // スペースにタイルがある
     if (mapSpace.trackTile !== null) return false

@@ -23,7 +23,7 @@ export class Line {
   constructor (
     public readonly trackTileId: number,
     public readonly number: number,
-    private readonly baseDirection: number
+    readonly baseDirection: number
   ) {}
 
   public get trackTile (): TrackTile {

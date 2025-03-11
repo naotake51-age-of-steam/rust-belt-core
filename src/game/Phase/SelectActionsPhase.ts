@@ -30,6 +30,12 @@ export class SelectActionsPhase extends Phase {
     return b
   }
 
+  public isTurnPlayer (): boolean {
+    const { p } = context()
+
+    return p?.hasTurn ?? false
+  }
+
   public get message (): string {
     const { p } = context()
 

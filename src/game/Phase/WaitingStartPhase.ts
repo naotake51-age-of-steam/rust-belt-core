@@ -110,12 +110,10 @@ export class WaitingStartPhase extends Phase {
       throw new GameError('Cannot start game')
     }
 
-    const orders = shuffleArray(range(1, g.players.length))
-
     b.setPlayers(
-      g.players.map((_, i) => {
+      shuffleArray(g.players).map((_, i) => {
         return _.produce(draft => {
-          draft.order = orders[i]
+          draft.order = i + 1
         })
       })
     )

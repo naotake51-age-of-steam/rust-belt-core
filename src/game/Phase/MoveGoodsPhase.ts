@@ -37,7 +37,9 @@ export class MoveGoodsPhase extends Phase {
   }
 
   public get message (): string {
-    throw new Error('Not implemented')
+    const { g } = context()
+
+    return `${g.turnPlayer.name}は商品を輸送してください。`
   }
 
   public get selectedGoodsCube (): GoodsCube | null {
