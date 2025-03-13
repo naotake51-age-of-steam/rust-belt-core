@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer'
 import { PhaseId, Action, MapSpaceType } from 'enums'
 import { GameBuilder, type Game, context, type Player, MAX_ENGINE } from 'game'
 import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker } from 'objects'
@@ -5,16 +6,38 @@ import { Town } from '../../objects/TrackTile/Town'
 import { CollectIncomePhase } from './CollectIncomePhase'
 import { Phase } from './Phase'
 
+class Moving {
+  constructor (
+    public readonly spaceMapId: number,
+    public readonly playerId: number | null
+  ) {
+  }
+
+  public get spaceMap (): MapSpace {
+    return getMapSpace(this.spaceMapId)
+  }
+
+  public get player (): Player | null {
+    const { g } = context()
+    return g.players.find(_ => _.id === this.playerId) ?? null
+  }
+}
+
 export class MoveGoodsPhase extends Phase {
   public readonly id = PhaseId.MOVE_GOODS
 
+  @Type(() => Moving)
+  public readonly movingList: Moving[]
+
   constructor (
     public readonly selectedGoodsCubeId: number | null,
-    public readonly movingList: Array<{ spaceMapId: number, playerId: number | null }>,
+    movingList: Moving[],
     public readonly movingCounter: number, // 1 or 2
     public readonly incrementedLocomotivePlayerIds: number[] // プレイヤーは二回の輸送のうち一回だけ機関車を進められる
   ) {
     super()
+
+    this.movingList = movingList
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -36,10 +59,16 @@ export class MoveGoodsPhase extends Phase {
     })
   }
 
+  public isTurnPlayer (): boolean {
+    const { p } = context()
+
+    return p?.hasTurn ?? false
+  }
+
   public get message (): string {
     const { g } = context()
 
-    return `${g.turnPlayer.name}は商品を輸送してください。`
+    return `${g.turnPlayer.name}は商品輸送またはエンジン+1を行ってください。\n（商品輸送をする場合は、マップ上の商品を選択して輸送経路を順番に選択）`
   }
 
   public get selectedGoodsCube (): GoodsCube | null {
@@ -54,7 +83,7 @@ export class MoveGoodsPhase extends Phase {
     if (this.movingList.length === 0) {
       return this.selectedGoodsCube.mapSpace
     } else {
-      return getMapSpace(this.movingList[this.movingList.length - 1].spaceMapId)
+      return this.movingList[this.movingList.length - 1].spaceMap
     }
   }
 
@@ -140,7 +169,7 @@ export class MoveGoodsPhase extends Phase {
     if (linkedLine === null) throw new Error('logic error') // マップによっては線路を挟まない場合がある
     b.setPhase(new MoveGoodsPhase(
       this.selectedGoodsCubeId,
-      [...this.movingList, { spaceMapId: nextMapSpace.id, playerId: linkedLine.owner?.id ?? null }],
+      [...this.movingList, new Moving(nextMapSpace.id, linkedLine.owner?.id ?? null)],
       this.movingCounter,
       this.incrementedLocomotivePlayerIds
     ))
@@ -180,6 +209,10 @@ export class MoveGoodsPhase extends Phase {
         draft.income += this.movingList.filter(moving => moving.playerId === _.id).length
       }))
     )
+
+    if (this.selectedGoodsCube === null) throw new Error('logic error')
+
+    b.releaseGoodsCube(this.selectedGoodsCube)
 
     return this.next(b).build()
   }

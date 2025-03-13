@@ -26,7 +26,7 @@ export class ComplexCoexistTrackTile extends BaseTrackTile {
         return 1 + 4
       case MapSpaceType.PLAIN:
         return 3
-      case MapSpaceType.LAKE:
+      case MapSpaceType.RIVER:
         return 4
       case MapSpaceType.MOUNTAIN:
         return 5

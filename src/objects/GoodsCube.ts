@@ -6,7 +6,10 @@ import { type GoodsDisplaySpace } from './GoodsDisplay'
 export class GoodsCube {
   constructor (
     public readonly id: number,
-    public readonly color: GoodsCubeColor
+    public readonly color: GoodsCubeColor,
+    public readonly image: string,
+    public readonly x: number,
+    public readonly y: number
   ) {}
 
   public get state (): GoodsCubeState {

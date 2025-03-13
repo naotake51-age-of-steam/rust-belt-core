@@ -18,7 +18,8 @@ export class MapSpace {
   }
 
   public get goodsCubes (): GoodsCube[] {
-    throw new Error('Not implemented')
+    const { g } = context()
+    return g.goodsCubeStatesIndexByMapSpace.get(this.id)?.map(_ => _.goodsCube) ?? []
   }
 
   public get cityTile (): CityTile | null {

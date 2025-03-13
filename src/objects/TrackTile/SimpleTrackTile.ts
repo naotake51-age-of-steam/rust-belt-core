@@ -28,7 +28,7 @@ export class SimpleTrackTile extends BaseTrackTile {
         return 1 + 2
       case MapSpaceType.PLAIN:
         return 2
-      case MapSpaceType.LAKE:
+      case MapSpaceType.RIVER:
         return 3
       case MapSpaceType.MOUNTAIN:
         return 4

@@ -1,4 +1,4 @@
-import { type Action, PhaseId, allActions } from 'enums'
+import { Action, PhaseId, allActions } from 'enums'
 import { type Game, context, type Player, GameBuilder } from 'game'
 import { BuildTrackPhase } from './BuildTrackPhase'
 import { Phase } from './Phase'
@@ -62,6 +62,10 @@ export class SelectActionsPhase extends Phase {
     b.updatePlayer(
       p.produce(draft => {
         draft.action = action
+
+        if (action === Action.LOCOMOTIVE) {
+          draft.engine += 1
+        }
       })
     )
 

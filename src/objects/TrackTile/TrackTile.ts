@@ -1,6 +1,6 @@
-import { type TrackTileType } from 'enums'
+import { type TrackTileType, MapSpaceType } from 'enums'
 import { type TrackTileState, type Player, context } from 'game'
-import { type MapSpace, Line, type TownMarker, type Town, townMarkers, CityTile } from 'objects'
+import { MapSpace, Line, type TownMarker, type Town, townMarkers, CityTile } from 'objects'
 
 export abstract class TrackTile {
   constructor (
@@ -105,6 +105,8 @@ export function existsInvalidLink (player: Player, mapSpace: MapSpace, rotation:
   return lines.some(_ => {
     const linkedObject = mapSpace.getLinkedObject(_.getDirection(rotation))
     if (linkedObject === null) return true // マップ外
+
+    if (linkedObject instanceof MapSpace && linkedObject.type === MapSpaceType.LAKE) return true // 湖に接続
 
     if (linkedObject instanceof Line) {
       if (linkedObject.owner !== null && linkedObject.owner.id !== player.id) {

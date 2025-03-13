@@ -33,8 +33,8 @@ export abstract class BaseTrackTile extends TrackTile {
     // スペースにタイルがある
     if (mapSpace.trackTile !== null) return false
 
-    // 都市スペース
-    if (mapSpace.type === MapSpaceType.CITY) return false
+    // 都市、湖スペース
+    if (mapSpace.type === MapSpaceType.CITY || mapSpace.type === MapSpaceType.LAKE) return false
 
     // 支払い不可
     if (this.calculateCostOfPlaceToMapSpace(mapSpace) > p.money) return false

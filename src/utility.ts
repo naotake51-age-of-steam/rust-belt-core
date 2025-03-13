@@ -6,7 +6,7 @@ export const range = (from: number, to: number): number[] => {
   return list
 }
 
-export function shuffleArray <T> (array: T[]): T[] {
+export function shuffleArray <T> (array: Readonly<T[]>): T[] {
   const shuffledArray = [...array]
 
   for (let i = shuffledArray.length - 1; i > 0; i--) {

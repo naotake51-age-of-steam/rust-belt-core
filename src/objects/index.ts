@@ -64,7 +64,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(2, 0), MapSpaceType.CITY, 'plain.svg', DX * 2, DY * 0, [null, null, s(3, 0), s(2, 1), s(1, 0), null]),
   new MapSpace(s(2, 1), MapSpaceType.PLAIN, 'plain.svg', DX * 2, DY * 1, [s(2, 0), s(3, 0), s(3, 1), s(2, 2), s(1, 1), s(1, 0)]),
   new MapSpace(s(2, 2), MapSpaceType.PLAIN, 'plain.svg', DX * 2, DY * 2, [s(2, 1), s(3, 1), s(3, 2), s(2, 3), s(1, 2), s(1, 1)]),
-  new MapSpace(s(2, 3), MapSpaceType.PLAIN, 'plain.svg', DX * 2, DY * 3, [s(2, 2), s(3, 2), s(3, 3), s(2, 4), s(1, 3), s(1, 2)]),
+  new MapSpace(s(2, 3), MapSpaceType.RIVER, 'river-2-5.svg', DX * 2, DY * 3, [s(2, 2), s(3, 2), s(3, 3), s(2, 4), s(1, 3), s(1, 2)]),
   new MapSpace(s(2, 4), MapSpaceType.PLAIN, 'plain.svg', DX * 2, DY * 4, [s(2, 3), s(3, 3), s(3, 4), s(2, 5), s(1, 4), s(1, 3)]),
   new MapSpace(s(2, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 2, DY * 5, [s(2, 4), s(3, 4), s(3, 5), s(2, 6), s(1, 5), s(1, 4)]),
   new MapSpace(s(2, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 2, DY * 6, [s(2, 5), s(3, 5), s(3, 6), s(2, 7), s(1, 6), s(1, 5)]),
@@ -76,7 +76,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(3, 0), MapSpaceType.LAKE, 'lake.svg', DX * 3, DY * 0.5, [null, s(4, 0), s(4, 1), s(3, 1), s(2, 1), s(2, 0)]),
   new MapSpace(s(3, 1), MapSpaceType.PLAIN, 'plain.svg', DX * 3, DY * 1.5, [s(3, 0), s(4, 1), s(4, 2), s(3, 2), s(2, 2), s(2, 1)]),
   new MapSpace(s(3, 2), MapSpaceType.PLAIN, 'plain.svg', DX * 3, DY * 2.5, [s(3, 1), s(4, 2), s(4, 3), s(3, 3), s(2, 3), s(2, 2)]),
-  new MapSpace(s(3, 3), MapSpaceType.PLAIN, 'plain.svg', DX * 3, DY * 3.5, [s(3, 2), s(4, 3), s(4, 4), s(3, 4), s(2, 4), s(2, 3)]),
+  new MapSpace(s(3, 3), MapSpaceType.RIVER, 'river-2-5.svg', DX * 3, DY * 3.5, [s(3, 2), s(4, 3), s(4, 4), s(3, 4), s(2, 4), s(2, 3)]),
   new MapSpace(s(3, 4), MapSpaceType.PLAIN, 'plain.svg', DX * 3, DY * 4.5, [s(3, 3), s(4, 4), s(4, 5), s(3, 5), s(2, 5), s(2, 4)]),
   new MapSpace(s(3, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 3, DY * 5.5, [s(3, 4), s(4, 5), s(4, 6), s(3, 6), s(2, 6), s(2, 5)]),
   new MapSpace(s(3, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 3, DY * 6.5, [s(3, 5), s(4, 6), s(4, 7), s(3, 7), s(2, 7), s(2, 6)]),
@@ -89,11 +89,11 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(4, 1), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 1, [s(4, 0), s(5, 0), s(5, 1), s(4, 2), s(3, 1), s(3, 0)]),
   new MapSpace(s(4, 2), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 2, [s(4, 1), s(5, 1), s(5, 2), s(4, 3), s(3, 2), s(3, 1)]),
   new MapSpace(s(4, 3), MapSpaceType.TOWN, 'town.svg', DX * 4, DY * 3, [s(4, 2), s(5, 2), s(5, 3), s(4, 4), s(3, 3), s(3, 2)]),
-  new MapSpace(s(4, 4), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 4, [s(4, 3), s(5, 3), s(5, 4), s(4, 5), s(3, 4), s(3, 3)]),
-  new MapSpace(s(4, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 5, [s(4, 4), s(5, 4), s(5, 5), s(4, 6), s(3, 5), s(3, 4)]),
-  new MapSpace(s(4, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 6, [s(4, 5), s(5, 5), s(5, 6), s(4, 7), s(3, 6), s(3, 5)]),
-  new MapSpace(s(4, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 7, [s(4, 6), s(5, 6), s(5, 7), s(4, 8), s(3, 7), s(3, 6)]),
-  new MapSpace(s(4, 8), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 8, [s(4, 7), s(5, 7), s(5, 8), s(4, 9), s(3, 8), s(3, 7)]),
+  new MapSpace(s(4, 4), MapSpaceType.RIVER, 'river-3-5.svg', DX * 4, DY * 4, [s(4, 3), s(5, 3), s(5, 4), s(4, 5), s(3, 4), s(3, 3)]),
+  new MapSpace(s(4, 5), MapSpaceType.RIVER, 'river-0-3.svg', DX * 4, DY * 5, [s(4, 4), s(5, 4), s(5, 5), s(4, 6), s(3, 5), s(3, 4)]),
+  new MapSpace(s(4, 6), MapSpaceType.RIVER, 'river-0-3.svg', DX * 4, DY * 6, [s(4, 5), s(5, 5), s(5, 6), s(4, 7), s(3, 6), s(3, 5)]),
+  new MapSpace(s(4, 7), MapSpaceType.RIVER, 'river-0-3.svg', DX * 4, DY * 7, [s(4, 6), s(5, 6), s(5, 7), s(4, 8), s(3, 7), s(3, 6)]),
+  new MapSpace(s(4, 8), MapSpaceType.RIVER, 'river-0-2.svg', DX * 4, DY * 8, [s(4, 7), s(5, 7), s(5, 8), s(4, 9), s(3, 8), s(3, 7)]),
   new MapSpace(s(4, 9), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 9, [s(4, 8), s(5, 8), s(5, 9), s(4, 10), s(3, 9), s(3, 8)]),
   new MapSpace(s(4, 10), MapSpaceType.PLAIN, 'plain.svg', DX * 4, DY * 10, [s(4, 9), s(5, 9), null, null, null, s(3, 9)]),
   // 6列目
@@ -105,7 +105,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(5, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 5, DY * 5.5, [s(5, 4), s(6, 5), s(6, 6), s(5, 6), s(4, 6), s(4, 5)]),
   new MapSpace(s(5, 6), MapSpaceType.TOWN, 'town.svg', DX * 5, DY * 6.5, [s(5, 5), s(6, 6), s(6, 7), s(5, 7), s(4, 7), s(4, 6)]),
   new MapSpace(s(5, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 5, DY * 7.5, [s(5, 6), s(6, 7), s(6, 8), s(5, 8), s(4, 8), s(4, 7)]),
-  new MapSpace(s(5, 8), MapSpaceType.PLAIN, 'plain.svg', DX * 5, DY * 8.5, [s(5, 7), s(6, 8), s(6, 9), s(5, 9), s(4, 9), s(4, 8)]),
+  new MapSpace(s(5, 8), MapSpaceType.RIVER, 'river-2-5.svg', DX * 5, DY * 8.5, [s(5, 7), s(6, 8), s(6, 9), s(5, 9), s(4, 9), s(4, 8)]),
   new MapSpace(s(5, 9), MapSpaceType.CITY, 'plain.svg', DX * 5, DY * 9.5, [s(5, 8), s(6, 9), s(6, 10), null, s(4, 10), s(4, 9)]),
   null,
   // 7列目
@@ -118,8 +118,8 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(6, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 6, DY * 6, [s(6, 5), s(7, 5), s(7, 6), s(6, 7), s(5, 6), s(5, 5)]),
   new MapSpace(s(6, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 6, DY * 7, [s(6, 6), s(7, 6), s(7, 7), s(6, 8), s(5, 7), s(5, 6)]),
   new MapSpace(s(6, 8), MapSpaceType.TOWN, 'town.svg', DX * 6, DY * 8, [s(6, 7), s(7, 7), s(7, 8), s(6, 9), s(5, 8), s(5, 7)]),
-  new MapSpace(s(6, 9), MapSpaceType.PLAIN, 'plain.svg', DX * 6, DY * 9, [s(6, 8), s(7, 8), s(7, 9), s(6, 10), s(5, 9), s(5, 8)]),
-  new MapSpace(s(6, 10), MapSpaceType.PLAIN, 'plain.svg', DX * 6, DY * 10, [s(6, 9), s(7, 9), null, null, null, s(5, 9)]),
+  new MapSpace(s(6, 9), MapSpaceType.RIVER, 'river-3-5.svg', DX * 6, DY * 9, [s(6, 8), s(7, 8), s(7, 9), s(6, 10), s(5, 9), s(5, 8)]),
+  new MapSpace(s(6, 10), MapSpaceType.RIVER, 'river-0-3.svg', DX * 6, DY * 10, [s(6, 9), s(7, 9), null, null, null, s(5, 9)]),
   // 8列目
   new MapSpace(s(7, 0), MapSpaceType.PLAIN, 'plain.svg', DX * 7, DY * 0.5, [null, s(8, 0), s(8, 1), s(7, 1), s(6, 1), s(6, 0)]),
   new MapSpace(s(7, 1), MapSpaceType.TOWN, 'town.svg', DX * 7, DY * 1.5, [s(7, 0), s(8, 1), s(8, 2), s(7, 2), s(6, 2), s(6, 1)]),
@@ -167,7 +167,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(10, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 10, DY * 7, [s(10, 6), s(11, 6), s(11, 7), s(10, 8), s(9, 7), s(9, 6)]),
   new MapSpace(s(10, 8), MapSpaceType.TOWN, 'town.svg', DX * 10, DY * 8, [s(10, 7), s(11, 7), s(11, 8), s(10, 9), s(9, 8), s(9, 7)]),
   new MapSpace(s(10, 9), MapSpaceType.PLAIN, 'plain.svg', DX * 10, DY * 9, [s(10, 8), s(11, 8), s(11, 9), s(10, 10), s(9, 9), s(9, 8)]),
-  new MapSpace(s(10, 10), MapSpaceType.PLAIN, 'plain.svg', DX * 10, DY * 10, [s(10, 9), s(11, 9), null, null, null, s(9, 9)]),
+  new MapSpace(s(10, 10), MapSpaceType.RIVER, 'river-1-4.svg', DX * 10, DY * 10, [s(10, 9), s(11, 9), null, null, null, s(9, 9)]),
   // 12列目
   new MapSpace(s(11, 0), MapSpaceType.LAKE, 'lake.svg', DX * 11, DY * 0.5, [null, s(12, 0), s(12, 1), s(11, 1), s(10, 1), s(10, 0)]),
   new MapSpace(s(11, 1), MapSpaceType.PLAIN, 'plain.svg', DX * 11, DY * 1.5, [s(11, 0), s(12, 1), s(12, 2), s(11, 2), s(10, 2), s(10, 1)]),
@@ -178,7 +178,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(11, 6), MapSpaceType.TOWN, 'town.svg', DX * 11, DY * 6.5, [s(11, 5), s(12, 6), s(12, 7), s(11, 7), s(10, 7), s(10, 6)]),
   new MapSpace(s(11, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 11, DY * 7.5, [s(11, 6), s(12, 7), s(12, 8), s(11, 8), s(10, 8), s(10, 7)]),
   new MapSpace(s(11, 8), MapSpaceType.PLAIN, 'plain.svg', DX * 11, DY * 8.5, [s(11, 7), s(12, 8), s(12, 9), s(11, 9), s(10, 9), s(10, 8)]),
-  new MapSpace(s(11, 9), MapSpaceType.PLAIN, 'plain.svg', DX * 11, DY * 9.5, [s(11, 8), s(12, 9), s(12, 10), null, s(10, 10), s(10, 9)]),
+  new MapSpace(s(11, 9), MapSpaceType.RIVER, 'river-1-4.svg', DX * 11, DY * 9.5, [s(11, 8), s(12, 9), s(12, 10), null, s(10, 10), s(10, 9)]),
   null,
   // 13列目
   new MapSpace(s(12, 0), MapSpaceType.LAKE, 'lake.svg', DX * 12, DY * 0, [null, null, s(13, 0), s(12, 1), s(11, 0), null]),
@@ -190,7 +190,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(12, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 12, DY * 6, [s(12, 5), s(13, 5), s(13, 6), s(12, 7), s(11, 6), s(11, 5)]),
   new MapSpace(s(12, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 12, DY * 7, [s(12, 6), s(13, 6), s(13, 7), s(12, 8), s(11, 7), s(11, 6)]),
   new MapSpace(s(12, 8), MapSpaceType.CITY, 'plain.svg', DX * 12, DY * 8, [s(12, 7), s(13, 7), s(13, 8), s(12, 9), s(11, 8), s(11, 7)]),
-  new MapSpace(s(12, 9), MapSpaceType.PLAIN, 'plain.svg', DX * 12, DY * 9, [s(12, 8), s(13, 8), s(13, 9), s(12, 10), s(11, 9), s(11, 8)]),
+  new MapSpace(s(12, 9), MapSpaceType.RIVER, 'river-1-4.svg', DX * 12, DY * 9, [s(12, 8), s(13, 8), s(13, 9), s(12, 10), s(11, 9), s(11, 8)]),
   new MapSpace(s(12, 10), MapSpaceType.PLAIN, 'plain.svg', DX * 12, DY * 10, [s(12, 9), s(13, 9), null, null, null, s(11, 9)]),
   // 14列目
   new MapSpace(s(13, 0), MapSpaceType.LAKE, 'lake.svg', DX * 13, DY * 0.5, [null, s(14, 0), s(14, 1), s(13, 1), s(12, 1), s(12, 0)]),
@@ -201,7 +201,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(13, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 13, DY * 5.5, [s(13, 4), s(14, 5), s(14, 6), s(13, 6), s(12, 6), s(12, 5)]),
   new MapSpace(s(13, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 13, DY * 6.5, [s(13, 5), s(14, 6), s(14, 7), s(13, 7), s(12, 7), s(12, 6)]),
   new MapSpace(s(13, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 13, DY * 7.5, [s(13, 6), s(14, 7), s(14, 8), s(13, 8), s(12, 8), s(12, 7)]),
-  new MapSpace(s(13, 8), MapSpaceType.PLAIN, 'plain.svg', DX * 13, DY * 8.5, [s(13, 7), s(14, 8), s(14, 9), s(13, 9), s(12, 9), s(12, 8)]),
+  new MapSpace(s(13, 8), MapSpaceType.RIVER, 'river-1-4.svg', DX * 13, DY * 8.5, [s(13, 7), s(14, 8), s(14, 9), s(13, 9), s(12, 9), s(12, 8)]),
   new MapSpace(s(13, 9), MapSpaceType.TOWN, 'town.svg', DX * 13, DY * 9.5, [s(13, 8), s(14, 9), s(14, 10), null, s(12, 10), s(12, 9)]),
   null,
   // 15列目
@@ -213,7 +213,7 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(14, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 14, DY * 5, [s(14, 4), s(15, 4), s(15, 5), s(14, 6), s(13, 5), s(13, 4)]),
   new MapSpace(s(14, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 14, DY * 6, [s(14, 5), s(15, 5), s(15, 6), s(14, 7), s(13, 6), s(13, 5)]),
   new MapSpace(s(14, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 14, DY * 7, [s(14, 6), s(15, 6), s(15, 7), s(14, 8), s(13, 7), s(13, 6)]),
-  new MapSpace(s(14, 8), MapSpaceType.PLAIN, 'plain.svg', DX * 14, DY * 8, [s(14, 7), s(15, 7), s(15, 8), s(14, 9), s(13, 8), s(13, 7)]),
+  new MapSpace(s(14, 8), MapSpaceType.RIVER, 'river-1-4.svg', DX * 14, DY * 8, [s(14, 7), s(15, 7), s(15, 8), s(14, 9), s(13, 8), s(13, 7)]),
   new MapSpace(s(14, 9), MapSpaceType.PLAIN, 'plain.svg', DX * 14, DY * 9, [s(14, 8), s(15, 8), s(15, 9), s(14, 10), s(13, 9), s(13, 8)]),
   new MapSpace(s(14, 10), MapSpaceType.MOUNTAIN, 'mountain.svg', DX * 14, DY * 10, [s(14, 9), s(15, 9), null, null, null, s(13, 9)]),
   // 16列目
@@ -224,19 +224,19 @@ export const mapSpaces: Readonly<Array<MapSpace | null>> = [
   new MapSpace(s(15, 4), MapSpaceType.TOWN, 'town.svg', DX * 15, DY * 4.5, [s(15, 3), s(16, 4), s(16, 5), s(15, 5), s(14, 5), s(14, 4)]),
   new MapSpace(s(15, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 15, DY * 5.5, [s(15, 4), s(16, 5), s(16, 6), s(15, 6), s(14, 6), s(14, 5)]),
   new MapSpace(s(15, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 15, DY * 6.5, [s(15, 5), s(16, 6), s(16, 7), s(15, 7), s(14, 7), s(14, 6)]),
-  new MapSpace(s(15, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 15, DY * 7.5, [s(15, 6), s(16, 7), s(16, 8), s(15, 8), s(14, 8), s(14, 7)]),
+  new MapSpace(s(15, 7), MapSpaceType.RIVER, 'river-1-4.svg', DX * 15, DY * 7.5, [s(15, 6), s(16, 7), s(16, 8), s(15, 8), s(14, 8), s(14, 7)]),
   new MapSpace(s(15, 8), MapSpaceType.PLAIN, 'plain.svg', DX * 15, DY * 8.5, [s(15, 7), s(16, 8), s(16, 9), s(15, 9), s(14, 9), s(14, 8)]),
   new MapSpace(s(15, 9), MapSpaceType.MOUNTAIN, 'mountain.svg', DX * 15, DY * 9.5, [s(15, 8), s(16, 9), s(16, 10), null, s(14, 10), s(14, 9)]),
   null,
   // 17列目
   new MapSpace(s(16, 0), MapSpaceType.PLAIN, 'plain.svg', DX * 16, DY * 0, [null, null, s(17, 0), s(16, 1), s(15, 0), null]),
   new MapSpace(s(16, 1), MapSpaceType.CITY, 'plain.svg', DX * 16, DY * 1, [s(16, 0), s(17, 0), s(17, 1), s(16, 2), s(15, 1), s(15, 0)]),
-  new MapSpace(s(16, 2), MapSpaceType.PLAIN, 'plain.svg', DX * 16, DY * 2, [s(16, 1), s(17, 1), s(17, 2), s(16, 3), s(15, 2), s(15, 1)]),
+  new MapSpace(s(16, 2), MapSpaceType.RIVER, 'river-1-3.svg', DX * 16, DY * 2, [s(16, 1), s(17, 1), s(17, 2), s(16, 3), s(15, 2), s(15, 1)]),
   new MapSpace(s(16, 3), MapSpaceType.LAKE, 'lake.svg', DX * 16, DY * 3, [s(16, 2), s(17, 2), s(17, 3), s(16, 4), s(15, 3), s(15, 2)]),
   new MapSpace(s(16, 4), MapSpaceType.PLAIN, 'plain.svg', DX * 16, DY * 4, [s(16, 3), s(17, 3), s(17, 4), s(16, 5), s(15, 4), s(15, 3)]),
   new MapSpace(s(16, 5), MapSpaceType.PLAIN, 'plain.svg', DX * 16, DY * 5, [s(16, 4), s(17, 4), s(17, 5), s(16, 6), s(15, 5), s(15, 4)]),
-  new MapSpace(s(16, 6), MapSpaceType.PLAIN, 'plain.svg', DX * 16, DY * 6, [s(16, 5), s(17, 5), s(17, 6), s(16, 7), s(15, 6), s(15, 5)]),
-  new MapSpace(s(16, 7), MapSpaceType.PLAIN, 'plain.svg', DX * 16, DY * 7, [s(16, 6), s(17, 6), s(17, 7), s(16, 8), s(15, 7), s(15, 6)]),
+  new MapSpace(s(16, 6), MapSpaceType.RIVER, 'river-1-3.svg', DX * 16, DY * 6, [s(16, 5), s(17, 5), s(17, 6), s(16, 7), s(15, 6), s(15, 5)]),
+  new MapSpace(s(16, 7), MapSpaceType.RIVER, 'river-0-4.svg', DX * 16, DY * 7, [s(16, 6), s(17, 6), s(17, 7), s(16, 8), s(15, 7), s(15, 6)]),
   new MapSpace(s(16, 8), MapSpaceType.CITY, 'plain.svg', DX * 16, DY * 8, [s(16, 7), s(17, 7), s(17, 8), s(16, 9), s(15, 8), s(15, 7)]),
   new MapSpace(s(16, 9), MapSpaceType.MOUNTAIN, 'mountain.svg', DX * 16, DY * 9, [s(16, 8), s(17, 8), s(17, 9), s(16, 10), s(15, 9), s(15, 8)]),
   new MapSpace(s(16, 10), MapSpaceType.MOUNTAIN, 'mountain.svg', DX * 16, DY * 10, [s(16, 9), s(17, 9), null, null, null, s(15, 9)]),
@@ -304,11 +304,11 @@ export const trackTiles: Readonly<TrackTile[]> = [
 ] as const
 
 export const goodsCubes: Readonly<GoodsCube[]> = [
-  ...range(0, 19).map((id) => new GoodsCube(id, GoodsCubeColor.RED)),
-  ...range(20, 39).map((id) => new GoodsCube(id, GoodsCubeColor.BLUE)),
-  ...range(40, 59).map((id) => new GoodsCube(id, GoodsCubeColor.PURPLE)),
-  ...range(60, 79).map((id) => new GoodsCube(id, GoodsCubeColor.YELLOW)),
-  ...range(80, 95).map((id) => new GoodsCube(id, GoodsCubeColor.BLACK))
+  ...range(0, 19).map((id) => new GoodsCube(id, GoodsCubeColor.RED, 'cube-red.svg', 25, 25)),
+  ...range(20, 39).map((id) => new GoodsCube(id, GoodsCubeColor.BLUE, 'cube-blue.svg', spaceSize.width - 25, 25)),
+  ...range(40, 59).map((id) => new GoodsCube(id, GoodsCubeColor.PURPLE, 'cube-purple.svg', 25, spaceSize.height - 25)),
+  ...range(60, 79).map((id) => new GoodsCube(id, GoodsCubeColor.YELLOW, 'cube-yellow.svg', spaceSize.width - 25, spaceSize.height - 25)),
+  ...range(80, 95).map((id) => new GoodsCube(id, GoodsCubeColor.BLACK, 'cube-black.svg', spaceSize.width / 2, spaceSize.height / 2))
 ] as const
 
 const GX = 5 // TODO:: 仮
@@ -371,26 +371,26 @@ export const goodsDisplaySpaces = [
 ] as const
 
 export const goodsDisplayLines = [
-  new GoodsDisplayLine(0, cityTiles[0], [goodsDisplaySpaces[0], goodsDisplaySpaces[1], goodsDisplaySpaces[2]]),
-  new GoodsDisplayLine(1, cityTiles[1], [goodsDisplaySpaces[3], goodsDisplaySpaces[4], goodsDisplaySpaces[5]]),
-  new GoodsDisplayLine(2, cityTiles[2], [goodsDisplaySpaces[6], goodsDisplaySpaces[7], goodsDisplaySpaces[8]]),
-  new GoodsDisplayLine(3, cityTiles[3], [goodsDisplaySpaces[9], goodsDisplaySpaces[10], goodsDisplaySpaces[11]]),
-  new GoodsDisplayLine(4, cityTiles[4], [goodsDisplaySpaces[12], goodsDisplaySpaces[13], goodsDisplaySpaces[14]]),
-  new GoodsDisplayLine(5, cityTiles[5], [goodsDisplaySpaces[15], goodsDisplaySpaces[16], goodsDisplaySpaces[17]]),
-  new GoodsDisplayLine(6, cityTiles[6], [goodsDisplaySpaces[18], goodsDisplaySpaces[19], goodsDisplaySpaces[20]]),
-  new GoodsDisplayLine(7, cityTiles[7], [goodsDisplaySpaces[21], goodsDisplaySpaces[22], goodsDisplaySpaces[23]]),
-  new GoodsDisplayLine(8, cityTiles[8], [goodsDisplaySpaces[24], goodsDisplaySpaces[25], goodsDisplaySpaces[26]]),
-  new GoodsDisplayLine(9, cityTiles[9], [goodsDisplaySpaces[27], goodsDisplaySpaces[28], goodsDisplaySpaces[29]]),
-  new GoodsDisplayLine(10, cityTiles[10], [goodsDisplaySpaces[30], goodsDisplaySpaces[31], goodsDisplaySpaces[32]]),
-  new GoodsDisplayLine(11, cityTiles[11], [goodsDisplaySpaces[33], goodsDisplaySpaces[34], goodsDisplaySpaces[35]]),
-  new GoodsDisplayLine(12, cityTiles[12], [goodsDisplaySpaces[36], goodsDisplaySpaces[37]]),
-  new GoodsDisplayLine(13, cityTiles[13], [goodsDisplaySpaces[38], goodsDisplaySpaces[39]]),
-  new GoodsDisplayLine(14, cityTiles[14], [goodsDisplaySpaces[40], goodsDisplaySpaces[41]]),
-  new GoodsDisplayLine(15, cityTiles[15], [goodsDisplaySpaces[42], goodsDisplaySpaces[43]]),
-  new GoodsDisplayLine(16, cityTiles[16], [goodsDisplaySpaces[44], goodsDisplaySpaces[45]]),
-  new GoodsDisplayLine(17, cityTiles[17], [goodsDisplaySpaces[46], goodsDisplaySpaces[47]]),
-  new GoodsDisplayLine(18, cityTiles[18], [goodsDisplaySpaces[48], goodsDisplaySpaces[49]]),
-  new GoodsDisplayLine(19, cityTiles[19], [goodsDisplaySpaces[50], goodsDisplaySpaces[51]])
+  new GoodsDisplayLine(0, '1', cityTiles[0], [goodsDisplaySpaces[0], goodsDisplaySpaces[1], goodsDisplaySpaces[2]]),
+  new GoodsDisplayLine(1, '2', cityTiles[1], [goodsDisplaySpaces[3], goodsDisplaySpaces[4], goodsDisplaySpaces[5]]),
+  new GoodsDisplayLine(2, '3', cityTiles[2], [goodsDisplaySpaces[6], goodsDisplaySpaces[7], goodsDisplaySpaces[8]]),
+  new GoodsDisplayLine(3, '4', cityTiles[3], [goodsDisplaySpaces[9], goodsDisplaySpaces[10], goodsDisplaySpaces[11]]),
+  new GoodsDisplayLine(4, '5', cityTiles[4], [goodsDisplaySpaces[12], goodsDisplaySpaces[13], goodsDisplaySpaces[14]]),
+  new GoodsDisplayLine(5, '6', cityTiles[5], [goodsDisplaySpaces[15], goodsDisplaySpaces[16], goodsDisplaySpaces[17]]),
+  new GoodsDisplayLine(6, '1', cityTiles[6], [goodsDisplaySpaces[18], goodsDisplaySpaces[19], goodsDisplaySpaces[20]]),
+  new GoodsDisplayLine(7, '2', cityTiles[7], [goodsDisplaySpaces[21], goodsDisplaySpaces[22], goodsDisplaySpaces[23]]),
+  new GoodsDisplayLine(8, '3', cityTiles[8], [goodsDisplaySpaces[24], goodsDisplaySpaces[25], goodsDisplaySpaces[26]]),
+  new GoodsDisplayLine(9, '4', cityTiles[9], [goodsDisplaySpaces[27], goodsDisplaySpaces[28], goodsDisplaySpaces[29]]),
+  new GoodsDisplayLine(10, '5', cityTiles[10], [goodsDisplaySpaces[30], goodsDisplaySpaces[31], goodsDisplaySpaces[32]]),
+  new GoodsDisplayLine(11, '6', cityTiles[11], [goodsDisplaySpaces[33], goodsDisplaySpaces[34], goodsDisplaySpaces[35]]),
+  new GoodsDisplayLine(12, 'A', cityTiles[12], [goodsDisplaySpaces[36], goodsDisplaySpaces[37]]),
+  new GoodsDisplayLine(13, 'B', cityTiles[13], [goodsDisplaySpaces[38], goodsDisplaySpaces[39]]),
+  new GoodsDisplayLine(14, 'C', cityTiles[14], [goodsDisplaySpaces[40], goodsDisplaySpaces[41]]),
+  new GoodsDisplayLine(15, 'D', cityTiles[15], [goodsDisplaySpaces[42], goodsDisplaySpaces[43]]),
+  new GoodsDisplayLine(16, 'E', cityTiles[16], [goodsDisplaySpaces[44], goodsDisplaySpaces[45]]),
+  new GoodsDisplayLine(17, 'F', cityTiles[17], [goodsDisplaySpaces[46], goodsDisplaySpaces[47]]),
+  new GoodsDisplayLine(18, 'G', cityTiles[18], [goodsDisplaySpaces[48], goodsDisplaySpaces[49]]),
+  new GoodsDisplayLine(19, 'H', cityTiles[19], [goodsDisplaySpaces[50], goodsDisplaySpaces[51]])
 ] as const
 
 export const goodsDisplayWhite = new GoodsDisplay([

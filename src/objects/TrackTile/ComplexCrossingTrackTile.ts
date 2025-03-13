@@ -26,7 +26,7 @@ export class ComplexCrossingTrackTile extends BaseTrackTile {
         return 1 + 4
       case MapSpaceType.PLAIN:
         return 4
-      case MapSpaceType.LAKE:
+      case MapSpaceType.RIVER:
         return 5
       case MapSpaceType.MOUNTAIN:
         return 6
