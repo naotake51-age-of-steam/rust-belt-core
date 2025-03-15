@@ -17,7 +17,8 @@ export class Player extends State {
     public readonly issuedShares: number,
     public readonly money: number,
     public readonly income: number,
-    public readonly engine: number
+    public readonly engine: number,
+    public readonly alive: boolean = true
   ) {
     super()
   }

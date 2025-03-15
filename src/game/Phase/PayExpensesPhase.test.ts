@@ -20,7 +20,7 @@ test('prepare', () => {
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, issuedShares, money, income, engine)
     ])
-    .setPhase(new CollectIncomePhase(''))
+    .setPhase(new CollectIncomePhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -30,7 +30,7 @@ test('prepare', () => {
   expect(g.phase).toBeInstanceOf(PayExpensesPhase)
   expect(g.turnPlayer.id).toBe(0)
   expect(g.players[0].money).toBe(money - issuedShares - engine)
-  expect(g.phase.message).toBe('山田太郎さんは6$を支払います。（所持金: 4$）')
+  expect(g.phase.message).toBe('プレイヤーは支払いを行います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)')
 })
 
 test('prepare 所持金が足りない場合は収入を減らす', () => {
@@ -43,7 +43,7 @@ test('prepare 所持金が足りない場合は収入を減らす', () => {
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, issuedShares, money, income, engine)
     ])
-    .setPhase(new CollectIncomePhase(''))
+    .setPhase(new CollectIncomePhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -54,7 +54,11 @@ test('prepare 所持金が足りない場合は収入を減らす', () => {
   expect(g.turnPlayer.id).toBe(0)
   expect(g.players[0].money).toBe(0)
   expect(g.players[0].income).toBe(8 - 2)
-  expect(g.phase.message).toBe('山田太郎さんは12$を支払います。（所持金: 0$） 収入を2$減らします。（収入: 6$）')
+  expect(g.players[0].alive).toBe(true)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].playerId).toBe(0)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].payment).toBe(12)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].reduceIncome).toBe(2)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].shortage).toBe(0)
 })
 
 test('prepare 所持金が足りない場合はエンジンを減らす 支払いが不可であればゲームから離脱する', () => {
@@ -67,7 +71,7 @@ test('prepare 所持金が足りない場合はエンジンを減らす 支払�
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, issuedShares, money, income, engine)
     ])
-    .setPhase(new CollectIncomePhase(''))
+    .setPhase(new CollectIncomePhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -78,5 +82,9 @@ test('prepare 所持金が足りない場合はエンジンを減らす 支払�
   expect(g.turnPlayer.id).toBe(0)
   expect(g.players[0].money).toBe(0)
   expect(g.players[0].income).toBe(0)
-  expect(g.phase.message).toBe('山田太郎さんは12$を支払います。（所持金: 0$） 収入を2$減らします。（収入: 0$） 支払いコストが1$足りません。ゲームから離脱します。')
+  expect(g.players[0].alive).toBe(false)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].playerId).toBe(0)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].payment).toBe(12)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].reduceIncome).toBe(2)
+  expect((g.phase as PayExpensesPhase).playerPayments[0].shortage).toBe(1)
 })

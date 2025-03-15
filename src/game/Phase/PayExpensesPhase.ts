@@ -1,51 +1,73 @@
+import { Type } from 'class-transformer'
 import { PhaseId } from 'enums'
 import { type Game, context, IncomeReductionPhase } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
 import { type Player } from 'game/Player'
 import { Phase, type HasDelayExecute } from './Phase'
 
+class Payment {
+  constructor (
+    public readonly playerId: number,
+    public readonly payment: number,
+    public readonly reduceIncome: number,
+    public readonly shortage: number
+  ) {
+  }
+
+  public get player (): Player {
+    const { g } = context()
+
+    const player = g.players.find(_ => _.id === this.playerId)
+    if (player === undefined) {
+      throw new Error('player not found')
+    }
+
+    return player
+  }
+}
+
 export class PayExpensesPhase extends Phase implements HasDelayExecute {
   public readonly id = PhaseId.PAY_EXPENSES
 
-  public constructor (public readonly message: string) {
+  @Type(() => Payment)
+  public readonly playerPayments: Payment[]
+
+  public constructor (playerPayments: Payment[]) {
     super()
+
+    this.playerPayments = playerPayments
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
     const newPlayers: Player[] = []
-    const playerMessages: string[] = []
+    const playerPayments: Payment[] = []
 
     b.game.players.forEach(_ => {
       const payment = _.issuedShares + _.engine
-      const money = _.money < payment ? 0 : _.money - payment
-      const reduceIncome = _.money < payment ? payment - _.money : 0
-      const income = _.income < reduceIncome ? 0 : _.income - reduceIncome
-      const shortage = reduceIncome - _.income
+      const [money, reduceIncome] = _.money < payment ? [0, payment - _.money] : [_.money - payment, 0]
+      const [income, shortage] = _.income < reduceIncome ? [0, reduceIncome - _.income] : [_.income - reduceIncome, 0]
 
       newPlayers.push(_.produce((draft) => {
         draft.money = money
         draft.income = income
+        if (draft.alive) {
+          draft.alive = shortage === 0
+        }
       }))
 
-      let playerMessage = `${_.name}さんは${payment}$を支払います。（所持金: ${money}$）`
-
-      if (reduceIncome > 0) {
-        playerMessage += ` 収入を${reduceIncome}$減らします。（収入: ${income}$）`
-      }
-
-      if (shortage > 0) {
-        playerMessage += ` 支払いコストが${shortage}$足りません。ゲームから離脱します。`
-
-        // TODO:: 離脱処理
-      }
-
-      playerMessages.push(playerMessage)
+      playerPayments.push(new Payment(_.id, payment, reduceIncome, shortage))
     })
 
     b.setPlayers(newPlayers)
-    b.setPhase(new PayExpensesPhase(playerMessages.join('\n')))
+
+    b.setPhase(new PayExpensesPhase(playerPayments))
 
     return b
+  }
+
+  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+  public get message (): string {
+    return 'プレイヤーは支払いを行います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)'
   }
 
   public executeDelay (): Game {

@@ -139,6 +139,10 @@ export class Game extends State {
     throw new Error('Not implemented')
   }
 
+  get alivePlayers (): Player[] {
+    return this.players.filter(_ => !_.alive)
+  }
+
   public get turnPlayer (): Player {
     return this.players[this.turnPlayerId]
   }

@@ -28,5 +28,5 @@ test('prepare', () => {
   expect(g.phase).toBeInstanceOf(CollectIncomePhase)
   expect(g.turnPlayer.id).toBe(0)
   expect(g.players[0].money).toBe(money + income)
-  expect(g.phase.message).toBe('山田太郎さんは収入10$を得ます。（所持金: 15$）')
+  expect(g.phase.message).toBe('プレイヤーは収入を受け取ります。')
 })
