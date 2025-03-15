@@ -12,8 +12,8 @@ export class GameBuilder {
     this.game = original.cloneDeep()
   }
 
-  public setTurnPlayer (player: Player): GameBuilder {
-    this.game.turnPlayerId = player.id
+  public setTurnPlayer (player: Player | null): GameBuilder {
+    this.game.turnPlayerId = player?.id ?? null
 
     return this
   }

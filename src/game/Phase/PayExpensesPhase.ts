@@ -17,12 +17,7 @@ class Payment {
   public get player (): Player {
     const { g } = context()
 
-    const player = g.players.find(_ => _.id === this.playerId)
-    if (player === undefined) {
-      throw new Error('player not found')
-    }
-
-    return player
+    return g.getPlayer(this.playerId)
   }
 }
 
@@ -43,6 +38,8 @@ export class PayExpensesPhase extends Phase implements HasDelayExecute {
     const playerPayments: Payment[] = []
 
     b.game.players.forEach(_ => {
+      if (!_.alive) return
+
       const payment = _.issuedShares + _.engine
       const [money, reduceIncome] = _.money < payment ? [0, payment - _.money] : [_.money - payment, 0]
       const [income, shortage] = _.income < reduceIncome ? [0, reduceIncome - _.income] : [_.income - reduceIncome, 0]
@@ -50,8 +47,10 @@ export class PayExpensesPhase extends Phase implements HasDelayExecute {
       newPlayers.push(_.produce((draft) => {
         draft.money = money
         draft.income = income
-        if (draft.alive) {
-          draft.alive = shortage === 0
+        if (draft.alive && shortage > 0) {
+          draft.alive = false
+          draft.action = null
+          draft.order = -1
         }
       }))
 
@@ -59,6 +58,8 @@ export class PayExpensesPhase extends Phase implements HasDelayExecute {
     })
 
     b.setPlayers(newPlayers)
+
+    b.setTurnPlayer(null)
 
     b.setPhase(new PayExpensesPhase(playerPayments))
 

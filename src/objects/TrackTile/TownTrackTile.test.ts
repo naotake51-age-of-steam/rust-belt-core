@@ -69,10 +69,13 @@ test('canPlaceToMapSpace 都市からつながっている町スペースに町�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
 
@@ -95,10 +98,13 @@ test('canPlaceToMapSpace 町スペース以外に町タイルをおけない', (
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
 
@@ -117,10 +123,13 @@ test('canPlaceToMapSpace マップ外へ出てしまう場合はFalse', () => {
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
 
@@ -138,10 +147,13 @@ test('canPlaceToMapSpace すでにタイルが置かれている場合はFalse',
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[144], getMapSpace(s(1, 1)), 2)
         .build()
@@ -160,11 +172,14 @@ test('canPlaceToMapSpace 他人の線路につながる場合はFalse', () => {
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 3, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1))
         .setLineOwner(trackTiles[52].lines[1], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1))
@@ -187,10 +202,13 @@ test('canReplaceToMapSpace フォローできない線路がある場合は置�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[141], getMapSpace(s(1, 1)), 2)
         .build()
@@ -209,10 +227,13 @@ test('canReplaceToMapSpace フォローできない線路がある場合は置�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[0])
@@ -232,10 +253,13 @@ test('canReplaceToMapSpace すべての線路をフォローできる場合は�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[153], getMapSpace(s(1, 1)), 5)
         .build()
@@ -254,10 +278,13 @@ test('canReplaceToMapSpace すべての線路をフォローできる場合は�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[0])
@@ -277,10 +304,13 @@ test('canReplaceToMapSpace 同じタイルタイプ、線路の方向が同じ�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[153], getMapSpace(s(1, 1)), 5)
         .build()
@@ -299,10 +329,13 @@ test('canReplaceToMapSpace 町ヘクスの置き換えによって、循環す�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[111], getMapSpace(s(1, 1)), 2)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[111])

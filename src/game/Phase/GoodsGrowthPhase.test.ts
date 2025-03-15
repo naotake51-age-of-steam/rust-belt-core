@@ -27,5 +27,4 @@ test('prepare', () => {
   g = (g.phase as IncomeReductionPhase).executeDelay()
 
   expect(g.phase).toBeInstanceOf(GoodsGrowthPhase)
-  expect(g.turnPlayer.id).toBe(0)
 })

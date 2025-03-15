@@ -82,7 +82,7 @@ export class Game extends State {
     players: Player[],
     public readonly round: number,
     phase: Phase,
-    public readonly turnPlayerId: number,
+    public readonly turnPlayerId: number | null,
     trackTileStates: TrackTileState[],
     cityTileStates: CityTileState[],
     goodsCubeStates: GoodsCubeState[],
@@ -140,11 +140,13 @@ export class Game extends State {
   }
 
   get alivePlayers (): Player[] {
-    return this.players.filter(_ => !_.alive)
+    return this.players.filter(_ => _.alive)
   }
 
-  public get turnPlayer (): Player {
-    return this.players[this.turnPlayerId]
+  public get turnPlayer (): Player | null {
+    if (this.turnPlayerId === null) return null
+
+    return this.getPlayer(this.turnPlayerId)
   }
 
   public get message (): string {
@@ -153,6 +155,14 @@ export class Game extends State {
 
   public canUndo (): boolean {
     throw new Error('Not implemented')
+  }
+
+  public getPlayer (id: number): Player {
+    const player = this.players.find(_ => _.id === id)
+
+    if (player === undefined) throw new Error('Not found player')
+
+    return player
   }
 
   public actionUndo (): Game {

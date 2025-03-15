@@ -25,7 +25,7 @@ test('prepare Productionを選択しているプレイヤーがいればProducti
   g = (g.phase as IncomeReductionPhase).executeDelay()
 
   expect(g.phase).toBeInstanceOf(ProductionPhase)
-  expect(g.turnPlayer.id).toBe(0)
+  expect(g.turnPlayer?.id).toBe(0)
 })
 
 test('prepare Productionを選択しているプレイヤーがいなければGoodsGrowthPhaseに遷移', () => {
@@ -41,7 +41,7 @@ test('prepare Productionを選択しているプレイヤーがいなければGo
   g = (g.phase as IncomeReductionPhase).executeDelay()
 
   expect(g.phase).toBeInstanceOf(GoodsGrowthPhase)
-  expect(g.turnPlayer.id).toBe(0)
+  expect(g.turnPlayer).toBe(null)
 })
 
 test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
@@ -55,6 +55,8 @@ test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   g = (g.phase as IncomeReductionPhase).executeDelay()
+
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   expect(g.phase).toBeInstanceOf(ProductionPhase)
   expect((g.phase as ProductionPhase).canProduceGoodsCubes()).toBe(true)
@@ -79,10 +81,14 @@ test('canPassProduction/actionProduceGoodsCubes', () => {
 
   g = (g.phase as IncomeReductionPhase).executeDelay()
 
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+
   expect(g.phase).toBeInstanceOf(ProductionPhase)
   expect((g.phase as ProductionPhase).canPassProduction()).toBe(true)
 
   g = (g.phase as ProductionPhase).actionProduceGoodsCubes()
+
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   expect((g.phase as ProductionPhase).canPassProduction()).toBe(false)
   expect((g.phase as ProductionPhase).isExecuteProduction).toBe(true)
@@ -101,6 +107,8 @@ test('canPassProduction/actionPassProduction', () => {
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   g = (g.phase as IncomeReductionPhase).executeDelay()
+
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   expect(g.phase).toBeInstanceOf(ProductionPhase)
   expect((g.phase as ProductionPhase).canPassProduction()).toBe(true)
@@ -121,6 +129,8 @@ test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduc
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   g = (g.phase as IncomeReductionPhase).executeDelay()
+
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   expect(g.phase).toBeInstanceOf(ProductionPhase)
 
@@ -178,6 +188,8 @@ test('canCompleteProduction 商品ディスプレイが空いていない場合�
 
   g = (g.phase as IncomeReductionPhase).executeDelay()
 
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
+
   expect(g.phase).toBeInstanceOf(ProductionPhase)
 
   g = (g.phase as ProductionPhase).actionProduceGoodsCubes()
@@ -205,6 +217,8 @@ test('canCompleteProduction 商品が袋に残っていない場合は商品を�
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   g = (g.phase as IncomeReductionPhase).executeDelay()
+
+  setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
   expect(g.phase).toBeInstanceOf(ProductionPhase)
 

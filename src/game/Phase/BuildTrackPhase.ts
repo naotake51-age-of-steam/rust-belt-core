@@ -30,6 +30,9 @@ export class BuildTrackPhase extends Phase {
 
   public get message (): string {
     const { g } = context()
+
+    if (g.turnPlayer === null) throw new Error('turn player is null')
+
     if (g.turnPlayer.placableCityTile > 0) {
       return `${g.turnPlayer.name}は都市と線路を敷設してください。（最大${g.turnPlayer.placableTrackTileCount}本）`
     } else {
@@ -66,7 +69,7 @@ export class BuildTrackPhase extends Phase {
 
   public static getOrderedPlayers (): Player[] {
     const { g } = context()
-    return [...g.players].sort((a, b) => {
+    return [...g.alivePlayers].sort((a, b) => {
       if (a.action === Action.FIRST_BUILD) {
         return -1
       }

@@ -28,7 +28,7 @@ test('prepare', () => {
   g = (g.phase as CollectIncomePhase).executeDelay()
 
   expect(g.phase).toBeInstanceOf(PayExpensesPhase)
-  expect(g.turnPlayer.id).toBe(0)
+  expect(g.turnPlayer).toBe(null)
   expect(g.players[0].money).toBe(money - issuedShares - engine)
   expect(g.phase.message).toBe('プレイヤーは支払いを行います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)')
 })
@@ -51,7 +51,7 @@ test('prepare 所持金が足りない場合は収入を減らす', () => {
   g = (g.phase as CollectIncomePhase).executeDelay()
 
   expect(g.phase).toBeInstanceOf(PayExpensesPhase)
-  expect(g.turnPlayer.id).toBe(0)
+  expect(g.turnPlayer).toBe(null)
   expect(g.players[0].money).toBe(0)
   expect(g.players[0].income).toBe(8 - 2)
   expect(g.players[0].alive).toBe(true)
@@ -79,7 +79,7 @@ test('prepare 所持金が足りない場合はエンジンを減らす 支払�
   g = (g.phase as CollectIncomePhase).executeDelay()
 
   expect(g.phase).toBeInstanceOf(PayExpensesPhase)
-  expect(g.turnPlayer.id).toBe(0)
+  expect(g.turnPlayer).toBe(null)
   expect(g.players[0].money).toBe(0)
   expect(g.players[0].income).toBe(0)
   expect(g.players[0].alive).toBe(false)

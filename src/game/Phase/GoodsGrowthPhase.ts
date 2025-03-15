@@ -29,6 +29,8 @@ export class GoodsGrowthPhase extends Phase implements HasDelayExecute {
       '黒: ' + blackDices.map(_ => _.toString).join('、')
     ].join('\n')
 
+    b.setTurnPlayer(null)
+
     b.setPhase(new GoodsGrowthPhase(message))
 
     return b

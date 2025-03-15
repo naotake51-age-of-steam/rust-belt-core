@@ -17,6 +17,8 @@ export class IncomeReductionPhase extends Phase {
     const playerMessages: string[] = []
 
     b.game.players.forEach(_ => {
+      if (!_.alive) return
+
       const reduceIncome = this.getReduceIncome(_.income)
       const income = _.income - reduceIncome
 
@@ -31,6 +33,9 @@ export class IncomeReductionPhase extends Phase {
     })
 
     b.setPlayers(newPlayers)
+
+    b.setTurnPlayer(null)
+
     b.setPhase(new IncomeReductionPhase(playerMessages.join('\n')))
 
     return b

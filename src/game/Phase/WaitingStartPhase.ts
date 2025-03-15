@@ -3,7 +3,7 @@ import { type PlayerColor } from 'enums/PlayerColor'
 import { GameError } from 'errors'
 import { type Game, type User, GameBuilder, context, IssueSharesPhase, Player } from 'game'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
-import { range, shuffleArray } from 'utility'
+import { shuffleArray } from 'utility'
 import { MIN_PLAYERS, MAX_PLAYERS } from '../../objects/index'
 import { Phase } from './Phase'
 
@@ -61,7 +61,7 @@ export class WaitingStartPhase extends Phase {
     return b.setPlayers([
       ...g.players,
       new Player(
-        g.players.length,
+        Math.max(...g.players.map(_ => _.id), 0) + 1,
         u.id,
         u.name,
         color,
@@ -110,13 +110,15 @@ export class WaitingStartPhase extends Phase {
       throw new GameError('Cannot start game')
     }
 
-    b.setPlayers(
-      shuffleArray(g.players).map((_, i) => {
-        return _.produce(draft => {
-          draft.order = i + 1
-        })
+    const players = shuffleArray(g.players).map((_, i) => {
+      return _.produce(draft => {
+        draft.order = i + 1
       })
-    )
+    })
+
+    b.setPlayers(players)
+
+    b.setTurnPlayer(players[0])
 
     b.setPhase(
       new IssueSharesPhase()

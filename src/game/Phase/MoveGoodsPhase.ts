@@ -19,7 +19,10 @@ class Moving {
 
   public get player (): Player | null {
     const { g } = context()
-    return g.players.find(_ => _.id === this.playerId) ?? null
+
+    if (this.playerId === null) return null
+
+    return g.getPlayer(this.playerId)
   }
 }
 
@@ -48,7 +51,7 @@ export class MoveGoodsPhase extends Phase {
 
   public static getOrderedPlayers (): Player[] {
     const { g } = context()
-    return [...g.players].sort((a, b) => {
+    return [...g.alivePlayers].sort((a, b) => {
       if (a.action === Action.FIRST_MOVE) {
         return -1
       }
@@ -67,6 +70,8 @@ export class MoveGoodsPhase extends Phase {
 
   public get message (): string {
     const { g } = context()
+
+    if (g.turnPlayer === null) throw new Error('turn player is null')
 
     return `${g.turnPlayer.name}は商品輸送またはエンジン+1を行ってください。\n（商品輸送をする場合は、マップ上の商品を選択して輸送経路を順番に選択）`
   }
@@ -206,6 +211,8 @@ export class MoveGoodsPhase extends Phase {
 
     b.setPlayers(g.players.map(
       _ => _.produce(draft => {
+        if (!draft.alive) return
+
         draft.income += this.movingList.filter(moving => moving.playerId === _.id).length
       }))
     )

@@ -1,5 +1,5 @@
 import { Action, PhaseId } from 'enums'
-import { type Game, context } from 'game'
+import { type Game, context, type Player } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
 import { type GoodsCube, clothBag, goodsCubes, goodsDisplayLines } from 'objects'
 import { GoodsGrowthPhase } from './GoodsGrowthPhase'
@@ -9,6 +9,7 @@ export class ProductionPhase extends Phase {
   public readonly id = PhaseId.PRODUCTION
 
   constructor (
+    public readonly playerId: number,
     public readonly isExecuteProduction: boolean, // 商品を引いたら絶対に配置しないといけないらしい
     public readonly placingGoodsCubeIds: number[], // 商品が残っていない可能性があるので[number, number]とはしない。
     public readonly placedGoodsDisplayLineIds: number[] // 同じ都市に複数個置くことはできない
@@ -17,9 +18,9 @@ export class ProductionPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
-    const productionPlayer = b.game.players.find(_ => _.action === Action.PRODUCTION)
+    const productionPlayer = b.game.alivePlayers.find(_ => _.action === Action.PRODUCTION)
     if (productionPlayer !== undefined) {
-      b.setPhase(new ProductionPhase(false, [], []))
+      b.setPhase(new ProductionPhase(productionPlayer.id, false, [], []))
       b.setTurnPlayer(productionPlayer)
     } else {
       GoodsGrowthPhase.prepare(b)
@@ -29,11 +30,12 @@ export class ProductionPhase extends Phase {
   }
 
   public get message (): string {
-    const { p } = context()
-    if (p === null) throw new Error('user is not in the game')
-    if (!p.hasTurn) throw new Error('user is not turn player')
+    return `${this.player.name}さんは商品を補充してください`
+  }
 
-    return `${p.name}さんは商品を補充してください`
+  public get player (): Player {
+    const { g } = context()
+    return g.getPlayer(this.playerId)
   }
 
   public get placingGoodsCubes (): GoodsCube[] {
@@ -60,7 +62,7 @@ export class ProductionPhase extends Phase {
     const b = new GameBuilder(g)
 
     const randomGoodsCubes = clothBag.getRandomGoodsCubes(2)
-    b.setPhase(new ProductionPhase(true, randomGoodsCubes.map(_ => _.id), []))
+    b.setPhase(new ProductionPhase(this.playerId, true, randomGoodsCubes.map(_ => _.id), []))
 
     return b.build()
   }
@@ -96,6 +98,7 @@ export class ProductionPhase extends Phase {
     b.placeGoodsCubeToGoodsDisplaySpace(goodsCubes[goodsCubeId], goodsDisplayLine.goodsDisplaySpaces[0])
 
     b.setPhase(new ProductionPhase(
+      this.playerId,
       this.isExecuteProduction,
       this.placingGoodsCubeIds.filter(_ => _ !== goodsCubeId),
       [...this.placedGoodsDisplayLineIds, goodsDisplayLineId]

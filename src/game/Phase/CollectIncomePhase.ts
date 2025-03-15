@@ -14,12 +14,7 @@ class Income {
   public get player (): Player {
     const { g } = context()
 
-    const player = g.players.find(_ => _.id === this.playerId)
-    if (player === undefined) {
-      throw new Error('player not found')
-    }
-
-    return player
+    return g.getPlayer(this.playerId)
   }
 }
 
@@ -40,6 +35,8 @@ export class CollectIncomePhase extends Phase implements HasDelayExecute {
     const playerIncomes: Income[] = []
 
     b.game.players.forEach(_ => {
+      if (!_.alive) return
+
       const income = _.income
 
       newPlayers.push(_.produce((draft) => {
@@ -50,6 +47,8 @@ export class CollectIncomePhase extends Phase implements HasDelayExecute {
     })
 
     b.setPlayers(newPlayers)
+
+    b.setTurnPlayer(null)
 
     b.setPhase(new CollectIncomePhase(playerIncomes))
 

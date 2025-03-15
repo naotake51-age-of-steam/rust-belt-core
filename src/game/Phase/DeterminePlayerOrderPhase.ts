@@ -19,10 +19,7 @@ export class PlayerBid extends State {
   public get player (): Player {
     const { g } = context()
 
-    const player = g.players.find(_ => _.id === this.playerId)
-    if (player === undefined) throw new Error('player is not found')
-
-    return player
+    return g.getPlayer(this.playerId)
   }
 
   /**
@@ -68,7 +65,7 @@ export class DeterminePlayerOrderPhase extends Phase {
   public static prepare (b: GameBuilder): GameBuilder {
     const { g } = context()
 
-    const playerBids = [...g.players]
+    const playerBids = [...g.alivePlayers]
       .sort((a, b) => a.order - b.order)
       .map(_ => new PlayerBid(_.id, 0, _.action === Action.TURN_ORDER_PASS, null))
 
@@ -79,6 +76,8 @@ export class DeterminePlayerOrderPhase extends Phase {
 
   public get message (): string {
     const { g } = context()
+
+    if (g.turnPlayer === null) throw new Error('turn player is null')
 
     return `${this.latestActionMessage} ${g.turnPlayer.name}はビットを行ってください。`
   }

@@ -52,11 +52,14 @@ test('canSelectGoodsCube マップ上に出ているキューブのみ選択可�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0)))
         .placeGoodsCubeToMapSpace(goodsCubes[20], getMapSpace(s(2, 2)))
@@ -82,11 +85,14 @@ test('actionSelectGoodsCube', () => {
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0)))
         .placeGoodsCubeToMapSpace(goodsCubes[20], getMapSpace(s(2, 2)))
@@ -117,11 +123,14 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving 移動力以上に�
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 2),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 2),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
         // マップ端を一周
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 2)
@@ -204,11 +213,14 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving/actionCompleteMovin
       g = initializeGame()
       b = new GameBuilder(g)
 
+      const players = [
+        new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 3),
+        new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
+      ]
+
       g = b
-        .setPlayers([
-          new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 3),
-          new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 1, 2, 10, 0, 1)
-        ])
+        .setPlayers(players)
+        .setTurnPlayer(players[0])
         .setPhase(new MoveGoodsPhase(null, [], 1, []))
       // マップ端を一周
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 2)
@@ -288,7 +300,7 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving/actionCompleteMovin
       expect(g.players[0].income).toBe(1)
       expect(g.players[1].income).toBe(1)
 
-      expect(g.turnPlayer.id).toBe(1)
+      expect(g.turnPlayer?.id).toBe(1)
     }
   )
 })

@@ -67,12 +67,15 @@ test('minBids', () => {
 })
 
 test('maxBids', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 15, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 15, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -89,12 +92,15 @@ test('maxBids', () => {
 })
 
 test('canBids タープレイヤーが最低ビット金額を持っていたらTrue', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -111,12 +117,15 @@ test('canBids タープレイヤーが最低ビット金額を持っていたら
 })
 
 test('canBids タープレイヤーが最低ビット金額を持っていなかったらFalse', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 5, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 5, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -133,12 +142,15 @@ test('canBids タープレイヤーが最低ビット金額を持っていなか
 })
 
 test('actionBids', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -157,16 +169,19 @@ test('actionBids', () => {
 
   expect(newPhase.playerBids[0]).toEqual(new PlayerBid(0, 6, false, null))
 
-  expect(newGame.turnPlayer.id).toBe(1) // 次のプレイヤーにターンが移る
+  expect(newGame.turnPlayer?.id).toBe(1) // 次のプレイヤーにターンが移る
 })
 
 test('actionBids 最低金額以下はビットできない', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -183,12 +198,15 @@ test('actionBids 最低金額以下はビットできない', () => {
 })
 
 test('actionBids 所持金以上はビッドできない', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 6, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -205,12 +223,15 @@ test('actionBids 所持金以上はビッドできない', () => {
 })
 
 test('canSoftPass パス権を持っていたらTrue', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, true, null),
       new PlayerBid(1, 4, false, null),
@@ -227,12 +248,15 @@ test('canSoftPass パス権を持っていたらTrue', () => {
 })
 
 test('canSoftPass パス権を持っていないならFalse', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -249,12 +273,15 @@ test('canSoftPass パス権を持っていないならFalse', () => {
 })
 
 test('actionSoftPass', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, true, null),
       new PlayerBid(1, 4, false, null),
@@ -272,17 +299,20 @@ test('actionSoftPass', () => {
 
   expect(newPhase.playerBids[0].canSoftPass).toBe(false) // 使用したのでFalseになる
   expect(newPhase.playerBids[0].money).toBe(3) // 変化しない
-  expect(newGame.turnPlayer.id).toBe(1) // 次のプレイヤーにターンが移る
+  expect(newGame.turnPlayer?.id).toBe(1) // 次のプレイヤーにターンが移る
 })
 
 test('actionDropout 4人プレイヤー中の1番目のユーザーが降りた場合', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
+    new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
-      new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 4, false, null),
@@ -303,17 +333,20 @@ test('actionDropout 4人プレイヤー中の1番目のユーザーが降りた�
 
   expect(newPhase.playerBids[0].order).toBe(4) // 順序が決定する
   expect(newPhase.playerBids[0].money).toBe(3) // 変化しない
-  expect(newGame.turnPlayer.id).toBe(1) // 次のプレイヤーにターンが移る
+  expect(newGame.turnPlayer?.id).toBe(1) // 次のプレイヤーにターンが移る
 })
 
 test('actionDropout 4人プレイヤー中の2番目のユーザーが降りた場合', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
+    new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
-      new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, 4),
       new PlayerBid(1, 4, false, null),
@@ -335,17 +368,20 @@ test('actionDropout 4人プレイヤー中の2番目のユーザーが降りた�
 
   expect(newPhase.playerBids[1].order).toBe(3) // 順序が決定する
   expect(newPhase.playerBids[1].money).toBe(4) // 変化しない
-  expect(newGame.turnPlayer.id).toBe(2) // 次のプレイヤーにターンが移る
+  expect(newGame.turnPlayer?.id).toBe(2) // 次のプレイヤーにターンが移る
 })
 
 test('actionDropout 4人プレイヤー中の3番目のユーザーが降りた場合', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
+    new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
-      new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, 4),
       new PlayerBid(1, 5, false, 3),
@@ -370,7 +406,7 @@ test('actionDropout 4人プレイヤー中の3番目のユーザーが降りた�
   expect(newGame.players[1].order).toBe(3)
   expect(newGame.players[2].order).toBe(2)
   expect(newGame.players[3].order).toBe(1)
-  expect(newGame.turnPlayer.id).toBe(3) // 1番手がターンプレイヤーになる
+  expect(newGame.turnPlayer?.id).toBe(3) // 1番手がターンプレイヤーになる
 
   // 支払い金額
   expect(newGame.players[0].money).toBe(10 - 0) // 4番手: 0金払い
@@ -380,12 +416,15 @@ test('actionDropout 4人プレイヤー中の3番目のユーザーが降りた�
 })
 
 test('actionDropout 3人プレイヤー中の2番目のユーザーが降りた場合', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, 3),
       new PlayerBid(1, 5, false, null),
@@ -408,7 +447,7 @@ test('actionDropout 3人プレイヤー中の2番目のユーザーが降りた�
   expect(newGame.players[0].order).toBe(3)
   expect(newGame.players[1].order).toBe(2)
   expect(newGame.players[2].order).toBe(1)
-  expect(newGame.turnPlayer.id).toBe(2) // 1番手がターンプレイヤーになる
+  expect(newGame.turnPlayer?.id).toBe(2) // 1番手がターンプレイヤーになる
 
   // 支払い金額
   expect(newGame.players[0].money).toBe(10 - 0) // 3番手: 0金払い
@@ -417,13 +456,16 @@ test('actionDropout 3人プレイヤー中の2番目のユーザーが降りた�
 })
 
 test('actionDropout 次のプレイヤーがすでに降りている場合は、その次のプレイヤー手番がくる', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
+    new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1),
-      new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 4, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 5, false, 3),
@@ -442,17 +484,20 @@ test('actionDropout 次のプレイヤーがすでに降りている場合は、
 
   expect(newPhase).toBeInstanceOf(DeterminePlayerOrderPhase)
 
-  expect(newGame.turnPlayer.id).toBe(2)
+  expect(newGame.turnPlayer?.id).toBe(2)
 })
 
 test('actionDropout 次のプレイヤーがすでに降りている場合は、その次のプレイヤー手番がくる（プレイヤーの順序がid順でないパターンも確認）', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 4, 2, 10, 0, 1), // 4番手
+    new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 3, 2, 10, 0, 1) // 3番手
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 4, 2, 10, 0, 1), // 4番手
-      new Player(3, '00000000-0000-0000-0000-000000000004', '田中四郎', PlayerColor.YELLOW, null, 3, 2, 10, 0, 1) // 3番手
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new DeterminePlayerOrderPhase([
       new PlayerBid(0, 3, false, null),
       new PlayerBid(1, 5, false, 3),
@@ -471,5 +516,5 @@ test('actionDropout 次のプレイヤーがすでに降りている場合は、
 
   expect(newPhase).toBeInstanceOf(DeterminePlayerOrderPhase)
 
-  expect(newGame.turnPlayer.id).toBe(3)
+  expect(newGame.turnPlayer?.id).toBe(3)
 })

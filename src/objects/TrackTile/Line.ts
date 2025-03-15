@@ -42,7 +42,7 @@ export class Line {
     const ownerPlayerId = lineOwners[this.number]
     if (ownerPlayerId === null) return null
 
-    return g.players[ownerPlayerId]
+    return g.getPlayer(ownerPlayerId)
   }
 
   public get direction (): number {

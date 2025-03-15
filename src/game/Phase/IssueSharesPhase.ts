@@ -10,6 +10,8 @@ export class IssueSharesPhase extends Phase {
   public get message (): string {
     const { g } = context()
 
+    if (g.turnPlayer === null) throw new Error('turn player is null')
+
     const userName = g.turnPlayer.name
     return `${userName}は株式を発行数を決定してください。`
   }
@@ -17,7 +19,7 @@ export class IssueSharesPhase extends Phase {
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPhase(new IssueSharesPhase())
 
-    const firstPlayer = b.game.players.find(_ => _.order === 1)
+    const firstPlayer = IssueSharesPhase.getOrderedPlayers()[0]
     if (firstPlayer === undefined) throw new Error('logic error')
     b.setTurnPlayer(firstPlayer)
 
@@ -76,13 +78,16 @@ export class IssueSharesPhase extends Phase {
   }
 
   private getNextPlayer (player: Player): Player | null {
-    const { g } = context()
-
-    const players = g.players
-      .filter(_ => _.remainingIssuableShares > 0)
-      .filter(_ => _.order > player.order)
-      .sort((a, b) => a.order - b.order)
+    const players = IssueSharesPhase.getOrderedPlayers().filter(_ => _.order > player.order)
 
     return players[0] ?? null
+  }
+
+  private static getOrderedPlayers (): Player[] {
+    const { g } = context()
+
+    return [...g.alivePlayers]
+      .filter(_ => _.remainingIssuableShares > 0)
+      .sort((a, b) => a.order - b.order)
   }
 }

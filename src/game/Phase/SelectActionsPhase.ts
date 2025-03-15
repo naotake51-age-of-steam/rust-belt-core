@@ -17,12 +17,14 @@ export class SelectActionsPhase extends Phase {
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPlayers(b.game.players // DeterminePlayerOrderPhaseでorderを更新しているので、b.gameからデータを取得する必要がある
       .map(_ => _.produce((draft) => {
+        if (!draft.alive) return
+
         draft.action = null
       })))
 
     b.setPhase(new SelectActionsPhase())
 
-    const firstPlayer = b.game.players.find(_ => _.order === 1)
+    const firstPlayer = b.game.alivePlayers.find(_ => _.order === 1)
     if (firstPlayer === undefined) throw new Error('logic error')
 
     b.setTurnPlayer(firstPlayer)

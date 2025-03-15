@@ -14,7 +14,7 @@ test('initializeGame', () => {
 
   expect(g.players).toEqual([])
 
-  expect(g.turnPlayerId).toBe(0)
+  expect(g.turnPlayerId).toBe(null)
 
   expect(g.trackTileStates.length).toBe(trackTiles.length)
   expect(g.trackTileStates[0]).toEqual(new TrackTileState(0, null, null, null))

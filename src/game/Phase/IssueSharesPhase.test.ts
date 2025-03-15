@@ -12,12 +12,15 @@ beforeEach(() => {
 })
 
 test('maxIssueShares', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 4, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 4, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new IssueSharesPhase())
 
   g = b.build()
@@ -30,12 +33,15 @@ test('maxIssueShares', () => {
 })
 
 test('canIssueShares 株式発行上限に達していない場合はTrue', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 14, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 14, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new IssueSharesPhase())
 
   g = b.build()
@@ -48,12 +54,15 @@ test('canIssueShares 株式発行上限に達していない場合はTrue', () =
 })
 
 test('canIssueShares 株式発行上限に達している場合はFalse', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 15, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 15, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new IssueSharesPhase())
 
   g = b.build()
@@ -66,12 +75,15 @@ test('canIssueShares 株式発行上限に達している場合はFalse', () => 
 })
 
 test('actionIssueShares', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new IssueSharesPhase())
 
   g = b.build()
@@ -84,17 +96,20 @@ test('actionIssueShares', () => {
 
   expect(newGame.players[0].issuedShares).toBe(4)
   expect(newGame.players[0].money).toBe(20)
-  expect(newGame.turnPlayer.id).toBe(1)
+  expect(newGame.turnPlayer?.id).toBe(1)
   expect(newGame.phase).toBeInstanceOf(IssueSharesPhase)
 })
 
 test('actionIssueShares 最終プレイヤーの場合は次のフェーズに進む', () => {
+  const players = [
+    new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
+    new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
+    new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
+  ]
+
   b
-    .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1),
-      new Player(1, '00000000-0000-0000-0000-000000000002', '鈴木二郎', PlayerColor.BLUE, null, 2, 2, 10, 0, 1),
-      new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1)
-    ])
+    .setPlayers(players)
+    .setTurnPlayer(players[0])
     .setPhase(new IssueSharesPhase())
     .setTurnPlayer(new Player(2, '00000000-0000-0000-0000-000000000003', '佐藤三郎', PlayerColor.GREEN, null, 3, 2, 10, 0, 1))
 
@@ -106,6 +121,6 @@ test('actionIssueShares 最終プレイヤーの場合は次のフェーズに�
 
   const newGame = phase.actionIssueShares(2)
 
-  expect(newGame.turnPlayer.id).toBe(0)
+  expect(newGame.turnPlayer?.id).toBe(0)
   expect(newGame.phase).toBeInstanceOf(DeterminePlayerOrderPhase)
 })
