@@ -26,5 +26,7 @@ test('prepare', () => {
 
   expect(g.phase).toBeInstanceOf(IncomeReductionPhase)
   expect(g.players[0].income).toBe(income - 2)
-  expect(g.phase.message).toBe('山田太郎さんは収入が2$減ります。（収入: 9$）')
+  expect(g.phase.message).toBe('プレイヤーの収益が低下します。')
+  expect((g.phase as IncomeReductionPhase).playerIncomeReductions[0].playerId).toBe(0)
+  expect((g.phase as IncomeReductionPhase).playerIncomeReductions[0].reduceIncome).toBe(2)
 })

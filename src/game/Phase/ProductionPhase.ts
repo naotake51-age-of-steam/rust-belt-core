@@ -11,8 +11,7 @@ export class ProductionPhase extends Phase {
   constructor (
     public readonly playerId: number,
     public readonly isExecuteProduction: boolean, // 商品を引いたら絶対に配置しないといけないらしい
-    public readonly placingGoodsCubeIds: number[], // 商品が残っていない可能性があるので[number, number]とはしない。
-    public readonly placedGoodsDisplayLineIds: number[] // 同じ都市に複数個置くことはできない
+    public readonly placingGoodsCubeIds: number[] // 商品が残っていない可能性があるので[number, number]とはしない。
   ) {
     super()
   }
@@ -20,7 +19,7 @@ export class ProductionPhase extends Phase {
   public static prepare (b: GameBuilder): GameBuilder {
     const productionPlayer = b.game.alivePlayers.find(_ => _.action === Action.PRODUCTION)
     if (productionPlayer !== undefined) {
-      b.setPhase(new ProductionPhase(productionPlayer.id, false, [], []))
+      b.setPhase(new ProductionPhase(productionPlayer.id, false, []))
       b.setTurnPlayer(productionPlayer)
     } else {
       GoodsGrowthPhase.prepare(b)
@@ -30,12 +29,18 @@ export class ProductionPhase extends Phase {
   }
 
   public get message (): string {
-    return `${this.player.name}さんは商品を補充してください`
+    return `${this.player.name}さんは商品補充アクションを行ってください。`
   }
 
   public get player (): Player {
     const { g } = context()
     return g.getPlayer(this.playerId)
+  }
+
+  public isTurnPlayer (): boolean {
+    const { p } = context()
+
+    return p?.hasTurn ?? false
   }
 
   public get placingGoodsCubes (): GoodsCube[] {
@@ -62,7 +67,7 @@ export class ProductionPhase extends Phase {
     const b = new GameBuilder(g)
 
     const randomGoodsCubes = clothBag.getRandomGoodsCubes(2)
-    b.setPhase(new ProductionPhase(this.playerId, true, randomGoodsCubes.map(_ => _.id), []))
+    b.setPhase(new ProductionPhase(this.playerId, true, randomGoodsCubes.map(_ => _.id)))
 
     return b.build()
   }
@@ -74,12 +79,9 @@ export class ProductionPhase extends Phase {
 
     if (this.placingGoodsCubes.length === 0) return false
 
-    if (this.placedGoodsDisplayLineIds.includes(goodsDisplayLineId)) return false
-
     const goodsDisplayLine = goodsDisplayLines[goodsDisplayLineId]
-    if (goodsDisplayLine.goodsDisplaySpaces[0].goodsCube !== null) return false
 
-    return true
+    return goodsDisplayLine.nextEmptySpace !== null
   }
 
   public actionPlaceToGoodsDisplayLine (goodsDisplayLineId: number, goodsCubeId: number): Game {
@@ -95,13 +97,15 @@ export class ProductionPhase extends Phase {
 
     const b = new GameBuilder(g)
 
-    b.placeGoodsCubeToGoodsDisplaySpace(goodsCubes[goodsCubeId], goodsDisplayLine.goodsDisplaySpaces[0])
+    const nextEmptySpace = goodsDisplayLine.nextEmptySpace
+    if (nextEmptySpace === null) throw new Error('logic error')
+
+    b.placeGoodsCubeToGoodsDisplaySpace(goodsCubes[goodsCubeId], nextEmptySpace)
 
     b.setPhase(new ProductionPhase(
       this.playerId,
       this.isExecuteProduction,
-      this.placingGoodsCubeIds.filter(_ => _ !== goodsCubeId),
-      [...this.placedGoodsDisplayLineIds, goodsDisplayLineId]
+      this.placingGoodsCubeIds.filter(_ => _ !== goodsCubeId)
     ))
 
     return b.build()

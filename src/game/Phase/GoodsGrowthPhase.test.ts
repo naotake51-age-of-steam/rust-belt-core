@@ -19,7 +19,7 @@ test('prepare', () => {
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))

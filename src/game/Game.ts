@@ -15,10 +15,8 @@ import {
   ProductionPhase,
   GoodsGrowthPhase,
   AdvanceTurnMarkerPhase,
-  EndGamePhase,
-  DestroyedGamePhase
+  EndGamePhase
 } from 'game'
-import { type MapSpace, type TrackTile, type CityTile, type GoodsCube, type TownMarker } from 'objects'
 import { match } from 'ts-pattern'
 import { createUniqueIndex, createIndex } from 'utility'
 import { State } from './State'
@@ -72,7 +70,6 @@ export class Game extends State {
         .with(PhaseId.GOODS_GROWTH, () => GoodsGrowthPhase)
         .with(PhaseId.ADVANCE_TURN_MARKER, () => AdvanceTurnMarkerPhase)
         .with(PhaseId.END_GAME, () => EndGamePhase)
-        .with(PhaseId.DESTROYED_GAME, () => DestroyedGamePhase)
         .exhaustive()
       , value)
   })
@@ -123,22 +120,6 @@ export class Game extends State {
     return this.__townMakerStatesIndexByTrackTile ??= createUniqueIndex(this.townMakerStates, 'trackTileId')
   }
 
-  public getTrackTileByMapSpace (mapSpace: MapSpace): TrackTile | null {
-    throw new Error('Not implemented')
-  }
-
-  public getCityTileByMapSpace (mapSpace: MapSpace): CityTile | null {
-    throw new Error('Not implemented')
-  }
-
-  public getGoodsCubesByMapSpace (mapSpace: MapSpace): GoodsCube[] {
-    throw new Error('Not implemented')
-  }
-
-  public getTownMakerByTrackTile (trackTile: TrackTile): TownMarker | null {
-    throw new Error('Not implemented')
-  }
-
   get alivePlayers (): Player[] {
     return this.players.filter(_ => _.alive)
   }
@@ -151,6 +132,20 @@ export class Game extends State {
 
   public get message (): string {
     return this.phase.message
+  }
+
+  public get lastRound (): number {
+    const players = this.players.length
+
+    if (players === 6) {
+      return 5
+    } else if (players === 5) {
+      return 6
+    } else if (players === 4) {
+      return 7
+    } else {
+      return 9
+    }
   }
 
   public canUndo (): boolean {

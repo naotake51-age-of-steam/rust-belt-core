@@ -30,7 +30,7 @@ test('prepare', () => {
   expect(g.phase).toBeInstanceOf(PayExpensesPhase)
   expect(g.turnPlayer).toBe(null)
   expect(g.players[0].money).toBe(money - issuedShares - engine)
-  expect(g.phase.message).toBe('プレイヤーは支払いを行います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)')
+  expect(g.phase.message).toBe('プレイヤーは経費を支払います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)')
 })
 
 test('prepare 所持金が足りない場合は収入を減らす', () => {

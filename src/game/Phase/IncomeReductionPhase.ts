@@ -1,23 +1,46 @@
+import { Type } from 'class-transformer'
 import { PhaseId } from 'enums'
-import { type Game, context } from 'game'
+import { type Game, context, EndGamePhase } from 'game'
 import { GameBuilder } from 'game/GameBuilder'
 import { type Player } from 'game/Player'
 import { Phase } from './Phase'
 import { ProductionPhase } from './ProductionPhase'
 
+class IncomeReduction {
+  constructor (
+    public readonly playerId: number,
+    public readonly reduceIncome: number
+  ) {
+  }
+
+  public get player (): Player {
+    const { g } = context()
+
+    return g.getPlayer(this.playerId)
+  }
+}
+
 export class IncomeReductionPhase extends Phase {
   public readonly id = PhaseId.INCOME_REDUCTION
 
-  public constructor (public readonly message: string) {
+  @Type(() => IncomeReduction)
+  public readonly playerIncomeReductions: IncomeReduction[]
+
+  public constructor (playerIncomeReductions: IncomeReduction[]) {
     super()
+
+    this.playerIncomeReductions = playerIncomeReductions
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
     const newPlayers: Player[] = []
-    const playerMessages: string[] = []
+    const playerIncomeReductions: IncomeReduction[] = []
 
     b.game.players.forEach(_ => {
-      if (!_.alive) return
+      if (!_.alive) {
+        newPlayers.push(_)
+        return
+      }
 
       const reduceIncome = this.getReduceIncome(_.income)
       const income = _.income - reduceIncome
@@ -26,19 +49,23 @@ export class IncomeReductionPhase extends Phase {
         draft.income = income
       })
 
-      const playerMessage = `${_.name}さんは収入が${reduceIncome}$減ります。（収入: ${income}$）`
-
       newPlayers.push(player)
-      playerMessages.push(playerMessage)
+
+      playerIncomeReductions.push(new IncomeReduction(player.id, reduceIncome))
     })
 
     b.setPlayers(newPlayers)
 
     b.setTurnPlayer(null)
 
-    b.setPhase(new IncomeReductionPhase(playerMessages.join('\n')))
+    b.setPhase(new IncomeReductionPhase(playerIncomeReductions))
 
     return b
+  }
+
+  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+  public get message (): string {
+    return 'プレイヤーの収益が低下します。'
   }
 
   private static getReduceIncome (income: number): number {
@@ -63,7 +90,11 @@ export class IncomeReductionPhase extends Phase {
     const { g } = context()
     const b = new GameBuilder(g)
 
-    ProductionPhase.prepare(b)
+    if (b.game.round >= g.lastRound) {
+      EndGamePhase.prepare(b)
+    } else {
+      ProductionPhase.prepare(b)
+    }
 
     return b.build()
   }

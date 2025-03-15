@@ -31,7 +31,7 @@ export class Line {
   }
 
   public get mapSpace (): MapSpace | null {
-    throw new Error('Not implemented')
+    return this.trackTile.mapSpace
   }
 
   public get owner (): Player | null {
@@ -65,7 +65,7 @@ export class Line {
    * 完成した線路であるか
    */
   public get isFixed (): boolean {
-    if (this.mapSpace === null) throw new Error('Not placed')
+    if (this.mapSpace === null) return false
 
     const terminalObject = this.mapSpace.getLinkedTerminalObject(this.direction)
     const isFixedTerminal = terminalObject instanceof CityTile || terminalObject instanceof TownMarker || terminalObject instanceof Town

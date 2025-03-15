@@ -55,7 +55,8 @@ export class DeterminePlayerOrderPhase extends Phase {
 
   constructor (
     playerBids: PlayerBid[], // order順
-    public readonly latestActionMessage: string
+    public readonly latestActionMessage: string,
+    public readonly lastBidsPlayerId: number | null = null
   ) {
     super()
 
@@ -123,7 +124,8 @@ export class DeterminePlayerOrderPhase extends Phase {
 
     b.setPhase(new DeterminePlayerOrderPhase(
       this.playerBids.map(_ => _.playerId === p.id ? new PlayerBid(_.playerId, money, _.canSoftPass, _.order) : _),
-      `${p.name}は${money}をビットしました。`
+      `${p.name}は${money}をビットしました。`,
+      p.id
     ))
 
     const nextPlayer = this.getNextPlayer()
@@ -139,6 +141,12 @@ export class DeterminePlayerOrderPhase extends Phase {
 
     if (p === null) throw new Error('user is not in the game')
     if (!p.hasTurn) throw new Error('user is not turn player')
+
+    // 残りの人数が2人で最後にビットしたのが、残っているもう一方のプレイヤーの場合はソフトパスできない
+    const remainOtherPlayers = this.playerBids.filter(_ => _.order === null && _.playerId !== p.id)
+    if (remainOtherPlayers.length === 1 && remainOtherPlayers[0].playerId === this.lastBidsPlayerId) {
+      return false
+    }
 
     const playerBid = this.playerBids.find(_ => _.playerId === p.id)
     if (playerBid === undefined) throw new Error('logic error')

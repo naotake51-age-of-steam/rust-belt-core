@@ -11,29 +11,29 @@ export class GoodsGrowthPhase extends Phase implements HasDelayExecute {
   public readonly id = PhaseId.GOODS_GROWTH
 
   public constructor (
-    public readonly message: string
+    public readonly whiteDices: number[],
+    public readonly blackDices: number[]
   ) {
     super()
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
     const whiteDices = b.game.players.map(_ => random(1, 6))// プレイヤー数だけダイスを振る
-    this.growGoodsCubes(goodsDisplayWhite, whiteDices, b)
+    b = this.growGoodsCubes(goodsDisplayWhite, whiteDices, b)
 
     const blackDices = b.game.players.map(_ => random(1, 6))// プレイヤー数だけダイスを振る
-    this.growGoodsCubes(goodsDisplayBlack, blackDices, b)
-
-    const message = [
-      '以下のダイス目の商品を補充します。',
-      '白: ' + whiteDices.map(_ => _.toString).join('、'),
-      '黒: ' + blackDices.map(_ => _.toString).join('、')
-    ].join('\n')
+    b = this.growGoodsCubes(goodsDisplayBlack, blackDices, b)
 
     b.setTurnPlayer(null)
 
-    b.setPhase(new GoodsGrowthPhase(message))
+    b.setPhase(new GoodsGrowthPhase(whiteDices, blackDices))
 
     return b
+  }
+
+  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+  public get message (): string {
+    return 'ダイス目の商品を配置します。'
   }
 
   public executeDelay (): Game {

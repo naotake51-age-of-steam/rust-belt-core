@@ -9,6 +9,10 @@ export class GoodsDisplayLine {
     public readonly goodsDisplaySpaces: GoodsDisplaySpace[]
   ) {}
 
+  public get nextEmptySpace (): GoodsDisplaySpace | null {
+    return this.goodsDisplaySpaces.find(_ => _.goodsCube === null) ?? null
+  }
+
   public getGoodsCubes (quantity: number): GoodsCube[] {
     const goodsCubes = this.goodsDisplaySpaces.map(_ => _.goodsCube).filter(_ => _ !== null)
 

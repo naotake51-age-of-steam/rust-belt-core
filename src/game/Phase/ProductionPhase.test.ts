@@ -17,7 +17,7 @@ test('prepare Productionを選択しているプレイヤーがいればProducti
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -33,7 +33,7 @@ test('prepare Productionを選択しているプレイヤーがいなければGo
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.ENGINEER, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -49,7 +49,7 @@ test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -66,7 +66,6 @@ test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
   expect((g.phase as ProductionPhase).canProduceGoodsCubes()).toBe(false)
   expect((g.phase as ProductionPhase).isExecuteProduction).toBe(true)
   expect((g.phase as ProductionPhase).placingGoodsCubeIds.length).toBe(2)
-  expect((g.phase as ProductionPhase).placedGoodsDisplayLineIds).toEqual([])
 })
 
 test('canPassProduction/actionProduceGoodsCubes', () => {
@@ -74,7 +73,7 @@ test('canPassProduction/actionProduceGoodsCubes', () => {
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -93,7 +92,6 @@ test('canPassProduction/actionProduceGoodsCubes', () => {
   expect((g.phase as ProductionPhase).canPassProduction()).toBe(false)
   expect((g.phase as ProductionPhase).isExecuteProduction).toBe(true)
   expect((g.phase as ProductionPhase).placingGoodsCubeIds.length).toBe(2)
-  expect((g.phase as ProductionPhase).placedGoodsDisplayLineIds).toEqual([])
 })
 
 test('canPassProduction/actionPassProduction', () => {
@@ -101,7 +99,7 @@ test('canPassProduction/actionPassProduction', () => {
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -123,7 +121,7 @@ test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduc
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -152,7 +150,7 @@ test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduc
   expect(goodsDisplayLines[0].goodsDisplaySpaces[0].goodsCube?.id).toBe(placingGoodsCubeIds[0])
 
   // 2個目の商品を配置
-  expect((g.phase as ProductionPhase).canPlaceToGoodsDisplayLine(0)).toBe(false) // 同じラインには置けない
+  expect((g.phase as ProductionPhase).canPlaceToGoodsDisplayLine(0)).toBe(true) // 説明書を見る限り、同じラインにも配置可能
   expect((g.phase as ProductionPhase).canPlaceToGoodsDisplayLine(1)).toBe(true)
   g = (g.phase as ProductionPhase).actionPlaceToGoodsDisplayLine(1, placingGoodsCubeIds[1])
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -172,7 +170,7 @@ test('canCompleteProduction 商品ディスプレイが空いていない場合�
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
 
   // 商品ディスプレイを満タンにする
   let goodsCubeId = 0
@@ -205,7 +203,7 @@ test('canCompleteProduction 商品が袋に残っていない場合は商品を�
     .setPlayers([
       new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
     ])
-    .setPhase(new IncomeReductionPhase(''))
+    .setPhase(new IncomeReductionPhase([]))
 
   // 商品すべてマップに配置する
   goodsCubes.forEach(goodsCube => {

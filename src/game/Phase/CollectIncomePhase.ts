@@ -35,7 +35,10 @@ export class CollectIncomePhase extends Phase implements HasDelayExecute {
     const playerIncomes: Income[] = []
 
     b.game.players.forEach(_ => {
-      if (!_.alive) return
+      if (!_.alive) {
+        newPlayers.push(_)
+        return
+      }
 
       const income = _.income
 

@@ -30,7 +30,7 @@ export const BOARD_WIDTH = DX * 18 + 25
 export const BOARD_HEIGHT = DY * 11
 
 // export const MIN_PLAYERS = 3
-export const MIN_PLAYERS = 1 // TODO:: 開発のために一時的に設定
+export const MIN_PLAYERS = 2 // しばらくテストするために２人で遊べるようにする
 export const MAX_PLAYERS = 6
 
 export const s = (col: number, row: number): number => col * 11 + row

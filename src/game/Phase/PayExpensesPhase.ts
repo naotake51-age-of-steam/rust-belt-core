@@ -38,7 +38,10 @@ export class PayExpensesPhase extends Phase implements HasDelayExecute {
     const playerPayments: Payment[] = []
 
     b.game.players.forEach(_ => {
-      if (!_.alive) return
+      if (!_.alive) {
+        newPlayers.push(_)
+        return
+      }
 
       const payment = _.issuedShares + _.engine
       const [money, reduceIncome] = _.money < payment ? [0, payment - _.money] : [_.money - payment, 0]
@@ -68,7 +71,7 @@ export class PayExpensesPhase extends Phase implements HasDelayExecute {
 
   // eslint-disable-next-line @typescript-eslint/class-literal-property-style
   public get message (): string {
-    return 'プレイヤーは支払いを行います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)'
+    return 'プレイヤーは経費を支払います。\n(支払いが足りない場合は収入が減ります。収入がマイナスになる場合はゲームから脱落します。)'
   }
 
   public executeDelay (): Game {
