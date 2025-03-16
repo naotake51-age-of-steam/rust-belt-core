@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { Type, Transform, plainToInstance, Exclude } from 'class-transformer'
 import { PhaseId } from 'enums'
-import { type Phase, Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState } from 'game'
+import { type Phase, Player, GoodsCubeState, TrackTileState, CityTileState, TownMarkerState, context } from 'game'
 import {
   WaitingStartPhase,
   IssueSharesPhase,
@@ -128,6 +128,12 @@ export class Game extends State {
     if (this.turnPlayerId === null) return null
 
     return this.getPlayer(this.turnPlayerId)
+  }
+
+  public get currentPlayer (): Player | null {
+    const { p } = context()
+
+    return p
   }
 
   public get message (): string {
