@@ -10,6 +10,8 @@ export class AdvanceTurnMarkerPhase extends Phase {
   public static prepare (b: GameBuilder): GameBuilder {
     b.setPhase(new AdvanceTurnMarkerPhase())
 
+    b.setRound(b.game.round + 1)
+
     b.setTurnPlayer(null)
 
     return b

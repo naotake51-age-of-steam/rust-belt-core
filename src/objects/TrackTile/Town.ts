@@ -9,6 +9,6 @@ export class Town {
   }
 
   public get mapSpace (): MapSpace | null {
-    throw new Error('Not implemented')
+    return this.trackTile.mapSpace
   }
 }

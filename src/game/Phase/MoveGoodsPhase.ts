@@ -1,8 +1,9 @@
 import { Type } from 'class-transformer'
 import { PhaseId, Action, MapSpaceType } from 'enums'
-import { GameBuilder, type Game, context, type Player, MAX_ENGINE } from 'game'
+import { GameBuilder, type Game, context, type Player } from 'game'
 import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker } from 'objects'
 import { Town } from '../../objects/TrackTile/Town'
+import { MAX_ENGINE } from '../../objects/index'
 import { CollectIncomePhase } from './CollectIncomePhase'
 import { Phase } from './Phase'
 
@@ -134,9 +135,9 @@ export class MoveGoodsPhase extends Phase {
 
     if (currentMapSpace.type === MapSpaceType.TOWN) {
       const trackTile = currentMapSpace.trackTile
-      if (trackTile === null) throw new Error('logic error')
-
-      if (trackTile.getLineByDirection(direction) === null) return false
+      if (trackTile !== null) {
+        if (trackTile.getLineByDirection(direction) === null) return false
+      }
     }
 
     // 都市、町以外には移動できない
