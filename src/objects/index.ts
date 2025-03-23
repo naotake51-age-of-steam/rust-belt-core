@@ -24,7 +24,8 @@ export const spaceSize = {
   height: 86
 } as const
 
-export const MAX_ISSUES = 20
+export const MAX_ISSUES = 15
+export const MAX_ENGINE = 6
 
 export const BOARD_WIDTH = DX * 18 + 25
 export const BOARD_HEIGHT = DY * 11

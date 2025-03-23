@@ -1,10 +1,8 @@
 import { Action } from 'enums'
 import { type PlayerColor } from 'enums/PlayerColor'
 import { context } from 'game'
+import { MAX_ISSUES } from '../objects/index'
 import { State } from './State'
-
-const MAX_ISSUABLE_SHARES = 15
-export const MAX_ENGINE = 6
 
 export class Player extends State {
   constructor (
@@ -30,7 +28,7 @@ export class Player extends State {
   }
 
   public get remainingIssuableShares (): number {
-    return MAX_ISSUABLE_SHARES - this.issuedShares
+    return MAX_ISSUES - this.issuedShares
   }
 
   public get placableTrackTileCount (): number {

@@ -30,6 +30,12 @@ export class GameBuilder {
     return this
   }
 
+  public producePhase<P extends Phase> (producer: (draft: Writable<P>) => void): GameBuilder {
+    this.game.phase = (this.game.phase as P).produce(producer)
+
+    return this
+  }
+
   public setPlayers (players: Player[]): GameBuilder {
     this.game.players = players
 

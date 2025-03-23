@@ -80,7 +80,7 @@ export class IncomeReductionPhase extends Phase {
     } else if (income >= 41 && income <= 49) {
       return 8
     } else if (income >= 50) {
-      return 10
+      return 10 // NOTE:: 最後不規則だが正しい
     } else {
       throw new Error('logic error')
     }
