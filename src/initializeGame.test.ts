@@ -10,7 +10,7 @@ test('initializeGame', () => {
 
   expect(g.round).toBe(1)
 
-  expect(g.phase).toEqual(new WaitingStartPhase([]))
+  expect(g.phase).toEqual(new WaitingStartPhase())
 
   expect(g.players).toEqual([])
 

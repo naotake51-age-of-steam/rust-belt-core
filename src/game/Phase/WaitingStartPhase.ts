@@ -1,7 +1,7 @@
 import { PhaseId } from 'enums'
 import { type PlayerColor } from 'enums/PlayerColor'
 import { GameError } from 'errors'
-import { type Game, type User, GameBuilder, context, IssueSharesPhase, Player } from 'game'
+import { type Game, GameBuilder, context, IssueSharesPhase, Player } from 'game'
 import { cityTiles, goodsDisplaySpaces, clothBag } from 'objects'
 import { shuffleArray } from 'utility'
 import { MIN_PLAYERS, MAX_PLAYERS } from '../../objects/index'
@@ -14,12 +14,6 @@ const INITIALIZE_ENGINE = 1
 
 export class WaitingStartPhase extends Phase {
   public readonly id = PhaseId.WAITING_START
-
-  constructor (
-    public readonly joinedUsers: User[]
-  ) {
-    super()
-  }
 
   public static prepare (b: GameBuilder): GameBuilder {
     throw new Error('Not implemented')
