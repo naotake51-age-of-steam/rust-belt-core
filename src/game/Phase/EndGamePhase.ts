@@ -10,6 +10,7 @@ class PlayerScore {
   constructor (
     public readonly playerId: number,
     public readonly income: number,
+    public readonly issueShares: number,
     public readonly lineCount: number,
     public readonly total: number
   ) {
@@ -55,8 +56,9 @@ export class EndGamePhase extends Phase {
     return new PlayerScore(
       player.id,
       player.income,
+      player.issuedShares,
       lineCount,
-      player.income * 3 + lineCount
+      (player.income - player.issuedShares) * 3 + lineCount
     )
   }
 
