@@ -1,6 +1,6 @@
 import { MapSpaceType } from 'enums'
 import { PlacedLineType } from 'enums/PlacedLineType'
-import { type GameBuilder, context, BuildTrackPhase } from 'game'
+import { type GameBuilder, context, type BuildTrackPhase } from 'game'
 import { type MapSpace, Line, CityTile } from 'objects'
 
 export function determineNewLineOwner (line: Line, mapSpace: MapSpace, rotation: number, b: GameBuilder): void {
@@ -21,10 +21,10 @@ export function determineNewLineOwner (line: Line, mapSpace: MapSpace, rotation:
     }
 
     const phase = b.game.phase as BuildTrackPhase
-    b.setPhase(new BuildTrackPhase(
-      phase.buildingTrackTileIds,
-      phase.buildingCityTileIds,
-      [...phase.newLines, line])
+    b.setPhase(
+      phase.produce((draft) => {
+        draft.newLines.push(line)
+      })
     )
 
     return

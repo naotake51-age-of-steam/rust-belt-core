@@ -1,8 +1,23 @@
 import { Type } from 'class-transformer'
 import { PhaseId, Action, MapSpaceType } from 'enums'
 import { GameBuilder, type Game, context, type Player, SettlementPhase } from 'game'
+import { State } from 'game/State'
 import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker, MAX_ENGINE, Town } from 'objects'
 import { Phase } from './Phase'
+
+export class PlayerOrderForMoveGood extends State {
+  constructor (
+    public readonly playerId: number
+  ) {
+    super()
+  }
+
+  public get player (): Player {
+    const { g } = context()
+
+    return g.getPlayer(this.playerId)
+  }
+}
 
 class Moving {
   constructor (
@@ -30,7 +45,11 @@ export class MoveGoodsPhase extends Phase {
   @Type(() => Moving)
   public readonly movingList: Moving[]
 
+  @Type(() => PlayerOrderForMoveGood)
+  public readonly playerOrders: PlayerOrderForMoveGood[]
+
   constructor (
+    playerOrders: PlayerOrderForMoveGood[],
     public readonly selectedGoodsCubeId: number | null,
     movingList: Moving[],
     public readonly movingCounter: number, // 1 or 2
@@ -38,26 +57,25 @@ export class MoveGoodsPhase extends Phase {
   ) {
     super()
 
+    this.playerOrders = playerOrders
     this.movingList = movingList
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
-    const players = MoveGoodsPhase.getOrderedPlayers()
-    b.setTurnPlayer(players[0])
-    return b.setPhase(new MoveGoodsPhase(null, [], 1, []))
-  }
+    const playerOrders = [...b.game.alivePlayers]
+      .sort((a, b) => {
+        if (a.action === Action.FIRST_MOVE) {
+          return -1
+        }
+        if (b.action === Action.FIRST_MOVE) {
+          return 1
+        }
+        return a.order - b.order
+      })
+      .map(_ => new PlayerOrderForMoveGood(_.id))
 
-  public static getOrderedPlayers (): Player[] {
-    const { g } = context()
-    return [...g.alivePlayers].sort((a, b) => {
-      if (a.action === Action.FIRST_MOVE) {
-        return -1
-      }
-      if (b.action === Action.FIRST_MOVE) {
-        return 1
-      }
-      return a.order - b.order
-    })
+    b.setTurnPlayer(playerOrders[0].player)
+    return b.setPhase(new MoveGoodsPhase(playerOrders, null, [], 1, []))
   }
 
   public isTurnPlayer (): boolean {
@@ -106,12 +124,11 @@ export class MoveGoodsPhase extends Phase {
     const { g } = context()
     const b = new GameBuilder(g)
 
-    b.setPhase(new MoveGoodsPhase(
-      goodsCubeId,
-      this.movingList,
-      this.movingCounter,
-      this.incrementedLocomotivePlayerIds
-    ))
+    b.setPhase(
+      this.produce((draft) => {
+        draft.selectedGoodsCubeId = goodsCubeId
+      })
+    )
 
     return b.build()
   }
@@ -170,12 +187,12 @@ export class MoveGoodsPhase extends Phase {
 
     const linkedLine = currentMapSpace.getLinkedLine(direction)
     if (linkedLine === null) throw new Error('logic error') // マップによっては線路を挟まない場合がある
-    b.setPhase(new MoveGoodsPhase(
-      this.selectedGoodsCubeId,
-      [...this.movingList, new Moving(nextMapSpace.id, linkedLine.owner?.id ?? null)],
-      this.movingCounter,
-      this.incrementedLocomotivePlayerIds
-    ))
+
+    b.setPhase(
+      this.produce((draft) => {
+        draft.movingList.push(new Moving(nextMapSpace.id, linkedLine.owner?.id ?? null))
+      })
+    )
 
     return b.build()
   }
@@ -265,12 +282,10 @@ export class MoveGoodsPhase extends Phase {
   }
 
   private getNextPlayer (player: Player): Player | null {
-    const players = MoveGoodsPhase.getOrderedPlayers()
+    const nextIndex = this.playerOrders.findIndex(_ => _.playerId === player.id) + 1
+    if (this.playerOrders.length <= nextIndex) return null
 
-    const nextIndex = players.findIndex(_ => _.id === player.id) + 1
-    if (players.length <= nextIndex) return null
-
-    return players[nextIndex]
+    return this.playerOrders[nextIndex].player
   }
 
   private next (b: GameBuilder): GameBuilder {
@@ -287,8 +302,7 @@ export class MoveGoodsPhase extends Phase {
       })
     } else {
       if (this.movingCounter === 1) {
-        const players = MoveGoodsPhase.getOrderedPlayers()
-        b.setTurnPlayer(players[0])
+        b.setTurnPlayer(this.playerOrders[0].player)
         b.producePhase<MoveGoodsPhase>((draft) => {
           draft.selectedGoodsCubeId = null
           draft.movingList = []

@@ -62,7 +62,7 @@ export class GoodsGrowthPhase extends Phase {
 
   // eslint-disable-next-line @typescript-eslint/class-literal-property-style
   public get message (): string {
-    return 'ダイス目の商品を配置します。'
+    return 'ダイス目の商品を配置しました。'
   }
 
   public canConfirm (): boolean {

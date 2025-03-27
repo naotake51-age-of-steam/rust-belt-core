@@ -75,7 +75,7 @@ export class EndGamePhase extends Phase {
     const winners = this.winners
 
     return 'お疲れ様です。ゲームが終了しました。\n' + (
-      winners.length > 1
+      winners.length !== 0
         ? winners.map(_ => _.name).join('、') + 'の勝利です。🎉🎉🎉'
         : 'すべてのプレイヤーが破産したため勝利者はいません。😢'
     )
