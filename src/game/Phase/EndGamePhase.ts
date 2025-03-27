@@ -72,6 +72,12 @@ export class EndGamePhase extends Phase {
 
   // eslint-disable-next-line @typescript-eslint/class-literal-property-style
   public get message (): string {
-    return 'お疲れ様です。ゲームが終了しました。\n' + this.winners.map(_ => _.name).join('、') + 'の勝利です。🎉🎉🎉'
+    const winners = this.winners
+
+    return 'お疲れ様です。ゲームが終了しました。\n' + (
+      winners.length > 1
+        ? winners.map(_ => _.name).join('、') + 'の勝利です。🎉🎉🎉'
+        : 'すべてのプレイヤーが破産したため勝利者はいません。😢'
+    )
   }
 }

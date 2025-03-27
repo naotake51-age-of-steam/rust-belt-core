@@ -1,20 +1,45 @@
+import { Type } from 'class-transformer'
 import { PhaseId } from 'enums'
+import { GameError } from 'errors'
 import { context } from 'game'
 import { type Game } from 'game/Game'
 import { GameBuilder } from 'game/GameBuilder'
+import { type Player } from 'game/Player'
+import { State } from 'game/State'
 import { type GoodsDisplay, goodsDisplayBlack, goodsDisplayWhite } from 'objects'
 import { random, range } from 'utility'
 import { AdvanceTurnMarkerPhase } from './AdvanceTurnMarkerPhase'
-import { Phase, type HasDelayExecute } from './Phase'
+import { Phase } from './Phase'
 
-export class GoodsGrowthPhase extends Phase implements HasDelayExecute {
+export class PlayerConfirm extends State {
+  constructor (
+    public readonly playerId: number,
+    public readonly confirm: boolean
+  ) {
+    super()
+  }
+
+  public get player (): Player {
+    const { g } = context()
+
+    return g.getPlayer(this.playerId)
+  }
+}
+
+export class GoodsGrowthPhase extends Phase {
   public readonly id = PhaseId.GOODS_GROWTH
+
+  @Type(() => PlayerConfirm)
+  public readonly playerConfirms: PlayerConfirm[]
 
   public constructor (
     public readonly whiteDices: number[],
-    public readonly blackDices: number[]
+    public readonly blackDices: number[],
+    playerConfirms: PlayerConfirm[]
   ) {
     super()
+
+    this.playerConfirms = playerConfirms
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
@@ -26,7 +51,11 @@ export class GoodsGrowthPhase extends Phase implements HasDelayExecute {
 
     b.setTurnPlayer(null)
 
-    b.setPhase(new GoodsGrowthPhase(whiteDices, blackDices))
+    b.setPhase(new GoodsGrowthPhase(
+      whiteDices,
+      blackDices,
+      b.game.alivePlayers.map(_ => new PlayerConfirm(_.id, false)))
+    )
 
     return b
   }
@@ -36,13 +65,49 @@ export class GoodsGrowthPhase extends Phase implements HasDelayExecute {
     return 'ダイス目の商品を配置します。'
   }
 
-  public executeDelay (): Game {
-    const { g } = context()
+  public canConfirm (): boolean {
+    const { p } = context()
+
+    if (p === null) {
+      return false
+    }
+
+    return this.playerConfirms.some(_ => _.playerId === p.id && !_.confirm)
+  }
+
+  public actionConfirm (): Game {
+    const { g, p } = context()
     const b = new GameBuilder(g)
 
-    AdvanceTurnMarkerPhase.prepare(b)
+    if (!this.canConfirm()) {
+      throw new GameError('Cannot confirm')
+    }
 
-    return b.build()
+    if (p === null) {
+      throw new GameError('Player is null')
+    }
+
+    const newPlayerUnderpayments = this.playerConfirms.map((playerConfirm) => {
+      if (playerConfirm.playerId === p.id) {
+        return playerConfirm.produce((draft) => {
+          draft.confirm = true
+        })
+      }
+
+      return playerConfirm
+    })
+
+    if (newPlayerUnderpayments.every(_ => _.confirm)) {
+      AdvanceTurnMarkerPhase.prepare(b)
+
+      return b.build()
+    }
+
+    return b.setPhase(
+      this.produce((draft) => {
+        draft.playerConfirms = newPlayerUnderpayments
+      })
+    ).build()
   }
 
   private static growGoodsCubes (goodsDisplay: GoodsDisplay, dices: number[], b: GameBuilder): GameBuilder {
