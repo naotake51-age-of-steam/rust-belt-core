@@ -36,9 +36,11 @@ export class EndGamePhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
-    b.setPhase(new EndGamePhase(
-      b.game.alivePlayers.map(_ => this.calculatePlayerScore(_))
-    ))
+    b
+      .setTurnPlayer(null)
+      .setPhase(new EndGamePhase(
+        b.game.alivePlayers.map(_ => this.calculatePlayerScore(_))
+      ))
 
     return b
   }

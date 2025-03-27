@@ -9,9 +9,8 @@ import {
   SelectActionsPhase,
   BuildTrackPhase,
   MoveGoodsPhase,
-  CollectIncomePhase,
-  PayExpensesPhase,
-  IncomeReductionPhase,
+  SettlementPhase,
+  UnderpaymentPhase,
   ProductionPhase,
   GoodsGrowthPhase,
   AdvanceTurnMarkerPhase,
@@ -63,9 +62,8 @@ export class Game extends State {
         .with(PhaseId.SELECT_ACTIONS, () => SelectActionsPhase)
         .with(PhaseId.BUILD_TRACK, () => BuildTrackPhase)
         .with(PhaseId.MOVE_GOODS, () => MoveGoodsPhase)
-        .with(PhaseId.COLLECT_INCOME, () => CollectIncomePhase)
-        .with(PhaseId.PAY_EXPENSES, () => PayExpensesPhase)
-        .with(PhaseId.INCOME_REDUCTION, () => IncomeReductionPhase)
+        .with(PhaseId.SETTLEMENT, () => SettlementPhase)
+        .with(PhaseId.UNDERPAYMENT, () => UnderpaymentPhase)
         .with(PhaseId.PRODUCTION, () => ProductionPhase)
         .with(PhaseId.GOODS_GROWTH, () => GoodsGrowthPhase)
         .with(PhaseId.ADVANCE_TURN_MARKER, () => AdvanceTurnMarkerPhase)

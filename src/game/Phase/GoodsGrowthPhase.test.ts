@@ -1,4 +1,4 @@
-import { type Game, User, GameBuilder, Player, setContext, IncomeReductionPhase, GoodsGrowthPhase } from 'game'
+import { type Game, User, GameBuilder, Player, setContext, SettlementPhase, GoodsGrowthPhase, PlayerSettlement } from 'game'
 import { initializeGame } from 'initializeGame'
 import { PlayerColor } from '../../enums/PlayerColor'
 
@@ -15,16 +15,30 @@ test('prepare', () => {
     random: (from: number, to: number) => 1
   }))
 
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   expect(g.phase).toBeInstanceOf(GoodsGrowthPhase)
 })

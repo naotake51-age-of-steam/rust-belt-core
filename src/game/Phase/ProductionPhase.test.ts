@@ -1,5 +1,5 @@
 import { Action } from 'enums'
-import { type Game, User, GameBuilder, Player, setContext, IncomeReductionPhase, ProductionPhase, GoodsGrowthPhase } from 'game'
+import { type Game, User, GameBuilder, Player, setContext, SettlementPhase, ProductionPhase, GoodsGrowthPhase, PlayerSettlement } from 'game'
 import { initializeGame } from 'initializeGame'
 import { getMapSpace, goodsCubes, goodsDisplayLines, s } from 'objects'
 import { PlayerColor } from '../../enums/PlayerColor'
@@ -13,48 +13,92 @@ beforeEach(() => {
 })
 
 test('prepare Productionを選択しているプレイヤーがいればProductionPhaseに遷移', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   expect(g.phase).toBeInstanceOf(ProductionPhase)
   expect(g.turnPlayer?.id).toBe(0)
 })
 
 test('prepare Productionを選択しているプレイヤーがいなければGoodsGrowthPhaseに遷移', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.ENGINEER, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.ENGINEER, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
+
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   expect(g.phase).toBeInstanceOf(GoodsGrowthPhase)
   expect(g.turnPlayer).toBe(null)
 })
 
 test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
+
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
@@ -69,16 +113,31 @@ test('canProduceGoodsCubes/actionProduceGoodsCubes', () => {
 })
 
 test('canPassProduction/actionProduceGoodsCubes', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
+
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
@@ -95,16 +154,31 @@ test('canPassProduction/actionProduceGoodsCubes', () => {
 })
 
 test('canPassProduction/actionPassProduction', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
+
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
@@ -117,16 +191,30 @@ test('canPassProduction/actionPassProduction', () => {
 })
 
 test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduction/actionCompleteProduction 商品を引いたら絶対に配置しないといけない', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   g = b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
@@ -166,11 +254,25 @@ test('canPlaceToGoodsDisplayLine/actionPlaceToGoodsDisplayLine/canCompleteProduc
 })
 
 test('canCompleteProduction 商品ディスプレイが空いていない場合は配置しなくてよい', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
 
   // 商品ディスプレイを満タンにする
   let goodsCubeId = 0
@@ -184,7 +286,7 @@ test('canCompleteProduction 商品ディスプレイが空いていない場合�
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
@@ -199,11 +301,25 @@ test('canCompleteProduction 商品ディスプレイが空いていない場合�
 })
 
 test('canCompleteProduction 商品が袋に残っていない場合は商品を補充できないのですぐに完了できる', () => {
+  const player = new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+
   b
     .setPlayers([
-      new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, Action.PRODUCTION, 1, 2, 10, 0, 1)
+      player
     ])
-    .setPhase(new IncomeReductionPhase([]))
+    .setPhase(new SettlementPhase([
+      new PlayerSettlement(
+        player.id,
+        false,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      )
+    ]))
 
   // 商品すべてマップに配置する
   goodsCubes.forEach(goodsCube => {
@@ -214,7 +330,7 @@ test('canCompleteProduction 商品が袋に残っていない場合は商品を�
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 
-  g = (g.phase as IncomeReductionPhase).executeDelay()
+  g = (g.phase as SettlementPhase).actionConfirm()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
 

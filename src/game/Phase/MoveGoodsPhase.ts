@@ -1,10 +1,7 @@
 import { Type } from 'class-transformer'
 import { PhaseId, Action, MapSpaceType } from 'enums'
-import { GameBuilder, type Game, context, type Player } from 'game'
-import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker } from 'objects'
-import { Town } from '../../objects/TrackTile/Town'
-import { MAX_ENGINE } from '../../objects/index'
-import { CollectIncomePhase } from './CollectIncomePhase'
+import { GameBuilder, type Game, context, type Player, SettlementPhase } from 'game'
+import { getMapSpace, type GoodsCube, goodsCubes, type MapSpace, CityTile, TownMarker, MAX_ENGINE, Town } from 'objects'
 import { Phase } from './Phase'
 
 class Moving {
@@ -298,7 +295,7 @@ export class MoveGoodsPhase extends Phase {
           draft.movingCounter = 2
         })
       } else {
-        CollectIncomePhase.prepare(b)
+        SettlementPhase.prepare(b)
       }
     }
 
