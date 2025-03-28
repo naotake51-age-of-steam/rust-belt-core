@@ -52,24 +52,22 @@ export class Game extends State {
   public readonly townMakerStates: TownMarkerState[]
 
   @Transform(({ value }) => {
-    return plainToInstance(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-      match(PhaseId[value.id])
-        .with(PhaseId.WAITING_START, () => WaitingStartPhase)
-        .with(PhaseId.ISSUE_SHARES, () => IssueSharesPhase)
-        .with(PhaseId.DETERMINE_PLAYER_ORDER, () => DeterminePlayerOrderPhase)
-        .with(PhaseId.SELECT_ACTIONS, () => SelectActionsPhase)
-        .with(PhaseId.BUILD_TRACK, () => BuildTrackPhase)
-        .with(PhaseId.MOVE_GOODS, () => MoveGoodsPhase)
-        .with(PhaseId.SETTLEMENT, () => SettlementPhase)
-        .with(PhaseId.UNDERPAYMENT, () => UnderpaymentPhase)
-        .with(PhaseId.PRODUCTION, () => ProductionPhase)
-        .with(PhaseId.GOODS_GROWTH, () => GoodsGrowthPhase)
-        .with(PhaseId.ADVANCE_TURN_MARKER, () => AdvanceTurnMarkerPhase)
-        .with(PhaseId.END_GAME, () => EndGamePhase)
-        .exhaustive()
-      , value)
+    const phaseClass = match<PhaseId, any>(value.id as PhaseId)
+      .with(PhaseId.WAITING_START, () => WaitingStartPhase)
+      .with(PhaseId.ISSUE_SHARES, () => IssueSharesPhase)
+      .with(PhaseId.DETERMINE_PLAYER_ORDER, () => DeterminePlayerOrderPhase)
+      .with(PhaseId.SELECT_ACTIONS, () => SelectActionsPhase)
+      .with(PhaseId.BUILD_TRACK, () => BuildTrackPhase)
+      .with(PhaseId.MOVE_GOODS, () => MoveGoodsPhase)
+      .with(PhaseId.SETTLEMENT, () => SettlementPhase)
+      .with(PhaseId.UNDERPAYMENT, () => UnderpaymentPhase)
+      .with(PhaseId.PRODUCTION, () => ProductionPhase)
+      .with(PhaseId.GOODS_GROWTH, () => GoodsGrowthPhase)
+      .with(PhaseId.ADVANCE_TURN_MARKER, () => AdvanceTurnMarkerPhase)
+      .with(PhaseId.END_GAME, () => EndGamePhase)
+      .exhaustive()
+
+    return plainToInstance(phaseClass, value)
   })
   public readonly phase: Phase
 
@@ -94,28 +92,38 @@ export class Game extends State {
   }
 
   get trackTileStatesIndexByMapSpace (): Map<number, TrackTileState> {
-    // eslint-disable-next-line no-return-assign
-    return this.__trackTileStatesIndexByMapSpace ??= createUniqueIndex(this.trackTileStates, 'mapSpaceId')
+    if (this.__trackTileStatesIndexByMapSpace === undefined) {
+      this.__trackTileStatesIndexByMapSpace = createUniqueIndex(this.trackTileStates, 'mapSpaceId')
+    }
+    return this.__trackTileStatesIndexByMapSpace
   }
 
   get cityTileStatesIndexByMapSpace (): Map<number, CityTileState> {
-    // eslint-disable-next-line no-return-assign
-    return this.__cityTileStatesIndexByMapSpace ??= createUniqueIndex(this.cityTileStates, 'mapSpaceId')
+    if (this.__cityTileStatesIndexByMapSpace === undefined) {
+      this.__cityTileStatesIndexByMapSpace = createUniqueIndex(this.cityTileStates, 'mapSpaceId')
+    }
+    return this.__cityTileStatesIndexByMapSpace
   }
 
   get goodsCubeStatesIndexByMapSpace (): Map<number, GoodsCubeState[]> {
-    // eslint-disable-next-line no-return-assign
-    return this.__goodsCubeStatesIndexByMapSpace ??= createIndex(this.goodsCubeStates, 'mapSpaceId')
+    if (this.__goodsCubeStatesIndexByMapSpace === undefined) {
+      this.__goodsCubeStatesIndexByMapSpace = createIndex(this.goodsCubeStates, 'mapSpaceId')
+    }
+    return this.__goodsCubeStatesIndexByMapSpace
   }
 
   get goodsCubeStatesIndexByGoodsDisplaySpace (): Map<number, GoodsCubeState> {
-    // eslint-disable-next-line no-return-assign
-    return this.__goodsCubeStatesIndexByGoodsDisplaySpace ??= createUniqueIndex(this.goodsCubeStates, 'goodsDisplaySpaceId')
+    if (this.__goodsCubeStatesIndexByGoodsDisplaySpace === undefined) {
+      this.__goodsCubeStatesIndexByGoodsDisplaySpace = createUniqueIndex(this.goodsCubeStates, 'goodsDisplaySpaceId')
+    }
+    return this.__goodsCubeStatesIndexByGoodsDisplaySpace
   }
 
   get townMakerStatesIndexByTrackTile (): Map<number, TownMarkerState> {
-    // eslint-disable-next-line no-return-assign
-    return this.__townMakerStatesIndexByTrackTile ??= createUniqueIndex(this.townMakerStates, 'trackTileId')
+    if (this.__townMakerStatesIndexByTrackTile === undefined) {
+      this.__townMakerStatesIndexByTrackTile = createUniqueIndex(this.townMakerStates, 'trackTileId')
+    }
+    return this.__townMakerStatesIndexByTrackTile
   }
 
   get alivePlayers (): Player[] {
@@ -168,7 +176,7 @@ export class Game extends State {
     throw new Error('Not implemented')
   }
 
-  public flesh (): Game {
+  public flush (): Game {
     this.__trackTileStatesIndexByMapSpace = undefined
     this.__cityTileStatesIndexByMapSpace = undefined
     this.__goodsCubeStatesIndexByMapSpace = undefined

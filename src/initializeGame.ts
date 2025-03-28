@@ -1,5 +1,5 @@
-import { Game, WaitingStartPhase, TrackTileState, CityTileState, GoodsCubeState, TownMarkerState } from 'game'
-import { cityTiles, goodsCubes, townMarkers, trackTiles } from 'objects'
+import { Game, WaitingStartPhase, TrackTileState, CityTileState, GoodsCubeState, TownMarkerState } from './game'
+import { cityTiles, goodsCubes, townMarkers, trackTiles } from './objects'
 
 export const initializeGame = (): Game => {
   return new Game(

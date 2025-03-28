@@ -1,9 +1,5 @@
 export const range = (from: number, to: number): number[] => {
-  const list = []
-  for (let i = from; i <= to; i++) {
-    list.push(i)
-  }
-  return list
+  return Array.from({ length: to - from + 1 }, (_, i) => from + i)
 }
 
 export function shuffleArray <T> (array: Readonly<T[]>): T[] {
@@ -29,8 +25,7 @@ export function createUniqueIndex <T, K extends keyof T> (items: T[], key: K): M
     if (value === null || value === undefined) return
 
     if (index.has(value)) {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      throw new Error(`duplicate value: ${value}`)
+      throw new Error(`duplicate value: ${String(value)}`)
     }
     index.set(value, item)
   })

@@ -109,13 +109,13 @@ export class GameBuilder {
   }
 
   public build (): Game {
-    return this.game.cloneDeep().flesh()
+    return this.game.cloneDeep().flush()
   }
 
   public persist (): GameBuilder {
     const { u } = context()
 
-    setContext(this.game.flesh(), u)
+    setContext(this.game.flush(), u)
 
     return this
   }

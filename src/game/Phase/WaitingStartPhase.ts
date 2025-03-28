@@ -15,16 +15,7 @@ const INITIALIZE_ENGINE = 1
 export class WaitingStartPhase extends Phase {
   public readonly id = PhaseId.WAITING_START
 
-  public static prepare (b: GameBuilder): GameBuilder {
-    b.persist()
-
-    throw new Error('Not implemented')
-  }
-
-  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
-  public get message (): string {
-    return '参加者募集中'
-  }
+  public readonly message = '参加者募集中'
 
   public canJoinUser (): boolean {
     const { g, p } = context()
