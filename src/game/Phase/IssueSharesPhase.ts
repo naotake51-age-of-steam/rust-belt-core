@@ -17,6 +17,8 @@ export class IssueSharesPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     b.setPhase(new IssueSharesPhase())
 
     const firstPlayer = IssueSharesPhase.getOrderedPlayers()[0]

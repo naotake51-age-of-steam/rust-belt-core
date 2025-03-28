@@ -43,6 +43,8 @@ export class GoodsGrowthPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     const whiteDices = b.game.players.map(_ => random(1, 6))// プレイヤー数だけダイスを振る
     b = this.growGoodsCubes(goodsDisplayWhite, whiteDices, b)
 

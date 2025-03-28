@@ -39,6 +39,8 @@ export class AdvanceTurnMarkerPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     b.setPhase(new AdvanceTurnMarkerPhase(b.game.alivePlayers.map(_ => new PlayerConfirmForAdvanceTurnMarker(_.id, false))))
 
     b.setTurnPlayer(null)

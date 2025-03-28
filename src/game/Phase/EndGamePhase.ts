@@ -36,6 +36,8 @@ export class EndGamePhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     b
       .setTurnPlayer(null)
       .setPhase(new EndGamePhase(

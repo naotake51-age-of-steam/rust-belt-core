@@ -17,6 +17,8 @@ export class ProductionPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     const productionPlayer = b.game.alivePlayers.find(_ => _.action === Action.PRODUCTION)
     if (productionPlayer !== undefined) {
       b.setPhase(new ProductionPhase(productionPlayer.id, false, []))

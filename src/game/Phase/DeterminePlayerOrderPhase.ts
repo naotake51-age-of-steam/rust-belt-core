@@ -64,6 +64,8 @@ export class DeterminePlayerOrderPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     const { g } = context()
 
     const playerBids = [...g.alivePlayers]

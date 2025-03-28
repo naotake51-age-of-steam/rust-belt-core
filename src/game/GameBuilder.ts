@@ -1,4 +1,4 @@
-import { type Phase, type Game, type Player, TrackTileState, GoodsCubeState, CityTileState, TownMarkerState } from 'game'
+import { type Phase, type Game, type Player, TrackTileState, GoodsCubeState, CityTileState, TownMarkerState, setContext, context } from 'game'
 import { type MapSpace, type GoodsCube, type Line, type TrackTile, type GoodsDisplaySpace, type CityTile, type TownMarker } from 'objects'
 
 type Writable<T> = { -readonly [P in keyof T]: T[P] }
@@ -110,5 +110,13 @@ export class GameBuilder {
 
   public build (): Game {
     return this.game.cloneDeep().flesh()
+  }
+
+  public persist (): GameBuilder {
+    const { u } = context()
+
+    setContext(this.game.flesh(), u)
+
+    return this
   }
 }

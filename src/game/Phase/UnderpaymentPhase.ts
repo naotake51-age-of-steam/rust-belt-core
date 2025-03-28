@@ -38,6 +38,8 @@ export class UnderpaymentPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder, playerSettlements: PlayerSettlement[]): GameBuilder {
+    b.persist()
+
     const playerUnderpayments = playerSettlements
       .map(playerSettlement => {
         const income = playerSettlement.afterIncome

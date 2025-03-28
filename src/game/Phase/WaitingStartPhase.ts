@@ -16,6 +16,8 @@ export class WaitingStartPhase extends Phase {
   public readonly id = PhaseId.WAITING_START
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     throw new Error('Not implemented')
   }
 

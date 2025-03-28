@@ -39,6 +39,8 @@ export class BuildTrackPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     const playerOrders = [...b.game.alivePlayers]
       .sort((a, b) => {
         if (a.action === Action.FIRST_BUILD) {

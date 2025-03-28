@@ -15,6 +15,8 @@ export class SelectActionsPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     b.setPlayers(b.game.players // DeterminePlayerOrderPhaseでorderを更新しているので、b.gameからデータを取得する必要がある
       .map(_ => _.produce((draft) => {
         if (!draft.alive) return

@@ -42,6 +42,8 @@ export class SettlementPhase extends Phase {
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
+    b.persist()
+
     const playerSettlements = b.game.alivePlayers
       .map(_ => {
         const money = _.money
