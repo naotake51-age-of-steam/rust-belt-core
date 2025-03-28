@@ -1,60 +1,40 @@
-import { Type } from 'class-transformer'
 import { PhaseId, Action, MapSpaceType } from 'enums'
 import { GameBuilder, type Game, context, type Player } from 'game'
-import { State } from 'game/State'
 import { trackTiles, getMapSpace, cityTiles, Line, TownMarker, TownTrackTile, townMarkers } from 'objects'
 import { determineNewLineOwner } from './BuildTrackPhase/DetermineNewLineOwner'
 import { MoveGoodsPhase } from './MoveGoodsPhase'
 import { Phase } from './Phase'
 
-export class PlayerOrder extends State {
-  constructor (
-    public readonly playerId: number
-  ) {
-    super()
-  }
-
-  public get player (): Player {
-    const { g } = context()
-
-    return g.getPlayer(this.playerId)
-  }
-}
-
 export class BuildTrackPhase extends Phase {
   public readonly id = PhaseId.BUILD_TRACK
 
-  @Type(() => PlayerOrder)
-  public readonly playerOrders: PlayerOrder[]
-
   constructor (
-    playerOrders: PlayerOrder[],
     public readonly buildingTrackTileIds: number[],
     public readonly buildingCityTileIds: number[], // buildingTrackTileIdsに合わせて配列で持つようにした
     public readonly newLines: Array<{ trackTileId: number, number: number }> // 置き換え/方向転換しただけの線路は拡張にならないので、ターン終了後に所有権がなくなる
   ) {
     super()
-
-    this.playerOrders = playerOrders
   }
 
   public static prepare (b: GameBuilder): GameBuilder {
-    b.persist()
+    return b
+      .persist()
+      .setTurnPlayer(BuildTrackPhase.orderedPlayers[0])
+      .setPhase(new BuildTrackPhase([], [], []))
+  }
 
-    const playerOrders = [...b.game.alivePlayers]
-      .sort((a, b) => {
-        if (a.action === Action.FIRST_BUILD) {
-          return -1
-        }
-        if (b.action === Action.FIRST_BUILD) {
-          return 1
-        }
-        return a.order - b.order
-      })
-      .map(_ => new PlayerOrder(_.id))
+  static get orderedPlayers (): Player[] {
+    const { g } = context()
 
-    b.setTurnPlayer(playerOrders[0].player)
-    return b.setPhase(new BuildTrackPhase(playerOrders, [], [], []))
+    return g.alivePlayers.sort((a, b) => {
+      if (a.action === Action.FIRST_BUILD) {
+        return -1
+      }
+      if (b.action === Action.FIRST_BUILD) {
+        return 1
+      }
+      return a.order - b.order
+    })
   }
 
   public isTurnPlayer (): boolean {
@@ -243,7 +223,7 @@ export class BuildTrackPhase extends Phase {
     if (nextPlayer !== null) {
       b.setTurnPlayer(nextPlayer)
       b.setPhase(
-        new BuildTrackPhase(this.playerOrders, [], [], []))
+        new BuildTrackPhase([], [], []))
     } else {
       MoveGoodsPhase.prepare(b)
     }
@@ -252,9 +232,10 @@ export class BuildTrackPhase extends Phase {
   }
 
   private getNextPlayer (player: Player): Player | null {
-    const nextIndex = this.playerOrders.findIndex(_ => _.playerId === player.id) + 1
-    if (this.playerOrders.length <= nextIndex) return null
+    const orderedPlayers = BuildTrackPhase.orderedPlayers
+    const nextIndex = orderedPlayers.findIndex(_ => _.id === player.id) + 1
+    if (orderedPlayers.length <= nextIndex) return null
 
-    return this.playerOrders[nextIndex].player
+    return orderedPlayers[nextIndex]
   }
 }

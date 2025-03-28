@@ -1,5 +1,5 @@
 import { MapSpaceType, CityTileColor, Action } from 'enums'
-import { type Game, GameBuilder, Player, User, setContext, BuildTrackPhase, PlayerOrder } from 'game'
+import { type Game, GameBuilder, Player, User, setContext, BuildTrackPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { CityTile, MapSpace, mapSpaces, cityTiles, trackTiles, getMapSpace, TownMarker, SimpleTrackTile, Town, TownTrackTile, townMarkers } from 'objects'
 import { PlayerColor } from '../../enums/PlayerColor'
@@ -103,7 +103,7 @@ test('actionBuildTrackTile 新規配置できること。新規配置した線�
       g = b
         .setPlayers([player])
         .setTurnPlayer(player)
-        .setPhase(new BuildTrackPhase([new PlayerOrder(player.id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -158,7 +158,7 @@ test('actionBuildTrackTile 自身の線路の方向転換', () => {
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
         .setLineOwner(trackTiles[52].lines[1], players[0])
@@ -195,7 +195,7 @@ test('actionBuildTrackTile 所有者なし線路の方向転換', () => {
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
 
@@ -230,7 +230,7 @@ test('actionBuildTrackTile 自身の線路の方向転換して所有者なし�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -276,7 +276,7 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して自信の�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         // 二本目
@@ -324,7 +324,7 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して所有者�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         // 一本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         // 二本目
@@ -368,7 +368,7 @@ test('actionBuildTrackTile 所有者なし線路を方向転換して都市に�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 4)
         .placeTrackTileToMapSpace(trackTiles[53], getMapSpace(s(0, 2)), 3)
         .placeTrackTileToMapSpace(trackTiles[54], getMapSpace(s(1, 2)), 2)
@@ -409,7 +409,7 @@ test('actionBuildTrackTile 所有者なし線路を拡張した場合、自信�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(0, 1)), 0)
         .build()
 
@@ -445,7 +445,7 @@ test('actionBuildTrackTile 複数線路タイルで２つの都市から同時�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id), new PlayerOrder(players[1].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -475,7 +475,7 @@ test('actionBuildTrackTile 所有者なし線路を拡張と方向転換を同�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         // 2本目
@@ -518,7 +518,7 @@ test('actionBuildTrackTile 自身が所有者の線路を拡張と方向転換�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -568,7 +568,7 @@ test('actionBuildTrackTile 都市にタイルを配置（SimpleTrackTileを配�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
         .setLineOwner(trackTiles[52].lines[1], players[0])
@@ -606,7 +606,7 @@ test('actionBuildTrackTile 都市にタイルを配置（ComplexCoexistTrackTile
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
         .setLineOwner(trackTiles[52].lines[1], players[0])
@@ -646,7 +646,7 @@ test('actionBuildTrackTile 都市にタイルを配置（TownTrackTileを配置�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
         .setLineOwner(trackTiles[52].lines[1], players[0])
@@ -685,7 +685,7 @@ test('actionBuildTrackTile 都市にタイルを配置（自身が所有者の�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -729,7 +729,7 @@ test('actionBuildTrackTile 都市にタイルを配置（所有者なし線路�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3) // 所有者なし
         .build()
 
@@ -767,7 +767,7 @@ test('actionBuildTrackTile 町タイルの置き換え', () => {
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
         .setLineOwner(trackTiles[52].lines[1], players[0])
@@ -814,7 +814,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[0])
@@ -857,7 +857,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[0], getMapSpace(s(1, 1)), 2)
         .placeTownMarkerToTrackTile(townMarkers[0], trackTiles[0])
@@ -896,7 +896,7 @@ test('actionBuildTrackTile 町タイルの置き換え（自身が所有して�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
         .setLineOwner(trackTiles[52].lines[1], players[0])
@@ -939,7 +939,7 @@ test('actionBuildTrackTile 町タイルの置き換え（所有者なし線路�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .placeTrackTileToMapSpace(trackTiles[144], getMapSpace(s(1, 1)), 2) // 0, 3, 5
@@ -979,7 +979,7 @@ test('actionBuildTrackTile 町タイルの置き換え（自信が所有者の�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1024,7 +1024,7 @@ test('actionBuildCityTile 町スペースに都市を配置', () => {
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1056,7 +1056,7 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .build()
@@ -1089,7 +1089,7 @@ test('actionBuildCityTile 町スペースに都市を配置（所有者なし線
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1133,7 +1133,7 @@ test('actionCompleteBuild 拡張しなかった線路は所有権を失う', () 
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1165,7 +1165,7 @@ test('actionCompleteBuild 拡張した線路は所有権を失わない', () => 
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1203,7 +1203,7 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1240,7 +1240,7 @@ test('actionCompleteBuild 方向転換しただけの線路は所有権を失う
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1277,7 +1277,7 @@ test('actionCompleteBuild 方向転換および拡張した線路は所有権を
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1330,7 +1330,7 @@ test('actionCompleteBuild ComplexCoexistTrackTileで拡張と方向転換を同�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
       // 1本目
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
@@ -1385,7 +1385,7 @@ test('actionCompleteBuild 町タイルの置き換え（自信が所有者の線
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(0, 1)), 3)
         .setLineOwner(trackTiles[52].lines[0], players[0])
@@ -1444,7 +1444,7 @@ test('actionBuildTrackTile 通常プレイヤーは線路タイルを3個、都�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
 
         .build()
 
@@ -1485,7 +1485,7 @@ test('actionBuildTrackTile エンジニアアクションを選んだプレイ�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))
@@ -1529,7 +1529,7 @@ test('actionBuildTrackTile 都市化アクションを選んだプレイヤー�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new BuildTrackPhase([new PlayerOrder(players[0].id)], [], [], []))
+        .setPhase(new BuildTrackPhase([], [], []))
         .build()
 
       setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))

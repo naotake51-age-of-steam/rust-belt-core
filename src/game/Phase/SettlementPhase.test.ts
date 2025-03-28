@@ -1,4 +1,4 @@
-import { type Game, User, GameBuilder, Player, setContext, MoveGoodsPhase, SettlementPhase, PlayerSettlement, GoodsGrowthPhase, UnderpaymentPhase, PlayerOrderForMoveGood } from 'game'
+import { type Game, User, GameBuilder, Player, setContext, MoveGoodsPhase, SettlementPhase, PlayerSettlement, GoodsGrowthPhase, UnderpaymentPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { PlayerColor } from '../../enums/PlayerColor'
 
@@ -23,7 +23,7 @@ test('prepare', () => {
       player
     ])
     .setTurnPlayer(player)
-    .setPhase(new MoveGoodsPhase([new PlayerOrderForMoveGood(player.id)], null, [], 2, []))
+    .setPhase(new MoveGoodsPhase(null, [], 2, []))
     .build()
 
   setContext(g, new User('00000000-0000-0000-0000-000000000001', '山田太郎'))

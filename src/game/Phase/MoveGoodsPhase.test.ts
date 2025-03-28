@@ -1,5 +1,5 @@
 import { MapSpaceType, CityTileColor } from 'enums'
-import { type Game, GameBuilder, Player, User, setContext, MoveGoodsPhase, PlayerOrderForMoveGood } from 'game'
+import { type Game, GameBuilder, Player, User, setContext, MoveGoodsPhase } from 'game'
 import { initializeGame } from 'initializeGame'
 import { CityTile, MapSpace, mapSpaces, cityTiles, trackTiles, getMapSpace, goodsCubes, townMarkers, goodsDisplaySpaces } from 'objects'
 import { PlayerColor } from '../../enums/PlayerColor'
@@ -60,7 +60,7 @@ test('canSelectGoodsCube マップ上に出ているキューブのみ選択可�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new MoveGoodsPhase([new PlayerOrderForMoveGood(players[0].id), new PlayerOrderForMoveGood(players[1].id)], null, [], 1, []))
+        .setPhase(new MoveGoodsPhase(null, [], 1, []))
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0)))
         .placeGoodsCubeToMapSpace(goodsCubes[20], getMapSpace(s(2, 2)))
         .placeGoodsCubeToGoodsDisplaySpace(goodsCubes[40], goodsDisplaySpaces[0])
@@ -93,7 +93,7 @@ test('actionSelectGoodsCube', () => {
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new MoveGoodsPhase([new PlayerOrderForMoveGood(players[0].id), new PlayerOrderForMoveGood(players[1].id)], null, [], 1, []))
+        .setPhase(new MoveGoodsPhase(null, [], 1, []))
         .placeGoodsCubeToMapSpace(goodsCubes[0], getMapSpace(s(0, 0)))
         .placeGoodsCubeToMapSpace(goodsCubes[20], getMapSpace(s(2, 2)))
         .placeGoodsCubeToGoodsDisplaySpace(goodsCubes[40], goodsDisplaySpaces[0])
@@ -131,7 +131,7 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving 移動力以上に�
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new MoveGoodsPhase([new PlayerOrderForMoveGood(players[0].id), new PlayerOrderForMoveGood(players[1].id)], null, [], 1, []))
+        .setPhase(new MoveGoodsPhase(null, [], 1, []))
         // マップ端を一周
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 2)
         .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1))
@@ -221,7 +221,7 @@ test('canMoveGoodsCube/actionMoveGoodsCube/canCompleteMoving/actionCompleteMovin
       g = b
         .setPlayers(players)
         .setTurnPlayer(players[0])
-        .setPhase(new MoveGoodsPhase([new PlayerOrderForMoveGood(players[0].id), new PlayerOrderForMoveGood(players[1].id)], null, [], 1, []))
+        .setPhase(new MoveGoodsPhase(null, [], 1, []))
       // マップ端を一周
         .placeTrackTileToMapSpace(trackTiles[52], getMapSpace(s(1, 0)), 2)
         .setLineOwner(trackTiles[52].lines[0], new Player(0, '00000000-0000-0000-0000-000000000001', '山田太郎', PlayerColor.RED, null, 1, 2, 10, 0, 1))
