@@ -43,7 +43,7 @@ export class GameBuilder {
   }
 
   public updatePlayer (player: Player): GameBuilder {
-    this.game.players = this.game.players.map(_ => _.id === player.id ? player : _)
+    this.game.players = this.game.players.map(_ => _.is(player) ? player : _)
 
     return this
   }

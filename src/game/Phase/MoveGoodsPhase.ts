@@ -267,7 +267,7 @@ export class MoveGoodsPhase extends Phase {
 
   private getNextPlayer (player: Player): Player | null {
     const orderedPlayers = MoveGoodsPhase.orderedPlayers
-    const nextIndex = orderedPlayers.findIndex(_ => _.id === player.id) + 1
+    const nextIndex = orderedPlayers.findIndex(_ => _.is(player)) + 1
     if (orderedPlayers.length <= nextIndex) return null
 
     return orderedPlayers[nextIndex]

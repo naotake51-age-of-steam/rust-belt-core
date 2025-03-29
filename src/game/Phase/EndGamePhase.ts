@@ -51,7 +51,7 @@ export class EndGamePhase extends Phase {
     let lineCount = 0
     trackTiles.forEach(trackTile => {
       trackTile.lines.forEach(line => {
-        if (line.isFixed && line.owner?.id === player.id) {
+        if (line.isFixed && line.owner !== null && line.owner.is(player)) {
           lineCount += trackTile.town === null ? 0.5 : 1
         }
       })

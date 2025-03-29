@@ -38,4 +38,8 @@ export class Player extends State {
   public get placableCityTile (): number {
     return this.action === Action.URBANIZATION ? 1 : 0
   }
+
+  public is (player: Player): boolean {
+    return this.id === player.id
+  }
 }

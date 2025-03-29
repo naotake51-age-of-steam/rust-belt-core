@@ -41,7 +41,7 @@ export class PlayerBid extends State {
   public getResultOrder (lastDropoutPlayer: Player): number {
     // 最後の２人のうちどちらかが降りたら順番が決定する。その2人はorderがnullのまま
     if (this.order === null) {
-      return this.playerId === lastDropoutPlayer.id ? 2 : 1
+      return lastDropoutPlayer.is(this.player) ? 2 : 1
     }
     return this.order
   }

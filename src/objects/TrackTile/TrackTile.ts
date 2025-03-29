@@ -88,7 +88,7 @@ export function existsValidLink (player: Player, mapSpace: MapSpace, rotation: n
     if (linkedObject === null) return false
 
     if (linkedObject instanceof Line) {
-      if (linkedObject.owner === null || linkedObject.owner.id === player.id) {
+      if (linkedObject.owner === null || linkedObject.owner.is(player)) {
         return true
       }
     }
@@ -109,7 +109,7 @@ export function existsInvalidLink (player: Player, mapSpace: MapSpace, rotation:
     if (linkedObject instanceof MapSpace && linkedObject.type === MapSpaceType.LAKE) return true // 湖に接続
 
     if (linkedObject instanceof Line) {
-      if (linkedObject.owner !== null && linkedObject.owner.id !== player.id) {
+      if (linkedObject.owner !== null && !linkedObject.owner.is(player)) {
         return true
       }
     }
